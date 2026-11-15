@@ -1,5 +1,5 @@
 // Runs every Sunday at 03:00 UTC on the published (production) deploy.
-// 1) marks the cached Google ratings/locations as stale
+// 1) marks the cached Google ratings/locations and the events calendar feeds as stale
 // 2) visits the pages that use them once, so the single weekly refresh happens now, not on a visitor.
 export default async () => {
   const base = process.env.URL;
@@ -14,7 +14,7 @@ export default async () => {
   });
   console.log("revalidate:", res.status);
   if (!res.ok) return;
-  for (const path of ["/places", "/"]) {
+  for (const path of ["/places", "/", "/news"]) {
     const r = await fetch(`${base}${path}`);
     console.log("warm", path, r.status);
   }

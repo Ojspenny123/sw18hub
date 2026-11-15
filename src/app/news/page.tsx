@@ -108,7 +108,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
                   </div>
                   <div style={{ minWidth: 0 }}>
                     <div style={{ fontWeight: 600 }}>{e.title}</div>
-                    <div className="small muted">{[e.venueName, timeShort(e.startsAt), e.price].filter(Boolean).join(" · ")}</div>
+                    <div className="small muted">{[e.venueName, timeShort(e.startsAt), e.price, e.source && `via ${e.source}`].filter(Boolean).join(" · ")}</div>
                   </div>
                 </a>
               ))

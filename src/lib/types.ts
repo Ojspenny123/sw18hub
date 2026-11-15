@@ -61,6 +61,8 @@ export interface EventItem {
   price?: string;
   link?: string;
   image?: string;
+  /** Set for events pulled from an outside calendar feed (e.g. Putney.news). */
+  source?: string;
 }
 
 export interface Deal {

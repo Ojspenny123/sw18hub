@@ -48,7 +48,7 @@ It only saves matches that look right and skips venues Google marks as closed. C
 
 ## Google data caching (weekly)
 
-Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
+Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). The same Sunday job refreshes the events calendars (`src/lib/events.ts`): Putney.news (with their agreement), filtered to SW18 mentions, plus any feeds in `EVENT_ICAL_FEEDS`. Events added by hand in Contentful show first. A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
 
 ## Local news (RSS)
 

@@ -1,4 +1,5 @@
 import type { Deal, EventItem, NewsArticle, Venue } from "./types";
+import { getFeedEvents } from "./events";
 import { getRssNews } from "./rss";
 
 const SPACE = process.env.CONTENTFUL_SPACE_ID;
@@ -107,7 +108,7 @@ async function getOwnNews(): Promise<NewsArticle[]> {
   }));
 }
 
-export async function getEvents(): Promise<EventItem[]> {
+async function getContentfulEvents(): Promise<EventItem[]> {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
   const r = await query("event", {
@@ -126,6 +127,17 @@ export async function getEvents(): Promise<EventItem[]> {
     link: e.fields.link,
     image: r.asset(e.fields.image),
   }));
+}
+
+/** Hand-added Contentful events first, then the weekly calendar feeds; duplicates (same title and day) dropped. */
+export async function getEvents(): Promise<EventItem[]> {
+  const [mine, feed] = await Promise.all([getContentfulEvents(), getFeedEvents()]);
+  const key = (e: EventItem) => `${e.title.toLowerCase()}|${e.startsAt.slice(0, 10)}`;
+  const have = new Set(mine.map(key));
+  const now = Date.now();
+  // Long-running events (exhibitions) sort by today rather than their past start date.
+  const when = (e: EventItem) => Math.max(Date.parse(e.startsAt), now);
+  return [...mine, ...feed.filter((e) => !have.has(key(e)))].sort((a, b) => when(a) - when(b));
 }
 
 export async function getDeals(): Promise<Deal[]> {
