@@ -12,7 +12,7 @@ export default async function AskPage({ searchParams }: { searchParams: Promise<
   return (
     <div className="wrap section" style={{ paddingTop: 24 }}>
       <h1 className="title">Ask SW18</h1>
-      <Chat initialQuestion={q?.slice(0, 500)} />
+      <Chat initialQuestion={q?.slice(0, 400)} />
     </div>
   );
 }

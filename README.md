@@ -61,3 +61,7 @@ Ratings, open-now and map positions are cached and only refreshed once a week, o
 - Structured data (JSON-LD): WebSite and Organization on every page, a local business type plus breadcrumbs on venue pages, ItemList and FAQPage on ranking pages, Event on the news page. Google ratings are deliberately not marked up as reviews.
 - `/sitemap.xml`, `/robots.txt` (search and AI crawlers allowed, `/api/` blocked) and `/llms.txt` are generated from Contentful.
 - `/about` explains how places are ranked, which helps people and AI assistants trust and cite the site.
+
+## Ask SW18 chatbot
+
+`/api/ask` answers only from what is on the site (places and Google ratings, SW18 news, events, deals), built by `src/lib/ask-context.ts`. Anything off-topic gets a friendly "I only know SW18". Cost controls: Haiku model, questions capped at 400 characters, answers capped at 320 tokens, only the last 6 messages sent, the site data is prompt-cached, same-site requests only, and per-visitor and daily limits (`src/lib/ratelimit.ts`, in memory, so best-effort). Set `ANTHROPIC_API_KEY` in Netlify and a monthly spend limit in the Anthropic Console; that limit is the real cap.
