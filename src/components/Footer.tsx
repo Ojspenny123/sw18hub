@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="wrap">
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <strong style={{ color: "var(--ink)" }}>SW18 Hub</strong>
-          <span className="fine">A local guide to Wandsworth Town, Earlsfield, Southfields and Wandsworth Common.</span>
+          <span className="fine">A local guide to Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Ratings, photos and map data from Google, refreshed weekly.</span>
         </div>
         <nav aria-label="Best of SW18">
           <Link href={`/best/${bestSlug("Restaurant")}`}>Restaurants</Link>

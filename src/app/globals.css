@@ -320,7 +320,3 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
-
-/* Google Maps removed (no API charges): list only */
-.map-panel, .view-fab { display: none !important; }
-.split { display: block !important; }

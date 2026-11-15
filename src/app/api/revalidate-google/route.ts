@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { GOOGLE_CACHE_TAG } from "@/lib/google";
 import { EVENTS_CACHE_TAG } from "@/lib/events";
 
-/** Called once a week (Sunday) by the Netlify scheduled function. Marks the events feeds as stale. */
+/** Called once a week (Sunday) by the Netlify scheduled function. Marks cached Google data and the events feeds as stale. */
 export async function POST(req: Request) {
   const secret = process.env.REVALIDATE_SECRET;
   if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) {

@@ -36,6 +36,9 @@ export async function GET() {
     contentful,
     contentTypes: CONTENT_TYPES,
     counts,
+    GOOGLE_MAPS_API_KEY: Boolean(process.env.GOOGLE_MAPS_API_KEY),
+    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY),
+    NEXT_PUBLIC_GOOGLE_MAP_ID: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID),
     REVALIDATE_SECRET: Boolean(process.env.REVALIDATE_SECRET),
     ANTHROPIC_API_KEY: Boolean(process.env.ANTHROPIC_API_KEY),
   });
