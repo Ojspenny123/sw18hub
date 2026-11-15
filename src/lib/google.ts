@@ -1,6 +1,7 @@
 import type { Rating, Venue, VenueWithRating } from "./types";
 
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
+export const GOOGLE_CACHE_TAG = "google";
 
 /** Live details from the Google Places API (New). Only the place ID is stored in Contentful (Google's terms restrict storing ratings and coordinates). */
 async function fetchRating(placeId: string): Promise<Rating | undefined> {
@@ -11,8 +12,9 @@ async function fetchRating(placeId: string): Promise<Rating | undefined> {
         "X-Goog-Api-Key": KEY,
         "X-Goog-FieldMask": "rating,userRatingCount,currentOpeningHours.openNow,googleMapsUri,location,businessStatus",
       },
-      // Short cache so we do not hit Google on every request.
-      next: { revalidate: 1800 },
+      // Cached for a year and only refreshed by the weekly Sunday job (see
+      // netlify/functions/weekly-refresh.mjs -> /api/revalidate-google).
+      next: { revalidate: 31536000, tags: [GOOGLE_CACHE_TAG] },
     });
     if (!res.ok) return undefined;
     const d = await res.json();

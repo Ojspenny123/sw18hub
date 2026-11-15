@@ -45,3 +45,7 @@ GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_T
 ```
 
 It only saves matches that look right and skips venues Google marks as closed. Check the lines marked `CHECK`. Only the Place ID is stored: ratings, open now and map position are fetched live, because Google's terms limit storing them.
+
+## Google data caching (weekly)
+
+Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
