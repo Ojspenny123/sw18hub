@@ -4,7 +4,8 @@ import Link from "next/link";
 import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews } from "@/lib/contentful";
 import { NEWS_TOPICS } from "@/lib/types";
-import { dayNum, dayShort, timeAgo, timeShort } from "@/lib/format";
+import { timeAgo } from "@/lib/format";
+import EventRow from "@/components/EventRow";
 import JsonLd from "@/components/JsonLd";
 import { abs } from "@/lib/seo";
 
@@ -101,16 +102,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
             <h2 style={{ fontSize: 20 }}>What&apos;s on</h2>
             {events.length ? (
               events.slice(0, 8).map((e) => (
-                <a key={e.id} href={e.link ?? "#whats-on"} className="event">
-                  <div className="date">
-                    <span>{dayShort(e.startsAt)}</span>
-                    <b>{dayNum(e.startsAt)}</b>
-                  </div>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 600 }}>{e.title}</div>
-                    <div className="small muted">{[e.venueName, timeShort(e.startsAt), e.price, e.source && `via ${e.source}`].filter(Boolean).join(" · ")}</div>
-                  </div>
-                </a>
+                <EventRow key={e.id} e={e} showType={false} />
               ))
             ) : (
               <p className="small muted">No upcoming events yet.</p>

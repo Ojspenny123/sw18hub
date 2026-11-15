@@ -122,6 +122,12 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .event { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
 .event:hover { border-color: var(--ink); color: var(--ink); }
 .event > div:last-child { min-width: 0; }
+.event-ext:hover .ext { text-decoration: underline; }
+.ev-desc { margin-top: 4px; color: var(--ink); }
+.ev-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+.ext { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--ink); }
+.chip:disabled { cursor: default; }
+.linklike { background: none; border: 0; padding: 4px 0; font: inherit; font-weight: 600; color: var(--ink); text-decoration: underline; cursor: pointer; min-height: 32px; }
 .date { width: 52px; flex: none; text-align: center; border: 1.5px solid var(--ink); border-radius: 8px; padding: 5px 0; background: var(--yellow); }
 .date b { display: block; font-size: 20px; line-height: 1.1; }
 .date span { font-size: 12px; font-weight: 600; text-transform: uppercase; }

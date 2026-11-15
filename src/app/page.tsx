@@ -4,7 +4,8 @@ import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews, getVenues } from "@/lib/contentful";
 import { byRating, withRatings } from "@/lib/google";
-import { dayNum, dayShort, timeAgo, timeShort } from "@/lib/format";
+import { timeAgo } from "@/lib/format";
+import EventRow from "@/components/EventRow";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -134,18 +135,7 @@ export default async function Home() {
         {events.length ? (
           <div className="stack">
             {events.slice(0, 4).map((e) => (
-              <a key={e.id} href={e.link ?? "/whats-on"} className="event">
-                <div className="date">
-                  <span>{dayShort(e.startsAt)}</span>
-                  <b>{dayNum(e.startsAt)}</b>
-                </div>
-                <div style={{ minWidth: 0 }}>
-                  <div className="card-title">{e.title}</div>
-                  <div className="small muted">
-                    {[e.venueName, timeShort(e.startsAt), e.price].filter(Boolean).join(" · ")}
-                  </div>
-                </div>
-              </a>
+              <EventRow key={e.id} e={e} showType={false} />
             ))}
           </div>
         ) : (

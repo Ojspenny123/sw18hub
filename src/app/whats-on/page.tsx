@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { getEvents } from "@/lib/contentful";
-import { dayNum, dayShort, timeShort } from "@/lib/format";
+import EventsExplorer from "@/components/EventsExplorer";
+import { dayKey } from "@/lib/event-types";
 import { abs } from "@/lib/seo";
-import type { EventItem } from "@/lib/types";
 
 export const revalidate = 60;
 
@@ -14,53 +14,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/whats-on" },
 };
 
-const TZ = "Europe/London";
-const dayKey = (iso: string) => new Date(iso).toLocaleDateString("en-CA", { timeZone: TZ });
-const heading = (key: string, todayKey: string, tomorrowKey: string) => {
-  if (key === todayKey) return "Today";
-  if (key === tomorrowKey) return "Tomorrow";
-  return new Date(`${key}T12:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: TZ });
-};
-
 export default async function WhatsOnPage() {
   const events = await getEvents();
-  const now = Date.now();
-  const todayKey = dayKey(new Date(now).toISOString());
-  const tomorrowKey = dayKey(new Date(now + 86400000).toISOString());
-
-  // Events that started before today but are still running (e.g. exhibitions) go in their own group.
-  const ongoing = events.filter((e) => dayKey(e.startsAt) < todayKey);
-  const upcoming = events.filter((e) => dayKey(e.startsAt) >= todayKey);
-  const groups = new Map<string, EventItem[]>();
-  for (const e of upcoming) {
-    const k = dayKey(e.startsAt);
-    groups.set(k, [...(groups.get(k) ?? []), e]);
-  }
-
-  const Row = ({ e }: { e: EventItem }) => {
-    const body = (
-      <>
-        <div className="date">
-          <span>{dayShort(e.startsAt)}</span>
-          <b>{dayNum(e.startsAt)}</b>
-        </div>
-        <div style={{ minWidth: 0 }}>
-          <div style={{ fontWeight: 600 }}>{e.title}</div>
-          <div className="small muted">
-            {[e.venueName, timeShort(e.startsAt), e.price, e.source && `via ${e.source}`].filter(Boolean).join(" · ")}
-          </div>
-          {e.description ? <div className="small" style={{ marginTop: 4 }}>{e.description}</div> : null}
-        </div>
-      </>
-    );
-    return e.link ? (
-      <a href={e.link} className="event" target="_blank" rel="noopener noreferrer">
-        {body}
-      </a>
-    ) : (
-      <div className="event">{body}</div>
-    );
-  };
+  const todayKey = dayKey(new Date().toISOString());
 
   return (
     <div className="wrap section" style={{ paddingTop: 24 }}>
@@ -82,36 +38,7 @@ export default async function WhatsOnPage() {
         Quiz nights, markets, classes and community events in Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Each one links to the organiser for tickets and details.
       </p>
 
-      {events.length === 0 ? (
-        <p className="muted">No upcoming events listed yet. Check back soon.</p>
-      ) : (
-        <div className="stack" style={{ gap: 24 }}>
-          {[...groups.entries()].map(([key, list]) => (
-            <section key={key} aria-labelledby={`d-${key}`}>
-              <h2 id={`d-${key}`} style={{ fontSize: 20, marginBottom: 10 }}>
-                {heading(key, todayKey, tomorrowKey)}
-              </h2>
-              <div className="stack" style={{ gap: 8 }}>
-                {list.map((e) => (
-                  <Row key={e.id} e={e} />
-                ))}
-              </div>
-            </section>
-          ))}
-          {ongoing.length ? (
-            <section aria-labelledby="ongoing">
-              <h2 id="ongoing" style={{ fontSize: 20, marginBottom: 10 }}>
-                Running now
-              </h2>
-              <div className="stack" style={{ gap: 8 }}>
-                {ongoing.map((e) => (
-                  <Row key={e.id} e={e} />
-                ))}
-              </div>
-            </section>
-          ) : null}
-        </div>
-      )}
+      {events.length === 0 ? <p className="muted">No upcoming events listed yet. Check back soon.</p> : <EventsExplorer events={events} todayKey={todayKey} />}
 
       <div className="panel" style={{ marginTop: 32 }}>
         <h2 style={{ fontSize: 20 }}>Running an event in SW18?</h2>
