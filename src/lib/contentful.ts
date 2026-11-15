@@ -1,4 +1,5 @@
 import type { Deal, EventItem, NewsArticle, Venue } from "./types";
+import { getRssNews } from "./rss";
 
 const SPACE = process.env.CONTENTFUL_SPACE_ID;
 const ENV = process.env.CONTENTFUL_ENVIRONMENT || "master";
@@ -80,7 +81,16 @@ export async function getVenues(): Promise<Venue[]> {
   }));
 }
 
+/** Stories you add by hand in Contentful (featured ones lead), plus the automatic RSS feeds. */
 export async function getNews(): Promise<NewsArticle[]> {
+  const [own, rss] = await Promise.all([getOwnNews(), getRssNews()]);
+  const urls = new Set(own.map((n) => n.sourceUrl).filter(Boolean));
+  return [...own, ...rss.filter((n) => !urls.has(n.sourceUrl))].sort(
+    (a, b) => Number(b.featured) - Number(a.featured) || b.publishedAt.localeCompare(a.publishedAt),
+  );
+}
+
+async function getOwnNews(): Promise<NewsArticle[]> {
   const r = await query("newsArticle", { order: "-fields.publishedAt" });
   return r.items.map((e) => ({
     id: e.sys.id,

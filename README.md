@@ -49,3 +49,7 @@ It only saves matches that look right and skips venues Google marks as closed. C
 ## Google data caching (weekly)
 
 Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
+
+## Local news (RSS)
+
+`src/lib/rss.ts` pulls headlines from public RSS feeds (South West Londoner, South London News, Putney.news Southfields and Wandsworth Town). It's free (no API key). Feeds are re-fetched at most every 3 hours. Only the headline, a short snippet and a link back to the publisher are shown. To add or remove a source, edit `NEWS_FEEDS`. Stories added by hand in Contentful (`newsArticle`) still work and appear alongside, with featured ones on top.

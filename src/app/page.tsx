@@ -111,7 +111,7 @@ export default async function Home() {
             </div>
           </div>
         ) : (
-          <div className="empty">No news yet. Add news articles in Contentful.</div>
+          <div className="empty">No news right now. Check back soon.</div>
         )}
       </section>
 

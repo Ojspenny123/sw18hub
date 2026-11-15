@@ -42,7 +42,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               </div>
             </a>
           ) : (
-            <div className="empty">No news yet. Add news articles in Contentful.</div>
+            <div className="empty">No news right now. Check back soon.</div>
           )}
           {rest.map((n) => (
             <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }}>
