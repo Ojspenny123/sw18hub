@@ -1,0 +1,142 @@
+import type { Deal, EventItem, NewsArticle, Venue } from "./types";
+
+const SPACE = process.env.CONTENTFUL_SPACE_ID;
+const ENV = process.env.CONTENTFUL_ENVIRONMENT || "master";
+const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN;
+
+export const contentfulConfigured = Boolean(SPACE && TOKEN);
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+interface CfEntry {
+  sys: { id: string };
+  fields: Record<string, any>;
+}
+interface CfResponse {
+  items: CfEntry[];
+  includes?: { Asset?: any[]; Entry?: CfEntry[] };
+}
+
+interface Result {
+  items: CfEntry[];
+  asset: (link?: any) => string | undefined;
+  entry: (link?: any) => CfEntry | undefined;
+}
+
+async function query(contentType: string, params: Record<string, string> = {}): Promise<Result> {
+  const empty: Result = { items: [], asset: () => undefined, entry: () => undefined };
+  if (!contentfulConfigured) return empty;
+
+  const url = new URL(`https://cdn.contentful.com/spaces/${SPACE}/environments/${ENV}/entries`);
+  url.searchParams.set("content_type", contentType);
+  url.searchParams.set("include", "2");
+  url.searchParams.set("limit", "200");
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+
+  try {
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) {
+      console.error(`Contentful ${contentType} request failed: ${res.status}`);
+      return empty;
+    }
+    const data = (await res.json()) as CfResponse;
+    const assets = new Map<string, string>();
+    for (const a of data.includes?.Asset ?? []) {
+      const file = a.fields?.file?.url as string | undefined;
+      if (file) assets.set(a.sys.id, file.startsWith("//") ? `https:${file}` : file);
+    }
+    const entries = new Map<string, CfEntry>();
+    for (const e of data.includes?.Entry ?? []) entries.set(e.sys.id, e);
+    return {
+      items: data.items,
+      asset: (link) => (link?.sys?.id ? assets.get(link.sys.id) : undefined),
+      entry: (link) => (link?.sys?.id ? entries.get(link.sys.id) : undefined),
+    };
+  } catch (err) {
+    console.error(`Contentful ${contentType} request error`, err);
+    return empty;
+  }
+}
+
+export async function getVenues(): Promise<Venue[]> {
+  const r = await query("venue", { order: "fields.name" });
+  return r.items.map((e) => ({
+    id: e.sys.id,
+    name: e.fields.name,
+    slug: e.fields.slug,
+    type: e.fields.venueType,
+    area: e.fields.area,
+    googlePlaceId: e.fields.googlePlaceId,
+    address: e.fields.address,
+    lat: e.fields.location?.lat,
+    lon: e.fields.location?.lon,
+    website: e.fields.website,
+    description: e.fields.description,
+    features: e.fields.features ?? [],
+    featured: Boolean(e.fields.featured),
+    image: r.asset(e.fields.image),
+  }));
+}
+
+export async function getNews(): Promise<NewsArticle[]> {
+  const r = await query("newsArticle", { order: "-fields.publishedAt" });
+  return r.items.map((e) => ({
+    id: e.sys.id,
+    title: e.fields.title,
+    slug: e.fields.slug,
+    summary: e.fields.summary,
+    topic: e.fields.topic,
+    sourceName: e.fields.sourceName,
+    sourceUrl: e.fields.sourceUrl,
+    publishedAt: e.fields.publishedAt,
+    image: r.asset(e.fields.image),
+    featured: Boolean(e.fields.featured),
+  }));
+}
+
+export async function getEvents(): Promise<EventItem[]> {
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  const r = await query("event", {
+    order: "fields.startsAt",
+    "fields.startsAt[gte]": startOfToday.toISOString(),
+  });
+  return r.items.map((e) => ({
+    id: e.sys.id,
+    title: e.fields.title,
+    slug: e.fields.slug,
+    description: e.fields.description,
+    startsAt: e.fields.startsAt,
+    endsAt: e.fields.endsAt,
+    venueName: r.entry(e.fields.venue)?.fields.name ?? e.fields.locationName,
+    price: e.fields.price,
+    link: e.fields.link,
+    image: r.asset(e.fields.image),
+  }));
+}
+
+export async function getDeals(): Promise<Deal[]> {
+  const today = new Date().toISOString().slice(0, 10);
+  const r = await query("deal", { order: "-sys.createdAt" });
+  return r.items
+    .map((e) => {
+      const b = r.entry(e.fields.business);
+      return {
+        id: e.sys.id,
+        headline: e.fields.headline,
+        slug: e.fields.slug,
+        businessName: b?.fields.name ?? "Local business",
+        category: b?.fields.category,
+        area: b?.fields.area,
+        discountText: e.fields.discountText,
+        code: e.fields.code,
+        terms: e.fields.terms,
+        validFrom: e.fields.validFrom,
+        validTo: e.fields.validTo,
+        image: r.asset(e.fields.image),
+      } as Deal;
+    })
+    .filter((d) => (!d.validTo || d.validTo.slice(0, 10) >= today) && (!d.validFrom || d.validFrom.slice(0, 10) <= today));
+}
