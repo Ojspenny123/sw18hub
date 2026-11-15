@@ -144,3 +144,6 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
   .hero { padding: 28px 0; }
   .map { height: 420px; }
 }
+
+.ext { font-size: 14px; font-weight: 600; color: var(--pink-dark); margin-top: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

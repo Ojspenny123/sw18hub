@@ -44,7 +44,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
       <div className="row" style={{ gap: 32, alignItems: "flex-start" }}>
         <div style={{ flex: "2 1 560px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
           {lead ? (
-            <a href={lead.sourceUrl ?? "#"} className="card" style={{ flex: "none" }}>
+            <a href={lead.sourceUrl ?? "#"} className="card" style={{ flex: "none" }} target="_blank" rel="noopener noreferrer">
               <NewsThumb n={lead} className="card-img" width={1200} style={{ height: 300 }} />
               <div className="card-body" style={{ padding: "20px 24px 24px", gap: 8 }}>
                 <div className="topic">{lead.topic}</div>
@@ -53,15 +53,15 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
                 <div className="small muted">
                   {lead.sourceName ? `${lead.sourceName} · ` : ""}
                   {timeAgo(lead.publishedAt)}
-                  {lead.sourceUrl ? " · Read at source" : ""}
                 </div>
+                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
               </div>
             </a>
           ) : (
             <div className="empty">{sw18Only ? "No SW18 stories right now. Try All of Wandsworth." : "No news right now. Check back soon."}</div>
           )}
           {rest.map((n) => (
-            <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }}>
+            <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }} target="_blank" rel="noopener noreferrer">
               <NewsThumb n={n} className="thumb" width={400} style={{ width: 160, height: 112 }} />
               <div style={{ flex: "1 1 260px", minWidth: 0, display: "flex", flexDirection: "column", gap: 6 }}>
                 <div className="topic">{n.topic}</div>
@@ -71,6 +71,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
                   {n.sourceName ? `${n.sourceName} · ` : ""}
                   {timeAgo(n.publishedAt)}
                 </div>
+                {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
               </div>
             </a>
           ))}

@@ -84,7 +84,7 @@ export default async function Home() {
         </div>
         {lead ? (
           <div className="row" style={{ gap: 24 }}>
-            <a href={lead.sourceUrl ?? "/news"} className="card news-feature">
+            <a href={lead.sourceUrl ?? "/news"} className="card news-feature" {...(lead.sourceUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
               <NewsThumb n={lead} className="card-img" width={1000} />
               <div className="card-body">
                 <div className="topic">{lead.topic}</div>
@@ -93,11 +93,12 @@ export default async function Home() {
                   {lead.sourceName ? `${lead.sourceName} · ` : ""}
                   {timeAgo(lead.publishedAt)}
                 </div>
+                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
               </div>
             </a>
             <div className="news-list">
               {more.map((n) => (
-                <a key={n.id} href={n.sourceUrl ?? "/news"} className="news-item">
+                <a key={n.id} href={n.sourceUrl ?? "/news"} className="news-item" {...(n.sourceUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                   <NewsThumb n={n} className="thumb" width={300} />
                   <div style={{ minWidth: 0 }}>
                     <div className="topic">{n.topic}</div>
@@ -106,6 +107,7 @@ export default async function Home() {
                       {n.sourceName ? `${n.sourceName} · ` : ""}
                       {timeAgo(n.publishedAt)}
                     </div>
+                    {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
                   </div>
                 </a>
               ))}
