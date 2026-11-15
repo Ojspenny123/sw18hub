@@ -7,10 +7,17 @@ import { dayNum, dayShort, timeAgo, timeShort } from "@/lib/format";
 
 export const metadata: Metadata = { title: "Local news and events" };
 
-export default async function NewsPage({ searchParams }: { searchParams: Promise<{ topic?: string }> }) {
-  const { topic } = await searchParams;
+export default async function NewsPage({ searchParams }: { searchParams: Promise<{ topic?: string; area?: string }> }) {
+  const { topic, area } = await searchParams;
+  const sw18Only = area === "sw18";
+  const href = (t?: string, a?: string) => {
+    const q = new URLSearchParams();
+    if (t) q.set("topic", t);
+    if (a) q.set("area", a);
+    return q.size ? `/news?${q}` : "/news";
+  };
   const [all, events] = await Promise.all([getNews(), getEvents()]);
-  const news = topic ? all.filter((n) => n.topic === topic) : all;
+  const news = all.filter((n) => (!topic || n.topic === topic) && (!sw18Only || n.sw18));
   const lead = news.find((n) => n.featured) ?? news[0];
   const rest = news.filter((n) => n.id !== lead?.id);
 
@@ -18,9 +25,17 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
     <div className="wrap section" style={{ paddingTop: 28 }}>
       <h1 className="title">Local news</h1>
       <div className="chips">
+        <Link href={href(topic)} className={`chip${!sw18Only ? " on" : ""}`}>
+          All of Wandsworth
+        </Link>
+        <Link href={href(topic, "sw18")} className={`chip${sw18Only ? " on" : ""}`}>
+          SW18 only
+        </Link>
+      </div>
+      <div className="chips">
         {[undefined, ...NEWS_TOPICS].map((t) => (
-          <Link key={t ?? "all"} href={t ? `/news?topic=${encodeURIComponent(t)}` : "/news"} className={`chip${topic === t || (!topic && !t) ? " on" : ""}`}>
-            {t ?? "All"}
+          <Link key={t ?? "all"} href={href(t, sw18Only ? "sw18" : undefined)} className={`chip${topic === t || (!topic && !t) ? " on" : ""}`}>
+            {t ?? "All topics"}
           </Link>
         ))}
       </div>
@@ -42,7 +57,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               </div>
             </a>
           ) : (
-            <div className="empty">No news right now. Check back soon.</div>
+            <div className="empty">{sw18Only ? "No SW18 stories right now. Try All of Wandsworth." : "No news right now. Check back soon."}</div>
           )}
           {rest.map((n) => (
             <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }}>

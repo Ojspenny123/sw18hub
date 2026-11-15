@@ -6,12 +6,19 @@ import type { NewsArticle } from "./types";
  * We show only the headline, a short snippet and a link back to the publisher (never the full article).
  * Feeds are re-fetched at most every 3 hours.
  */
-export const NEWS_FEEDS = [
+export const NEWS_FEEDS: { name: string; url: string; local?: boolean }[] = [
   { name: "South West Londoner", url: "https://swlondoner.co.uk/tag/wandsworth/feed" },
   { name: "South London News", url: "https://southlondon.co.uk/tag/wandsworth/feed" },
-  { name: "Putney.news", url: "https://putney.news/category/putney-wards/southfields/feed/" },
-  { name: "Putney.news", url: "https://putney.news/category/putney-wards/wandsworth-town/feed/" },
+  // `local`: the publisher has already tagged these to Southfields / Wandsworth Town.
+  { name: "Putney.news", url: "https://putney.news/category/putney-wards/southfields/feed/", local: true },
+  { name: "Putney.news", url: "https://putney.news/category/putney-wards/wandsworth-town/feed/", local: true },
 ];
+
+const SW18_WORDS =
+  /\b(earlsfield|southfields|wandsworth town|wandsworth common|sw18|garratt lane|wandsworth high street|wandsworth bridge|old york road|replingham|tonsleys|wandle|wandsworth park|east hill|point pleasant|merton road)\b/i;
+
+/** True if the text mentions one of our SW18 areas or streets. */
+export const mentionsSW18 = (s: string) => SW18_WORDS.test(s);
 
 const REVALIDATE_SECONDS = 3 * 60 * 60;
 const MAX_AGE_DAYS = 60;
@@ -45,7 +52,7 @@ function topicFor(title: string, summary: string): string {
   return "Community";
 }
 
-async function readFeed(feed: { name: string; url: string }): Promise<NewsArticle[]> {
+async function readFeed(feed: { name: string; url: string; local?: boolean }): Promise<NewsArticle[]> {
   try {
     const res = await fetch(feed.url, {
       headers: { "User-Agent": "SW18Hub/1.0 (+local news aggregator; links back to source)" },
@@ -62,6 +69,7 @@ async function readFeed(feed: { name: string; url: string }): Promise<NewsArticl
       const link = text(it.link);
       const date = new Date(text(it.pubDate));
       if (!title || !link || Number.isNaN(date.getTime()) || date.getTime() < cutoff) continue;
+      const fullText = `${text(it.title)} ${text(it.description)}`;
       const summary = clean(text(it.description));
       out.push({
         id: `rss-${link}`,
@@ -73,6 +81,7 @@ async function readFeed(feed: { name: string; url: string }): Promise<NewsArticl
         sourceUrl: link,
         publishedAt: date.toISOString(),
         featured: false,
+        sw18: Boolean(feed.local) || mentionsSW18(fullText),
       });
     }
     return out;

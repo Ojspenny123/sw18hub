@@ -46,6 +46,8 @@ export interface NewsArticle {
   publishedAt: string;
   image?: string;
   featured: boolean;
+  /** Mentions or is tagged to one of our SW18 areas. */
+  sw18?: boolean;
 }
 
 export interface EventItem {

@@ -103,6 +103,7 @@ async function getOwnNews(): Promise<NewsArticle[]> {
     publishedAt: e.fields.publishedAt,
     image: r.asset(e.fields.image),
     featured: Boolean(e.fields.featured),
+    sw18: true, // added by hand, so it is local by definition
   }));
 }
 
