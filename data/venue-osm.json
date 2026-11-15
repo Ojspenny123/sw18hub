@@ -1,0 +1,481 @@
+{
+ "fetchedAt": "2026-11-15T17:36:28.690Z",
+ "source": "OpenStreetMap contributors (ODbL)",
+ "venues": {
+  "the-alma": {
+   "lat": 51.460631,
+   "lon": -0.187669,
+   "openingHours": "Mo-Sa 10:00-23:00; Su 11:00-22:30",
+   "phone": "+44 20 8870 2537",
+   "website": "https://www.almawandsworth.com",
+   "osm": "https://www.openstreetmap.org/way/204031258",
+   "matchedName": "The Alma",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-ship-wandsworth": {
+   "lat": 51.463534,
+   "lon": -0.188146,
+   "website": "https://www.theship.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/331995902",
+   "matchedName": "The Ship",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-cats-back": {
+   "lat": 51.461847,
+   "lon": -0.199436,
+   "osm": "https://www.openstreetmap.org/way/836367566",
+   "matchedName": "The Cat's Back",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "spread-eagle": {
+   "lat": 51.456487,
+   "lon": -0.192237,
+   "openingHours": "Mo-Th 07:00-23:00, Fr 07:00-00:00, Sa 08:00-00:00, Su 08:00-22:30",
+   "phone": "+44 208 161 0038",
+   "website": "https://www.spreadeaglewandsworth.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/204180591",
+   "matchedName": "Spread Eagle",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-kings-arms-wandsworth": {
+   "lat": 51.457359,
+   "lon": -0.194657,
+   "openingHours": "Su-Th 12:00-23:00; Fr-Sa 12:00-00:00",
+   "phone": "+44 20 8875 7000",
+   "website": "https://www.kingsarmswandsworth.co.uk",
+   "osm": "https://www.openstreetmap.org/way/204488347",
+   "matchedName": "The King’s Arms",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-east-hill": {
+   "lat": 51.458681,
+   "lon": -0.185742,
+   "osm": "https://www.openstreetmap.org/way/790879743",
+   "matchedName": "The East Hill",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "queen-adelaide": {
+   "lat": 51.459882,
+   "lon": -0.199318,
+   "openingHours": "Mo-Th 11:00-23:00; Fr-Sa 11:00-00:00; Su 09:00-18:00",
+   "phone": "+44 20 8874 1695",
+   "website": "https://www.thequeenadelaide.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/30838121",
+   "matchedName": "Queen Adelaide",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-grapes-wandsworth": {
+   "lat": 51.458666,
+   "lon": -0.190569,
+   "website": "https://www.youngs.co.uk/pub-detail.asp?PubID=283",
+   "osm": "https://www.openstreetmap.org/way/436523538",
+   "matchedName": "Grapes",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "megans-in-the-tonsleys": {
+   "lat": 51.459715,
+   "lon": -0.189028,
+   "osm": "https://www.openstreetmap.org/way/204026103",
+   "matchedName": "Megan’s",
+   "score": 1.1,
+   "via": "overpass"
+  },
+  "the-old-sergeant": {
+   "lat": 51.45154,
+   "lon": -0.190587,
+   "website": "https://www.youngs.co.uk/pub-detail.asp?PubID=308",
+   "osm": "https://www.openstreetmap.org/way/317442798",
+   "matchedName": "The Old Sergeant",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "halfway-house-earlsfield": {
+   "lat": 51.44173,
+   "lon": -0.187274,
+   "openingHours": "Mo-Sa 11:00-23:00, Su 11:00-22:30",
+   "website": "https://www.thehalfway.com/",
+   "osm": "https://www.openstreetmap.org/node/1737829082",
+   "matchedName": "Halfway House",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-country-house": {
+   "lat": 51.442031,
+   "lon": -0.188965,
+   "openingHours": "Mo-Th 12:00-23:00; Fr-Sa 12:00-24:00; Su 12:00-22:30",
+   "osm": "https://www.openstreetmap.org/node/5782065244",
+   "matchedName": "The Country House",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-wandle-earlsfield": {
+   "lat": 51.44288,
+   "lon": -0.189141,
+   "openingHours": "Mo-Su 12:00-23:00",
+   "phone": "+44 20 8874 4209",
+   "website": "https://www.wandleearlsfield.com/",
+   "osm": "https://www.openstreetmap.org/node/1737829080",
+   "matchedName": "The Wandle",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-jolly-gardeners": {
+   "lat": 51.446902,
+   "lon": -0.189613,
+   "osm": "https://www.openstreetmap.org/way/757708319",
+   "matchedName": "The Jolly Gardener",
+   "score": 1.1,
+   "via": "overpass"
+  },
+  "park-tavern": {
+   "lat": 51.450618,
+   "lon": -0.199436,
+   "openingHours": "Su-Tu 12:00-23:00; We-Th 12:00-00:00; Fr-Sa 12:00-01:00",
+   "phone": "+44 20 8488 8855",
+   "website": "http://park-tavern.com/",
+   "osm": "https://www.openstreetmap.org/way/791165727",
+   "matchedName": "The Park Tavern",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-earl-spencer": {
+   "lat": 51.448233,
+   "lon": -0.199475,
+   "osm": "https://www.openstreetmap.org/way/924558051",
+   "matchedName": "The Earl Spencer",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-gardeners": {
+   "lat": 51.447979,
+   "lon": -0.199395,
+   "phone": "+44 20 8875 1524",
+   "website": "https://www.thegardenerspub.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/924558086",
+   "matchedName": "The Gardeners",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-old-fields": {
+   "lat": 51.444648,
+   "lon": -0.20516,
+   "website": "https://www.greeneking.co.uk/pubs/greater-london/old-fields",
+   "osm": "https://www.openstreetmap.org/way/956366728",
+   "matchedName": "The Old Fields",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "pig-and-whistle": {
+   "lat": 51.441067,
+   "lon": -0.196689,
+   "website": "http://www.thepigandwhistlesw18.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/1106704861",
+   "matchedName": "The Pig & Whistle",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "bosa-kitchen": {
+   "lat": 51.467862,
+   "lon": -0.221255,
+   "phone": "+44 20 8788 4119",
+   "osm": "https://www.openstreetmap.org/way/1109765961",
+   "matchedName": "Bosa",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "the-roundhouse": {
+   "lat": 51.459046,
+   "lon": -0.174077,
+   "website": "https://theroundhousewandsworth.com/",
+   "osm": "https://www.openstreetmap.org/way/99420375",
+   "matchedName": "The Roundhouse",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-county-arms": {
+   "lat": 51.450091,
+   "lon": -0.174331,
+   "osm": "https://www.openstreetmap.org/node/169140424",
+   "matchedName": "The County Arms",
+   "score": 1,
+   "via": "overpass"
+  },
+  "le-gothique": {
+   "lat": 51.453429,
+   "lon": -0.174425,
+   "website": "https://www.legothique.co.uk/",
+   "osm": "https://www.openstreetmap.org/node/4849880313",
+   "matchedName": "Le Gothique",
+   "score": 1,
+   "via": "nominatim"
+  },
+  "puccios-italian-shop": {
+   "lat": 51.458343,
+   "lon": -0.192312,
+   "openingHours": "Mo-Fr 07:30-18:30; Sa-Su 09:00-18:30",
+   "phone": "+44 2030842888",
+   "osm": "https://www.openstreetmap.org/way/1032398469",
+   "matchedName": "Puccio’s",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "tads-cafe": {
+   "lat": 51.456879,
+   "lon": -0.192356,
+   "openingHours": "Tu-Sa 09:00-17:30; Mo 09:30-17:30; PH,Su off",
+   "osm": "https://www.openstreetmap.org/way/325168264",
+   "matchedName": "Wandsworth Cafe",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "earlsfield-grocer": {
+   "lat": 51.444994,
+   "lon": -0.189216,
+   "osm": "https://www.openstreetmap.org/node/5368871229",
+   "matchedName": "Earlsfield Grocer",
+   "score": 1,
+   "via": "overpass"
+  },
+  "bakery-lamour": {
+   "lat": 51.43006,
+   "lon": -0.165535,
+   "osm": "https://www.openstreetmap.org/way/940172449",
+   "matchedName": "BA",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "home-community-cafe": {
+   "lat": 51.456879,
+   "lon": -0.192356,
+   "openingHours": "Tu-Sa 09:00-17:30; Mo 09:30-17:30; PH,Su off",
+   "osm": "https://www.openstreetmap.org/way/325168264",
+   "matchedName": "Wandsworth Cafe",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "hopper-coffee-wandsworth": {
+   "lat": 51.457037,
+   "lon": -0.197034,
+   "openingHours": "Mo-Sa 07:00-16:00; Su 08:00-16:00",
+   "phone": "+44 20 3161 7411",
+   "website": "https://www.hoppercoffeehouse.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/204489480",
+   "matchedName": "Hopper Coffee House",
+   "score": 1.1,
+   "via": "overpass"
+  },
+  "lockdown-bakehouse": {
+   "lat": 51.460551,
+   "lon": -0.189712,
+   "openingHours": "Mo-Fr 07:00-15:00; Sa-Su 07:30-15:30",
+   "website": "https://www.lockdownbakehouse.com/",
+   "osm": "https://www.openstreetmap.org/way/667660289",
+   "matchedName": "Lockdown Bakehouse",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "belle-amie": {
+   "lat": 51.440611,
+   "lon": -0.187103,
+   "osm": "https://www.openstreetmap.org/node/5841778791",
+   "matchedName": "Belle Amie",
+   "score": 1,
+   "via": "overpass"
+  },
+  "magna-cafe": {
+   "lat": 51.456879,
+   "lon": -0.192356,
+   "openingHours": "Tu-Sa 09:00-17:30; Mo 09:30-17:30; PH,Su off",
+   "osm": "https://www.openstreetmap.org/way/325168264",
+   "matchedName": "Wandsworth Cafe",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "brookwood-garden-coffee-brunch": {
+   "lat": 51.443354,
+   "lon": -0.204754,
+   "osm": "https://www.openstreetmap.org/way/1105375770",
+   "matchedName": "Brookwood Garden",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "the-drop-dropshot-coffee": {
+   "lat": 51.467168,
+   "lon": -0.219378,
+   "website": "https://www.dropshotcoffee.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/394960505",
+   "matchedName": "DropShot Coffee",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "cafe-elena": {
+   "lat": 51.456879,
+   "lon": -0.192356,
+   "openingHours": "Tu-Sa 09:00-17:30; Mo 09:30-17:30; PH,Su off",
+   "osm": "https://www.openstreetmap.org/way/325168264",
+   "matchedName": "Wandsworth Cafe",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "boom-battle-bar-wandsworth": {
+   "lat": 51.457893,
+   "lon": -0.193636,
+   "website": "https://www.boombattlebar.co.uk/wandsworth",
+   "osm": "https://www.openstreetmap.org/way/1032398471",
+   "matchedName": "Boom Battle Bar",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "the-ram": {
+   "lat": 51.456956,
+   "lon": -0.192879,
+   "openingHours": "Mo 09:00-23:00; Tu-Sa 12:00-23:00; Su 12:00-22:30",
+   "phone": "+44 20 8871 9752",
+   "website": "https://www.theraminnsw18.co.uk/",
+   "osm": "https://www.openstreetmap.org/way/204180594",
+   "matchedName": "The Ram Inn",
+   "score": 1.1,
+   "via": "overpass"
+  },
+  "michaels-fish-bar-kebab": {
+   "lat": 51.447037,
+   "lon": -0.198994,
+   "osm": "https://www.openstreetmap.org/way/923963737",
+   "matchedName": "Michaels Fish Bar & Kebab",
+   "score": 1,
+   "via": "overpass"
+  },
+  "the-best-kebabs-burgers": {
+   "lat": 51.43006,
+   "lon": -0.165535,
+   "osm": "https://www.openstreetmap.org/way/940172449",
+   "matchedName": "BA",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "sea-horse-fish-bar": {
+   "lat": 51.43918,
+   "lon": -0.186987,
+   "osm": "https://www.openstreetmap.org/node/1973963391",
+   "matchedName": "Sea Horse Fish Bar",
+   "score": 1,
+   "via": "overpass"
+  },
+  "butty-and-co": {
+   "lat": 51.440868,
+   "lon": -0.187164,
+   "osm": "https://www.openstreetmap.org/node/5650354934",
+   "matchedName": "Donburi & Co",
+   "score": 0.67,
+   "via": "overpass"
+  },
+  "golden-palace": {
+   "lat": 51.440665,
+   "lon": -0.187111,
+   "osm": "https://www.openstreetmap.org/node/5650354931",
+   "matchedName": "Golden Palace",
+   "score": 1,
+   "via": "overpass"
+  },
+  "amrutha": {
+   "lat": 51.44366,
+   "lon": -0.189999,
+   "website": "https://amrutha.co.uk/restaurants/earlsfield/",
+   "osm": "https://www.openstreetmap.org/node/1402845963",
+   "matchedName": "Amrutha Lounge",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "darya-london": {
+   "lat": 51.428495,
+   "lon": -0.166494,
+   "osm": "https://www.openstreetmap.org/node/8608616035",
+   "matchedName": "Dar",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "o-gourmet-libanais": {
+   "lat": 51.43006,
+   "lon": -0.165535,
+   "osm": "https://www.openstreetmap.org/way/940172449",
+   "matchedName": "BA",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "sushi-moka": {
+   "lat": 51.457514,
+   "lon": -0.193032,
+   "phone": "+44 20 3638 0559",
+   "website": "https://sushimoka.co.uk",
+   "osm": "https://www.openstreetmap.org/way/1032398464",
+   "matchedName": "Sushi Moka",
+   "score": 1,
+   "via": "overpass"
+  },
+  "arepa": {
+   "lat": 51.456905,
+   "lon": -0.194626,
+   "osm": "https://www.openstreetmap.org/way/951677464",
+   "matchedName": "Quinoa Arepa",
+   "score": 1.1,
+   "via": "overpass"
+  },
+  "la-pernella": {
+   "lat": 51.438487,
+   "lon": -0.186954,
+   "website": "https://lapernella.co.uk/",
+   "osm": "https://www.openstreetmap.org/node/3237099549",
+   "matchedName": "La Pernella",
+   "score": 1,
+   "via": "overpass"
+  },
+  "hotaru": {
+   "lat": 51.457222,
+   "lon": -0.195831,
+   "phone": "+44 20 3784 0540",
+   "website": "https://hotaru.uk",
+   "osm": "https://www.openstreetmap.org/way/204488343",
+   "matchedName": "Hotaru",
+   "score": 1.25,
+   "via": "overpass"
+  },
+  "cicchetti-and-wine": {
+   "lat": 51.440001,
+   "lon": -0.187026,
+   "osm": "https://www.openstreetmap.org/node/3237099551",
+   "matchedName": "422 Cicchetti and Wine",
+   "score": 0.85,
+   "via": "overpass"
+  }
+ },
+ "unmatched": [
+  "the-earlsfield",
+  "the-olive-garden-southfields",
+  "thai-girder",
+  "double-a",
+  "crumbs-and-doilies",
+  "wylies-coffee",
+  "yard-sale-pizza",
+  "lady-buddha",
+  "la-finestra",
+  "regine-pizzeria",
+  "pizza-house-southfields",
+  "kings-chikn",
+  "wandsworth-sushi-daily",
+  "city-dragon",
+  "chapter-2-biryani-centre",
+  "pizzeria-pomodoretto",
+  "poke-the-bear",
+  "won-bbq",
+  "a1-sushi",
+  "bulgogi"
+ ]
+}
