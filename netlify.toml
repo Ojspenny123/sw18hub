@@ -1,11 +1,10 @@
 [build]
   command = "npm run build"
 
-[secrets_scanning]
-  omit_keys = ["NEXT_PUBLIC_GOOGLE_MAP_ID", "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"]
-
 [build.environment]
   NODE_VERSION = "22"
+  # Public browser values are meant to appear in the page code, so skip them in the secrets scan.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_GOOGLE_MAP_ID,NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
 
 [functions]
   directory = "netlify/functions"
