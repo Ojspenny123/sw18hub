@@ -1,3 +1,4 @@
+import { byScore } from "./rank";
 import type { Rating, Venue, VenueWithRating } from "./types";
 
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
@@ -60,5 +61,5 @@ export async function withRatings(venues: Venue[]): Promise<VenueWithRating[]> {
 }
 
 export function byRating(a: VenueWithRating, b: VenueWithRating) {
-  return (b.google?.rating ?? 0) - (a.google?.rating ?? 0) || (b.google?.count ?? 0) - (a.google?.count ?? 0);
+  return byScore(a, b);
 }

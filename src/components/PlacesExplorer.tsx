@@ -1,5 +1,6 @@
 "use client";
 
+import { byScore } from "@/lib/rank";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
@@ -38,7 +39,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         ? a.name.localeCompare(b.name)
         : sort === "reviews"
           ? (b.google?.count ?? 0) - (a.google?.count ?? 0)
-          : (b.google?.rating ?? 0) - (a.google?.rating ?? 0) || (b.google?.count ?? 0) - (a.google?.count ?? 0),
+          : byScore(a, b),
     );
     return out;
   }, [venues, type, area, features, highRated, openNow, sort]);
@@ -74,7 +75,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </button>
         <label className="sr" htmlFor="sort">Sort by</label>
         <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-          <option value="rating">Top rated</option>
+          <option value="rating">Top ranked</option>
           <option value="reviews">Most reviewed</option>
           <option value="name">A to Z</option>
         </select>

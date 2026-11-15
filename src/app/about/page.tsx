@@ -25,7 +25,7 @@ export default function AboutPage() {
       <div className="prose">
         <p>SW18 Hub is an independent local guide to SW18 in south-west London: Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. It is run by a local resident and is not paid for by the places it lists.</p>
         <h2>How places are ranked</h2>
-        <p>Every place is ranked by its Google star rating, and places with the same rating are ordered by how many Google reviews they have. We do not take payment to change the order.</p>
+        <p>Every place is ranked by its Google star rating, weighted by how many Google reviews it has. A rating from only a few reviews is pulled toward a typical rating (4.4 stars) until more reviews come in, so a 5.0 from 30 reviews does not outrank a 4.9 from over a thousand. Each place still shows its plain Google rating and review count. The score is calculated as (reviews × rating + 50 × 4.4) ÷ (reviews + 50). We do not take payment to change the order.</p>
         <h2>How places are chosen</h2>
         <p>We list independent and chain cafes, restaurants, bars, pubs and takeaways inside SW18 that are open and rated 4.0 or higher on Google with a meaningful number of reviews. Places can be suggested through the Ask SW18 page.</p>
         <h2>Where the data comes from and how often it updates</h2>

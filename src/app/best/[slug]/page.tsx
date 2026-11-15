@@ -38,14 +38,14 @@ function intro(type: string, area: string | undefined, ranked: Ranked) {
   if (!top[0]?.google?.rating) return `SW18 Hub lists ${ranked.length} ${t} in ${where(area)}.`;
   const names = top.map(fmt);
   const list = names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names[0];
-  return `The top-rated ${t} in ${where(area)} on Google are ${list}. SW18 Hub ranks all ${ranked.length} ${t} it lists in ${where(area)} by Google rating, then by number of reviews.`;
+  return `The top-ranked ${t} in ${where(area)} are ${list}. SW18 Hub ranks all ${ranked.length} ${t} it lists in ${where(area)} by Google rating, weighted by number of reviews so that a few reviews cannot outrank hundreds.`;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const data = await load(slug);
   if (!data) return { title: "Not found", robots: { index: false } };
-  const title = `${bestTitle(data.type, data.area)} (ranked by Google rating)`;
+  const title = `${bestTitle(data.type, data.area)} (ranked by Google rating and reviews)`;
   const description = intro(data.type, data.area, data.ranked).slice(0, 300);
   return { title, description, alternates: { canonical: `/best/${slug}` }, openGraph: { title, description, url: `/best/${slug}`, type: "website" } };
 }
@@ -60,10 +60,10 @@ export default async function BestPage({ params }: Props) {
   const mostReviewed = [...ranked].sort((a, b) => (b.google?.count ?? 0) - (a.google?.count ?? 0))[0];
 
   const faqs: [string, string][] = [
-    [`What is the best ${type.toLowerCase()} in ${where(area)}?`, ranked[0]?.google?.rating ? `Based on Google ratings, ${fmt(ranked[0])} is the highest rated ${type.toLowerCase()} in ${where(area)} on SW18 Hub.` : `SW18 Hub lists ${ranked.length} ${t} in ${where(area)}.`],
+    [`What is the best ${type.toLowerCase()} in ${where(area)}?`, ranked[0]?.google?.rating ? `${fmt(ranked[0])} is ranked top among ${t} in ${where(area)} on SW18 Hub, which weighs Google ratings by the number of reviews.` : `SW18 Hub lists ${ranked.length} ${t} in ${where(area)}.`],
     [`How many ${t} are there in ${where(area)}?`, `SW18 Hub currently lists ${ranked.length} ${t} in ${where(area)}.`],
     ...(mostReviewed?.google?.count ? ([[`Which ${type.toLowerCase()} in ${where(area)} has the most Google reviews?`, `${mostReviewed.name} has the most, with ${mostReviewed.google.count.toLocaleString("en-GB")} Google reviews.`]] as [string, string][]) : []),
-    [`How are these ${t} ranked?`, "By Google star rating first, then by number of Google reviews. Ratings are refreshed every Sunday."],
+    [`How are these ${t} ranked?`, "By Google star rating, weighted by the number of Google reviews, so a 5.0 from a few reviews does not outrank a 4.9 from hundreds. Ratings are refreshed every Sunday."],
   ];
 
   const otherAreas = bestCombos(all).filter((c) => c.type === type && c.area && c.area !== area);
