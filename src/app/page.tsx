@@ -43,9 +43,8 @@ export default async function Home() {
             </div>
           </div>
           <div className="hero-art">
-            <Link href="/places" className="btn">
-              Open the full map
-            </Link>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="SW18 Hub" width={400} height={240} />
           </div>
         </div>
       </section>

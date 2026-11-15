@@ -71,9 +71,8 @@ h2.sub { font-size: 28px; }
 .askbox .btn { height: 52px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips .chip { background: #fff; }
-.hero-art { flex: 1 1 420px; min-height: 320px; border-radius: 12px; background: var(--pink); position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 20px; }
-.hero-art::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, transparent 0 28px, rgba(255, 249, 79, 0.9) 28px 36px); opacity: 0.35; }
-.hero-art .btn { position: relative; background: #fff; color: var(--ink); }
+.hero-art { flex: 1 1 420px; min-height: 320px; display: flex; align-items: center; justify-content: center; }
+.hero-art img { width: 100%; max-width: 420px; height: auto; }
 
 /* cards */
 .card { flex: 1 1 240px; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--ink); }
