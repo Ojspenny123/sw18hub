@@ -1,13 +1,13 @@
 import { getDeals, getEvents, getNews, getVenues } from "./contentful";
 import { withRatings } from "./google";
-import { dayKey } from "./event-types";
+import { dayKey, eventType } from "./event-types";
 import { bestSlug } from "./seo";
 
 /**
  * The only knowledge the chatbot has: what is on the site. Written as compact text lines (far fewer tokens
  * than JSON) and kept in a stable order, so Anthropic's prompt cache can reuse it between questions.
  */
-const TTL_MS = 30 * 60 * 1000;
+const TTL_MS = 10 * 60 * 1000;
 let cached: { at: number; text: string } | null = null;
 
 const trim = (s: string | undefined, n: number) => {
@@ -33,29 +33,39 @@ export async function getAskContext(): Promise<string> {
     return bits.filter(Boolean).join(" | ");
   });
 
-  const eventLines = events.slice(0, 25).map((e) =>
+  const fmtDay = (iso: string) =>
+    new Date(iso).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "Europe/London" });
+  const fmtTime = (iso: string) => (iso.includes("T") ? new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" }) : "");
+
+  const eventLines = events.slice(0, 40).map((e) =>
     [
-      trim(e.title, 90),
-      `${dayKey(e.startsAt)}${e.startsAt.includes("T") ? " " + new Date(e.startsAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" }) : ""}`,
-      e.endsAt && dayKey(e.endsAt) > dayKey(e.startsAt) ? `until ${dayKey(e.endsAt)}` : "",
+      trim(e.title, 100),
+      `${fmtDay(e.startsAt)} ${fmtTime(e.startsAt)}`.trim(),
+      e.endsAt && dayKey(e.endsAt) > dayKey(e.startsAt) ? `runs until ${fmtDay(e.endsAt)}` : "",
       e.venueName ?? "",
       e.price ?? "",
+      eventType(e),
+      trim(e.description, 150),
+      e.source ? `via ${e.source}` : "",
     ]
       .filter(Boolean)
       .join(" | "),
   );
 
-  const newsLines = news.filter((n) => n.sw18).slice(0, 12).map((n) => `${n.publishedAt.slice(0, 10)} | ${trim(n.title, 120)} | ${trim(n.summary, 140)} | ${n.sourceName ?? ""}`);
+  // SW18 stories first, then other Wandsworth borough stories, labelled so the chatbot can tell them apart.
+  const newsOf = (list: typeof news, label: string) =>
+    list.map((n) => `${n.publishedAt.slice(0, 10)} | ${label} | ${trim(n.title, 130)} | ${trim(n.summary, 200)} | ${n.sourceName ?? ""} | ${n.topic}`);
+  const newsLines = [...newsOf(news.filter((n) => n.sw18).slice(0, 15), "SW18"), ...newsOf(news.filter((n) => !n.sw18).slice(0, 8), "wider Wandsworth")];
 
   const dealLines = deals.slice(0, 15).map((d) => `${d.businessName} | ${d.headline} | ${d.discountText} | code ${d.code}${d.validTo ? ` | until ${d.validTo.slice(0, 10)}` : ""}`);
 
   const text = [
-    `TODAY: ${dayKey(new Date().toISOString())}`,
+    `TODAY: ${new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" })}`,
     `RANKING PAGES: /best/${bestSlug("Restaurant")}, /best/${bestSlug("Cafe")}, /best/${bestSlug("Bar")}, /best/${bestSlug("Pub")}, /best/${bestSlug("Takeaway")}`,
     "OTHER PAGES: /places (map and filters), /whats-on (events), /news, /deals, /about",
     `PLACES (${places.length}) name | type | area | Google rating | features | note | page:\n${places.join("\n")}`,
-    `EVENTS (${eventLines.length}) title | date time | venue | price:\n${eventLines.join("\n") || "none listed"}`,
-    `LOCAL NEWS (${newsLines.length}) date | headline | summary | source:\n${newsLines.join("\n") || "none"}`,
+    `EVENTS (${eventLines.length}, soonest first) title | day time | venue | price | type | note | source:\n${eventLines.join("\n") || "none listed"}`,
+    `LOCAL NEWS (${newsLines.length}, newest first) date | area | headline | summary | publisher | topic:\n${newsLines.join("\n") || "none"}`,
     `DEALS (${dealLines.length}) business | offer | detail | code:\n${dealLines.join("\n") || "none yet"}`,
   ].join("\n\n");
 
