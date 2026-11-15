@@ -1,11 +1,13 @@
 import Link from "next/link";
 import type { VenueWithRating } from "@/lib/types";
+import { venueImage } from "@/lib/images";
 
 export default function VenueCard({ v }: { v: VenueWithRating }) {
   const g = v.google;
+  const img = venueImage(v, 600);
   return (
     <Link href="/places" className="card">
-      <div className="card-img" style={v.image ? { backgroundImage: `url(${v.image}?w=600&fm=webp)` } : undefined} />
+      <div className="card-img" style={img ? { backgroundImage: `url(${img})` } : undefined} />
       <div className="card-body">
         <div className="card-title">{v.name}</div>
         <div className="small muted">
@@ -17,6 +19,7 @@ export default function VenueCard({ v }: { v: VenueWithRating }) {
             <span className="muted"> · {g.count?.toLocaleString("en-GB")} reviews</span>
           </div>
         ) : null}
+        {!v.image && g?.photoUrl && g.photoCredit ? <div className="small muted">Photo: {g.photoCredit} / Google</div> : null}
       </div>
     </Link>
   );

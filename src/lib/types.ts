@@ -27,6 +27,8 @@ export interface Rating {
   mapsUri?: string;
   lat?: number;
   lon?: number;
+  photoUrl?: string;
+  photoCredit?: string;
 }
 
 export interface VenueWithRating extends Venue {

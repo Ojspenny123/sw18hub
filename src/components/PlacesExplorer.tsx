@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
+import { venueImage } from "@/lib/images";
 import { AREAS, FEATURES, VENUE_TYPES, type VenueWithRating } from "@/lib/types";
 
 const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -95,7 +96,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
               aria-current={selected === v.id}
               onClick={() => setSelected(v.id)}
             >
-              <div className="thumb" style={v.image ? { backgroundImage: `url(${v.image}?w=200&fm=webp)` } : undefined} />
+              <div className="thumb" style={venueImage(v, 200) ? { backgroundImage: `url(${venueImage(v, 200)})` } : undefined} />
               <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
                   <span style={{ fontWeight: 600, fontSize: 17 }}>
@@ -107,6 +108,9 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
                   {v.type} · {v.area}
                   {v.google?.count ? ` · ${v.google.count.toLocaleString("en-GB")} reviews` : ""}
                 </div>
+                {!v.image && v.google?.photoUrl && v.google.photoCredit ? (
+                  <div className="small muted">Photo: {v.google.photoCredit} / Google</div>
+                ) : null}
                 {v.google?.openNow !== undefined ? (
                   <div className="small muted">{v.google.openNow ? "Open now" : "Closed now"}</div>
                 ) : null}
