@@ -1,31 +1,20 @@
 "use client";
 
 import { byScore } from "@/lib/rank";
-import Link from "next/link";
 import { useMemo, useState } from "react";
-import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 import VenueRow from "@/components/VenueRow";
-import { venueImage } from "@/lib/images";
 import { AREAS, FEATURES, VENUE_TYPES, type VenueWithRating } from "@/lib/types";
 
-const MAPS_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-const MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID || "DEMO_MAP_ID";
-const CENTER = { lat: 51.455, lng: -0.19 };
 
-type Sort = "rating" | "reviews" | "name";
+type Sort = "name" | "rating";
 
 export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }) {
-  const [view, setView] = useState<"list" | "map">("list");
-  const [showFilters, setShowFilters] = useState(false);
+    const [showFilters, setShowFilters] = useState(false);
   const [type, setType] = useState("All");
   const [area, setArea] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
-  const [highRated, setHighRated] = useState(false);
-  const [openNow, setOpenNow] = useState(false);
-  const [sort, setSort] = useState<Sort>("rating");
-  const [selected, setSelected] = useState<string | null>(null);
-  // The Google map is billed per load, so it only loads when someone asks for it.
-  const [mapOn, setMapOn] = useState(false);
+    const [sort, setSort] = useState<Sort>("name");
+  const [selected] = useState<string | null>(null);
 
   const list = useMemo(() => {
     const out = venues.filter(
@@ -33,29 +22,22 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         (type === "All" || v.type === type) &&
         (!area || v.area === area) &&
         features.every((f) => v.features.includes(f)) &&
-        (!highRated || (v.google?.rating ?? 0) >= 4) &&
-        (!openNow || v.google?.openNow === true),
+        true,
     );
     out.sort((a, b) =>
       sort === "name"
         ? a.name.localeCompare(b.name)
-        : sort === "reviews"
-          ? (b.google?.count ?? 0) - (a.google?.count ?? 0)
-          : byScore(a, b),
+        : byScore(a, b) || a.name.localeCompare(b.name),
     );
     return out;
-  }, [venues, type, area, features, highRated, openNow, sort]);
+  }, [venues, type, area, features, sort]);
 
   const toggleFeature = (f: string) => setFeatures((cur) => (cur.includes(f) ? cur.filter((x) => x !== f) : [...cur, f]));
-  const activeCount = (area ? 1 : 0) + (highRated ? 1 : 0) + (openNow ? 1 : 0) + features.length;
+  const activeCount = (area ? 1 : 0) + features.length;
   const clearAll = () => {
     setArea("");
-    setHighRated(false);
-    setOpenNow(false);
     setFeatures([]);
   };
-  const sel = list.find((v) => v.id === selected);
-  const selImg = sel ? venueImage(sel, 160) : undefined;
 
   return (
     <>
@@ -77,8 +59,6 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </button>
         <label className="sr" htmlFor="sort">Sort by</label>
         <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-          <option value="rating">Top ranked</option>
-          <option value="reviews">Most reviewed</option>
           <option value="name">A to Z</option>
         </select>
       </div>
@@ -95,12 +75,6 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
             </select>
           </label>
           <div className="wrapchips" role="group" aria-label="More filters">
-            <button type="button" className="chip" aria-pressed={highRated} onClick={() => setHighRated((x) => !x)}>
-              Rating 4.0+
-            </button>
-            <button type="button" className="chip" aria-pressed={openNow} onClick={() => setOpenNow((x) => !x)}>
-              Open now
-            </button>
             {FEATURES.map((f) => (
               <button key={f} type="button" className="chip" aria-pressed={features.includes(f)} onClick={() => toggleFeature(f)}>
                 {f}
@@ -115,7 +89,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </div>
       ) : null}
 
-      <div className="split" data-view={view}>
+      <div className="split">
         <div className="venue-list">
           {list.length === 0 ? <div className="empty">No places match those filters.</div> : null}
           {list.map((v, i) => (
@@ -123,63 +97,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
           ))}
         </div>
 
-        <div className="map-panel">
-          {MAPS_KEY && (mapOn || view === "map") ? (
-            <div className="gm">
-              <APIProvider apiKey={MAPS_KEY}>
-                <Map
-                  key={view}
-                  defaultCenter={CENTER}
-                  defaultZoom={14}
-                  mapId={MAP_ID}
-                  gestureHandling="greedy"
-                  disableDefaultUI
-                  zoomControl
-                  onClick={() => setSelected(null)}
-                  style={{ width: "100%", height: "100%" }}
-                >
-                  {list.map((v, i) => {
-                    const lat = v.lat ?? v.google?.lat;
-                    const lon = v.lon ?? v.google?.lon;
-                    return lat !== undefined && lon !== undefined ? (
-                      <AdvancedMarker key={v.id} position={{ lat, lng: lon }} title={v.name} onClick={() => setSelected(v.id)}>
-                        <div className={selected === v.id ? "pin on" : "pin"}>{i + 1}</div>
-                      </AdvancedMarker>
-                    ) : null;
-                  })}
-                </Map>
-              </APIProvider>
-            </div>
-          ) : MAPS_KEY ? (
-            <button type="button" className="btn" onClick={() => setMapOn(true)}>
-              Show map
-            </button>
-          ) : (
-            <p className="muted" style={{ padding: 24 }}>
-              The map appears here once a Google Maps API key is added (NEXT_PUBLIC_GOOGLE_MAPS_API_KEY).
-            </p>
-          )}
-          {sel ? (
-            <div className="map-card">
-              <div className="thumb" style={selImg ? { backgroundImage: `url(${selImg})` } : undefined} aria-hidden="true" />
-              <div className="body">
-                <span style={{ fontWeight: 600 }}>{sel.name}</span>
-                <span className="small muted">
-                  {sel.google?.rating ? `★ ${sel.google.rating.toFixed(1)} · ` : ""}
-                  {sel.type} · {sel.area}
-                </span>
-              </div>
-              <Link href={`/places/${sel.slug}`} className="btn">
-                Details
-              </Link>
-            </div>
-          ) : null}
-        </div>
       </div>
-
-      <button type="button" className="view-fab" onClick={() => setView((v) => (v === "list" ? "map" : "list"))} aria-label={view === "list" ? "Show map" : "Show list"}>
-        {view === "list" ? "Map" : "List"}
-      </button>
     </>
   );
 }

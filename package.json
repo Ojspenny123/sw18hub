@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",
-    "@netlify/blobs": "^11.1.9",
-    "@vis.gl/react-google-maps": "^1.10.2",
     "fast-xml-parser": "^5.12.1",
     "next": "16.4.6",
     "react": "19.3.0",

@@ -121,13 +121,8 @@ export default async function VenuePage({ params }: Props) {
                 Website <span className="sr">(opens in a new tab)</span>
               </a>
             ) : null}
-            {g?.mapsUri ? (
-              <a className="btn outline" href={g.mapsUri} target="_blank" rel="noopener noreferrer">
-                Reviews on Google <span className="sr">(opens in a new tab)</span>
-              </a>
-            ) : null}
           </div>
-          <p className="small muted">Rating, review count and photo from Google, refreshed weekly. Check opening times with the venue.</p>
+          <p className="small muted">Check opening times with the venue.</p>
         </div>
       </div>
 
