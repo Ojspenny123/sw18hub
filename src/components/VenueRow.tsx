@@ -24,7 +24,7 @@ export default function VenueRow({ v, rank, selected }: { v: VenueWithRating; ra
         {g?.openNow !== undefined ? (
           <div className={`small ${g.openNow ? "status-open" : "status-closed"}`}>{g.openNow ? "Open now" : "Closed now"}</div>
         ) : null}
-        {!v.image && g?.photoUrl && g.photoCredit ? <div className="credit">Photo: {g.photoCredit} / Google</div> : null}
+        {!v.image && v.photo ? <div className="credit">Photo: {v.photo.author}, {v.photo.license}, via Wikimedia Commons</div> : null}
         {v.features.length ? (
           <div className="tags">
             {v.features.slice(0, 3).map((f) => (

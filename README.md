@@ -53,3 +53,6 @@ Events and news are cached and only refreshed once a week, on Sunday at 03:00 UT
 
 ## Map and venue info (free, no paid APIs)
 The site makes no Google calls. The map is Leaflet with OpenStreetMap tiles (no key). Venue positions, opening hours and phone numbers come from OpenStreetMap, looked up once by `scripts/osm-lookup.mjs` (run by the GitHub Action `osm-venues`, or `node scripts/osm-lookup.mjs`) and saved in `data/venue-osm.json`; the site only reads that file, so nothing is fetched at runtime. Venues not found in OpenStreetMap are listed under `unmatched` in that file and simply do not appear on the map. To add a venue by hand, add `lat` and `lon` in the Contentful `location` field (it overrides the OpenStreetMap value). Map data (c) OpenStreetMap contributors.
+
+## Venue photos (free, openly licensed)
+Photos come from your own Contentful `image` field first. Where a venue has none, the site uses an openly licensed (CC BY / CC BY-SA / CC0 / public domain) photo from Wikimedia Commons, found once by `scripts/commons-images.mjs` (GitHub Action `commons-images`) and saved in `data/venue-images.json`. The licences require crediting the photographer, so the credit shows under each photo. A photo is only used if its Commons title matches the venue name. No photos are taken from Google or general web search.

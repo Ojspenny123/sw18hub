@@ -1,4 +1,5 @@
 import { osmFor } from "./osm";
+import { photoFor } from "./venue-images";
 import type { Deal, EventItem, NewsArticle, Venue } from "./types";
 import { getFeedEvents } from "./events";
 import { getRssNews } from "./rss";
@@ -103,6 +104,7 @@ export async function getVenues(): Promise<Venue[]> {
     phone: osmFor(e.fields.slug)?.phone,
     openingHours: osmFor(e.fields.slug)?.openingHours,
     osmUrl: osmFor(e.fields.slug)?.osm,
+    photo: photoFor(e.fields.slug),
     description: e.fields.description,
     features: e.fields.features ?? [],
     featured: Boolean(e.fields.featured),

@@ -19,7 +19,7 @@ export default function VenueCard({ v }: { v: VenueWithRating }) {
             <span className="muted"> · {g.count?.toLocaleString("en-GB")} reviews</span>
           </div>
         ) : null}
-        {!v.image && g?.photoUrl && g.photoCredit ? <div className="credit">Photo: {g.photoCredit} / Google</div> : null}
+        {!v.image && v.photo ? <div className="credit">Photo: {v.photo.author}, {v.photo.license}, via Wikimedia Commons</div> : null}
       </div>
     </Link>
   );

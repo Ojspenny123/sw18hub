@@ -17,6 +17,7 @@ export interface Venue {
   phone?: string;
   openingHours?: string;
   osmUrl?: string;
+  photo?: { url: string; page?: string; author: string; license: string };
   description?: string;
   features: string[];
   featured: boolean;

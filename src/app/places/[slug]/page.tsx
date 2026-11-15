@@ -89,7 +89,12 @@ export default async function VenuePage({ params }: Props) {
       <div className="venue-hero">
         <div>
           <div className="photo venue-photo" style={img ? { backgroundImage: `url(${img})`, height: undefined } : undefined} role="img" aria-label={`Photo of ${v.name}`} />
-          {!v.image && g?.photoUrl && g.photoCredit ? <p className="credit" style={{ marginTop: 6 }}>Photo: {g.photoCredit} / Google</p> : null}
+          {!v.image && v.photo ? (
+            <p className="credit" style={{ marginTop: 6 }}>
+              Photo: {v.photo.author},{" "}
+              <a href={v.photo.page} target="_blank" rel="noopener noreferrer">{v.photo.license}</a>, via Wikimedia Commons
+            </p>
+          ) : null}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <h1 className="title">{v.name}</h1>
