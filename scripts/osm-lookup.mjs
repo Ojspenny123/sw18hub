@@ -11,14 +11,12 @@ import { fileURLToPath } from "node:url";
 const UA = "SW18Hub/1.0 (community guide; one-off venue lookup)";
 const BBOX = "51.425,-0.235,51.475,-0.165"; // south,west,north,east around SW18
 
-export const norm = (s) =>
-  (s || "")
-    .toLowerCase()
-    .replace(/&/g, " and ")
-    .replace(/['’.]/g, "")
-    .replace(/\b(the|wandsworth|earlsfield|southfields|london|ltd|c i c|cic)\b/g, " ")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+export const norm = (s) => {
+  const base = (s || "").toLowerCase().replace(/&/g, " and ").replace(/['’.]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+  // drop filler words, but never reduce a name to nothing (e.g. "The Earlsfield")
+  const stripped = base.replace(/\b(the|and|wandsworth|earlsfield|southfields|london|ltd|c i c|cic)\b/g, " ").replace(/\s+/g, " ").trim();
+  return stripped || base;
+};
 
 export function nameScore(a, b) {
   const x = norm(a), y = norm(b);
@@ -32,8 +30,11 @@ export function nameScore(a, b) {
 
 const streetOf = (addr) => norm((addr || "").replace(/^[\w\s,-]*?\d+[a-z]?(-\d+)?\s+/i, "").split(",")[0]);
 
+const houseNo = (addr) => ((addr || "").match(/^\D*?(\d+[a-z]?)\b/i) || [])[1]?.toLowerCase();
+
 export function bestMatch(venue, elements) {
   const vStreet = streetOf(venue.address);
+  const vNo = houseNo(venue.address);
   let best = null;
   for (const e of elements) {
     const t = e.tags || {};
@@ -41,7 +42,10 @@ export function bestMatch(venue, elements) {
     if (!t.name || lat == null || lon == null) continue;
     let score = nameScore(venue.name, t.name);
     const eStreet = norm(t["addr:street"]);
-    if (eStreet && vStreet && (eStreet.includes(vStreet) || vStreet.includes(eStreet))) score += 0.25;
+    const sameStreet = eStreet && vStreet && (eStreet.includes(vStreet) || vStreet.includes(eStreet));
+    if (sameStreet) score += 0.25;
+    // same street and house number is a strong signal even if the name differs
+    if (sameStreet && vNo && (t["addr:housenumber"] || "").toLowerCase() === vNo) score = Math.max(score, 0.7) + 0.1;
     if (!best || score > best.score) best = { score, e, lat, lon };
   }
   return best && best.score >= 0.6 ? best : null;
