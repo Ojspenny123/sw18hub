@@ -142,18 +142,20 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
                 gestureHandling="greedy"
                 style={{ width: "100%", height: "100%" }}
               >
-                {list.map((v, i) =>
-                  v.lat !== undefined && v.lon !== undefined ? (
+                {list.map((v, i) => {
+                  const lat = v.lat ?? v.google?.lat;
+                  const lon = v.lon ?? v.google?.lon;
+                  return lat !== undefined && lon !== undefined ? (
                     <AdvancedMarker
                       key={v.id}
-                      position={{ lat: v.lat, lng: v.lon }}
+                      position={{ lat, lng: lon }}
                       title={v.name}
                       onClick={() => setSelected(v.id)}
                     >
                       <div className={selected === v.id ? "pin on" : "pin"}>{i + 1}</div>
                     </AdvancedMarker>
-                  ) : null,
-                )}
+                  ) : null;
+                })}
               </Map>
             </APIProvider>
           </div>

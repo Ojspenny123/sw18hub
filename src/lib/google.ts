@@ -2,25 +2,28 @@ import type { Rating, Venue, VenueWithRating } from "./types";
 
 const KEY = process.env.GOOGLE_MAPS_API_KEY;
 
-/** Live rating from the Google Places API (New). Only the place ID is stored in Contentful. */
+/** Live details from the Google Places API (New). Only the place ID is stored in Contentful (Google's terms restrict storing ratings and coordinates). */
 async function fetchRating(placeId: string): Promise<Rating | undefined> {
   if (!KEY) return undefined;
   try {
     const res = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(placeId)}`, {
       headers: {
         "X-Goog-Api-Key": KEY,
-        "X-Goog-FieldMask": "rating,userRatingCount,currentOpeningHours.openNow,googleMapsUri",
+        "X-Goog-FieldMask": "rating,userRatingCount,currentOpeningHours.openNow,googleMapsUri,location,businessStatus",
       },
       // Short cache so we do not hit Google on every request.
       next: { revalidate: 1800 },
     });
     if (!res.ok) return undefined;
     const d = await res.json();
+    if (d.businessStatus && d.businessStatus !== "OPERATIONAL") return undefined;
     return {
       rating: d.rating,
       count: d.userRatingCount,
       openNow: d.currentOpeningHours?.openNow,
       mapsUri: d.googleMapsUri,
+      lat: d.location?.latitude,
+      lon: d.location?.longitude,
     };
   } catch {
     return undefined;

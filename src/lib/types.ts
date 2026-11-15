@@ -25,6 +25,8 @@ export interface Rating {
   count?: number;
   openNow?: boolean;
   mapsUri?: string;
+  lat?: number;
+  lon?: number;
 }
 
 export interface VenueWithRating extends Venue {

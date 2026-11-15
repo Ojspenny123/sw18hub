@@ -32,3 +32,16 @@ Set these in Netlify under Site configuration, Environment variables.
 ## Forms
 
 The email list and business interest forms use Netlify Forms (`public/__forms.html` lets Netlify detect them). Submissions appear in the Netlify dashboard under Forms.
+
+## Adding Google Place IDs to venues
+
+After creating venues in Contentful, run this once on your own computer (never commit keys):
+
+```bash
+GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_TOKEN=... \
+  node scripts/enrich-venues.mjs           # dry run
+GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_TOKEN=... \
+  node scripts/enrich-venues.mjs --write   # saves and publishes
+```
+
+It only saves matches that look right and skips venues Google marks as closed. Check the lines marked `CHECK`. Only the Place ID is stored: ratings, open now and map position are fetched live, because Google's terms limit storing them.
