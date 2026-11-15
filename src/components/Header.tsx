@@ -20,7 +20,7 @@ export default function Header() {
           <nav className="nav" aria-label="Main">
             <Link href="/places" onClick={close}>Places</Link>
             <Link href="/news" onClick={close}>News</Link>
-            <Link href="/news#whats-on" onClick={close}>What&apos;s on</Link>
+            <Link href="/whats-on" onClick={close}>What&apos;s on</Link>
             <Link href="/deals" onClick={close}>Deals</Link>
           </nav>
           <Link href="/ask" className="btn" onClick={close}>

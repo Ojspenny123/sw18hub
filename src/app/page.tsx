@@ -127,14 +127,14 @@ export default async function Home() {
       <section className="wrap section">
         <div className="between">
           <h2 className="sub">What&apos;s on this week</h2>
-          <Link href="/news#whats-on" className="more-link">
+          <Link href="/whats-on" className="more-link">
             Full calendar
           </Link>
         </div>
         {events.length ? (
           <div className="stack">
             {events.slice(0, 4).map((e) => (
-              <a key={e.id} href={e.link ?? "/news#whats-on"} className="event">
+              <a key={e.id} href={e.link ?? "/whats-on"} className="event">
                 <div className="date">
                   <span>{dayShort(e.startsAt)}</span>
                   <b>{dayNum(e.startsAt)}</b>

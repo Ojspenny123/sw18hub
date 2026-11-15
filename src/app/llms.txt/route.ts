@@ -20,6 +20,7 @@ export async function GET() {
     "## Main pages",
     `- [All places on a map](${abs("/places")}): filter by type, area and features`,
     `- [Local news and what's on](${abs("/news")}): headlines from local sources, with links to the originals`,
+    `- [What's on in SW18](${abs("/whats-on")}): upcoming local events, each linking to the organiser`,
     `- [Local deals](${abs("/deals")}): discount codes from SW18 businesses`,
     `- [About and methodology](${abs("/about")}): how places are chosen and ranked`,
     "",

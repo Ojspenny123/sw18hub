@@ -40,7 +40,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
           ...(e.description ? { description: e.description } : {}),
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           location: { "@type": "Place", name: e.venueName ?? "SW18", address: { "@type": "PostalAddress", addressLocality: "London", addressCountry: "GB" } },
-          url: e.link ?? abs("/news#whats-on"),
+          url: e.link ?? abs("/whats-on"),
         }))}
       />
       <h1 className="title">SW18 local news</h1>
@@ -115,6 +115,9 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
             ) : (
               <p className="small muted">No upcoming events yet.</p>
             )}
+            <Link href="/whats-on" className="more-link">
+              See all events
+            </Link>
           </div>
           <div className="panel">
             <h2 style={{ fontSize: 20 }}>Weekly SW18 round-up</h2>

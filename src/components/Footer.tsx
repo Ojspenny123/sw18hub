@@ -20,6 +20,7 @@ export default function Footer() {
           ))}
         </nav>
         <nav aria-label="Footer">
+          <Link href="/whats-on">What&apos;s on</Link>
           <Link href="/about">How we rank places</Link>
           <Link href="/deals#business">Add your business</Link>
         </nav>
