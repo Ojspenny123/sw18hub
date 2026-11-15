@@ -2,7 +2,7 @@
 
 A local hub for SW18 (Wandsworth, Earlsfield, Southfields): top-rated places on a map, local news and events, deals (phase 2) and an "Ask SW18" chatbot.
 
-Built with Next.js (App Router, TypeScript), Contentful for content, Google Places and Maps for ratings and the map, and the Claude API for the chatbot. Hosted on Netlify.
+Built with Next.js (App Router, TypeScript), Contentful for content and the Claude API for the chatbot. Hosted on Netlify.
 
 ## Run locally
 
@@ -19,36 +19,21 @@ The site works with no keys at all and shows empty states. Add keys to switch fe
 | Variable | Needed for |
 |---|---|
 | `CONTENTFUL_SPACE_ID`, `CONTENTFUL_DELIVERY_TOKEN` | All content (places, news, events, deals) |
-| `GOOGLE_MAPS_API_KEY` | Ratings, review counts, open now (Places API New) |
-| `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` | The map (Maps JavaScript API) |
 | `ANTHROPIC_API_KEY` | The Ask SW18 chatbot |
 
 Set these in Netlify under Site configuration, Environment variables.
 
 ## Content model (Contentful)
 
-`sw18Venue`, `sw18NewsArticle`, `sw18Event`, `sw18Business`, `sw18Deal` (the space is shared with another site, so SW18 only reads these types and entries tagged `siteSw18Hub`; see `CONTENT_TYPES` in `src/lib/contentful.ts`). Google ratings are fetched live using the venue's `googlePlaceId`; they are not stored in Contentful.
+`sw18Venue`, `sw18NewsArticle`, `sw18Event`, `sw18Business`, `sw18Deal` (the space is shared with another site, so SW18 only reads these types and entries tagged `siteSw18Hub`; see `CONTENT_TYPES` in `src/lib/contentful.ts`). No Google APIs are called anywhere (they were removed to avoid charges).
 
 ## Forms
 
 The email list and business interest forms use Netlify Forms (`public/__forms.html` lets Netlify detect them). Submissions appear in the Netlify dashboard under Forms.
 
-## Adding Google Place IDs to venues
+## Weekly refresh
 
-After creating venues in Contentful, run this once on your own computer (never commit keys):
-
-```bash
-GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_TOKEN=... \
-  node scripts/enrich-venues.mjs           # dry run
-GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_TOKEN=... \
-  node scripts/enrich-venues.mjs --write   # saves and publishes
-```
-
-It only saves matches that look right and skips venues Google marks as closed. Check the lines marked `CHECK`. Only the Place ID is stored: ratings, open now and map position are fetched live, because Google's terms limit storing them.
-
-## Google data caching (weekly)
-
-Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). The same Sunday job refreshes the events calendars (`src/lib/events.ts`): Putney.news (with their agreement), filtered to SW18 mentions, plus any feeds in `EVENT_ICAL_FEEDS`. Events added by hand in Contentful show first. A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
+Events and news are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/news` and `/`. Set `REVALIDATE_SECRET` in Netlify (any long random string). The same Sunday job refreshes the events calendars (`src/lib/events.ts`): Putney.news (with their agreement), filtered to SW18 mentions, plus any feeds in `EVENT_ICAL_FEEDS`. Events added by hand in Contentful show first.
 
 ## Local news (RSS)
 

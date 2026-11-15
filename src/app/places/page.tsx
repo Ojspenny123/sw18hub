@@ -8,8 +8,8 @@ import { abs } from "@/lib/seo";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Places to eat and drink in SW18, ranked by Google rating and reviews",
-  description: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields on one map, ranked by Google rating and reviews. Filter by area, type and features.",
+  title: "Places to eat and drink in SW18",
+  description: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields in one place, listed A to Z. Filter by area, type and features.",
   alternates: { canonical: "/places" },
 };
 
@@ -29,7 +29,7 @@ export default async function PlacesPage() {
       />
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <h1 className="title">Places to eat and drink in SW18</h1>
-        <p className="muted">{venues.length} cafes, restaurants, bars, pubs and takeaways in Wandsworth Town, Earlsfield and Southfields, ranked by Google rating and reviews.</p>
+        <p className="muted">{venues.length} cafes, restaurants, bars, pubs and takeaways in Wandsworth Town, Earlsfield and Southfields, all in one list.</p>
       </div>
       {venues.length === 0 ? <div className="empty">No venues yet. Add venues in Contentful and they will appear here.</div> : null}
       <PlacesExplorer venues={venues} />
