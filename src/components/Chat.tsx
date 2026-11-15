@@ -1,28 +1,38 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import RichText from "./RichText";
 
 interface Msg {
   role: "user" | "assistant";
   content: string;
 }
 
-const PATH = /(\/(?:places|best|whats-on|news|deals|about)(?:\/[a-z0-9-]+)?)/g;
-
-/** Turns site paths in an answer (like /places/amrutha) into links. Everything else stays plain text. */
-function Linked({ text }: { text: string }) {
+/** Shows an answer as if it is being typed. Pending links are held back until they are complete. */
+function Typed({ text, animate, onTick }: { text: string; animate: boolean; onTick: () => void }) {
+  const reduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [n, setN] = useState(animate && !reduced ? 0 : text.length);
+  useEffect(() => {
+    if (n >= text.length) return;
+    // About 90 characters a second, faster for long answers so nothing takes more than ~4 seconds.
+    const perTick = Math.max(2, Math.ceil(Math.max(90, text.length / 4) * 0.03));
+    const t = setTimeout(() => setN((x) => Math.min(text.length, x + perTick)), 30);
+    return () => clearTimeout(t);
+  }, [n, text]);
+  useEffect(() => {
+    onTick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [n]);
+  let shown = text.slice(0, n);
+  const typing = n < text.length;
+  if (typing) {
+    const open = shown.lastIndexOf("[");
+    if (open !== -1 && !/^\[[^\]]*\]\([^)]*\)/.test(shown.slice(open))) shown = shown.slice(0, open);
+  }
   return (
     <>
-      {text.split(PATH).map((part, i) =>
-        i % 2 === 1 ? (
-          <Link key={i} href={part}>
-            {part}
-          </Link>
-        ) : (
-          part
-        ),
-      )}
+      <RichText text={shown} />
+      {typing ? <span className="caret" aria-hidden="true" /> : null}
     </>
   );
 }
@@ -79,10 +89,18 @@ export default function Chat({ initialQuestion }: { initialQuestion?: string }) 
           ) : null}
           {msgs.map((m, i) => (
             <div key={i} className={`bubble ${m.role === "user" ? "user" : "bot"}`}>
-              {m.role === "assistant" ? <Linked text={m.content} /> : m.content}
+              {m.role === "assistant" ? (
+                <Typed text={m.content} animate={i === msgs.length - 1 && i > 0} onTick={() => endRef.current?.scrollIntoView({ block: "end" })} />
+              ) : (
+                m.content
+              )}
             </div>
           ))}
-          {busy ? <div className="bubble bot muted">One moment...</div> : null}
+          {busy ? (
+            <div className="bubble bot" aria-label="Typing">
+              <span className="dots" aria-hidden="true"><i /><i /><i /></span>
+            </div>
+          ) : null}
           <div ref={endRef} />
         </div>
         <form
