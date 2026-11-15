@@ -6,8 +6,8 @@ export default function VenueCard({ v }: { v: VenueWithRating }) {
   const g = v.google;
   const img = venueImage(v, 600);
   return (
-    <Link href="/places" className="card">
-      <div className="card-img" style={img ? { backgroundImage: `url(${img})` } : undefined} />
+    <Link href={`/places/${v.slug}`} className="card">
+      <div className="card-img" style={img ? { backgroundImage: `url(${img})` } : undefined} role="img" aria-label={`Photo of ${v.name}`} />
       <div className="card-body">
         <div className="card-title">{v.name}</div>
         <div className="small muted">
@@ -19,7 +19,7 @@ export default function VenueCard({ v }: { v: VenueWithRating }) {
             <span className="muted"> · {g.count?.toLocaleString("en-GB")} reviews</span>
           </div>
         ) : null}
-        {!v.image && g?.photoUrl && g.photoCredit ? <div className="small muted">Photo: {g.photoCredit} / Google</div> : null}
+        {!v.image && g?.photoUrl && g.photoCredit ? <div className="credit">Photo: {g.photoCredit} / Google</div> : null}
       </div>
     </Link>
   );

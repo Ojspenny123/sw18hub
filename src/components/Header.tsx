@@ -11,7 +11,7 @@ export default function Header() {
       <div className="wrap">
         <Link href="/" className="logo" aria-label="SW18 Hub home" onClick={close}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="SW18 Hub" height={40} style={{ height: 40, width: "auto", display: "block" }} />
+          <img src="/logo.svg" alt="SW18 Hub" width={105} height={36} />
         </Link>
         <button type="button" className="menu-btn" aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen((o) => !o)}>
           {open ? "Close" : "Menu"}

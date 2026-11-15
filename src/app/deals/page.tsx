@@ -6,7 +6,11 @@ import { dateLong } from "@/lib/format";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = { title: "Local deals" };
+export const metadata: Metadata = {
+  title: "Local deals and discount codes in SW18",
+  description: "Discount codes from independent pubs, cafes and shops in Wandsworth, Earlsfield and Southfields.",
+  alternates: { canonical: "/deals" },
+};
 
 const STEPS = [
   ["Apply and get verified", "Tell us about your business. We check it is a real SW18 business."],
@@ -17,22 +21,22 @@ const STEPS = [
 export default async function DealsPage() {
   const deals = await getDeals();
   return (
-    <div className="wrap section" style={{ paddingTop: 40 }}>
-      <div className="row" style={{ alignItems: "center", gap: 24 }}>
-        <div style={{ flex: "1 1 480px", display: "flex", flexDirection: "column", gap: 12 }}>
-          <h1 style={{ fontSize: 42, lineHeight: 1.1, letterSpacing: "-0.02em" }}>Local deals, only in SW18</h1>
+    <div className="wrap section" style={{ paddingTop: 24 }}>
+      <div className="deals-head">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <h1>Local deals, only in SW18</h1>
           <p className="muted" style={{ fontSize: 18 }}>Discount codes from independent pubs, cafés and shops near you.</p>
         </div>
-        <div className="panel" style={{ flex: "1 1 360px", gap: 10 }}>
+        <div className="panel">
           <div style={{ fontWeight: 600 }}>Get new deals by email</div>
           <LeadForm formName="waitlist" fields={[{ name: "email", label: "Your email", type: "email" }]} button="Notify me" done="Thanks, we will let you know." />
         </div>
       </div>
 
       {deals.length ? (
-        <div className="row">
+        <div className="grid three">
           {deals.map((d) => (
-            <div key={d.id} className="card" style={{ flex: "1 1 300px" }}>
+            <div key={d.id} className="card">
               <div className="card-img" style={{ height: 130, ...(d.image ? { backgroundImage: `url(${d.image}?w=600&fm=webp)` } : {}) }} />
               <div className="card-body" style={{ gap: 8 }}>
                 <div className="small muted">{[d.businessName, d.area].filter(Boolean).join(" · ")}</div>
@@ -50,13 +54,13 @@ export default async function DealsPage() {
         <div className="empty">The first deals are coming soon. Join the email list above to hear first.</div>
       )}
 
-      <section id="business" className="panel" style={{ marginTop: 24, padding: 32, gap: 24 }}>
-        <div className="between" style={{ alignItems: "center", gap: 16 }}>
-          <div style={{ flex: "1 1 360px" }}>
+      <section id="business" className="panel" style={{ marginTop: 16, gap: 20 }}>
+        <div className="stack">
+          <div>
             <h2 className="sub">Run a local business?</h2>
             <p className="muted" style={{ marginTop: 8 }}>Reach people in SW18 who are looking for somewhere to go.</p>
           </div>
-          <div style={{ flex: "1 1 360px" }}>
+          <div>
             <LeadForm
               formName="business-interest"
               fields={[

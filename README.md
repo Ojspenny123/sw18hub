@@ -53,3 +53,11 @@ Ratings, open-now and map positions are cached and only refreshed once a week, o
 ## Local news (RSS)
 
 `src/lib/rss.ts` pulls headlines from public RSS feeds (South West Londoner, South London News, Putney.news Southfields and Wandsworth Town). It's free (no API key). Feeds are re-fetched at most every 3 hours. Only the headline, a short snippet and a link back to the publisher are shown. To add or remove a source, edit `NEWS_FEEDS`. Stories added by hand in Contentful (`newsArticle`) still work and appear alongside, with featured ones on top.
+
+## SEO and GEO
+
+- Every page has its own title, description and canonical URL (`metadataBase` comes from `NEXT_PUBLIC_SITE_URL`, falling back to Netlify's `URL`). Set `NEXT_PUBLIC_SITE_URL` when you add a custom domain.
+- `/places/[slug]` is a page per venue and `/best/[type]-in-[area]` ranks places (for example `/best/cafes-in-earlsfield`). Both are built on first visit and then cached.
+- Structured data (JSON-LD): WebSite and Organization on every page, a local business type plus breadcrumbs on venue pages, ItemList and FAQPage on ranking pages, Event on the news page. Google ratings are deliberately not marked up as reviews.
+- `/sitemap.xml`, `/robots.txt` (search and AI crawlers allowed, `/api/` blocked) and `/llms.txt` are generated from Contentful.
+- `/about` explains how places are ranked, which helps people and AI assistants trust and cite the site.

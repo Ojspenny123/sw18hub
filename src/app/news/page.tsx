@@ -5,8 +5,14 @@ import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews } from "@/lib/contentful";
 import { NEWS_TOPICS } from "@/lib/types";
 import { dayNum, dayShort, timeAgo, timeShort } from "@/lib/format";
+import JsonLd from "@/components/JsonLd";
+import { abs } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Local news and events" };
+export const metadata: Metadata = {
+  title: "SW18 local news and what's on",
+  description: "Latest local news for Wandsworth, Earlsfield and Southfields from trusted local sources, plus events and things to do in SW18.",
+  alternates: { canonical: "/news" },
+};
 
 export default async function NewsPage({ searchParams }: { searchParams: Promise<{ topic?: string; area?: string }> }) {
   const { topic, area } = await searchParams;
@@ -23,9 +29,22 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
   const rest = news.filter((n) => n.id !== lead?.id);
 
   return (
-    <div className="wrap section" style={{ paddingTop: 28 }}>
-      <h1 className="title">Local news</h1>
-      <div className="chips">
+    <div className="wrap section" style={{ paddingTop: 24 }}>
+      <JsonLd
+        data={events.slice(0, 20).map((e) => ({
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: e.title,
+          startDate: e.startsAt,
+          ...(e.endsAt ? { endDate: e.endsAt } : {}),
+          ...(e.description ? { description: e.description } : {}),
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          location: { "@type": "Place", name: e.venueName ?? "SW18", address: { "@type": "PostalAddress", addressLocality: "London", addressCountry: "GB" } },
+          url: e.link ?? abs("/news#whats-on"),
+        }))}
+      />
+      <h1 className="title">SW18 local news</h1>
+      <div className="chips" role="group" aria-label="Area">
         <Link href={href(topic)} className={`chip${!sw18Only ? " on" : ""}`}>
           All of Wandsworth
         </Link>
@@ -41,14 +60,14 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
         ))}
       </div>
 
-      <div className="row" style={{ gap: 32, alignItems: "flex-start" }}>
-        <div style={{ flex: "2 1 560px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
+      <div className="news-cols">
+        <div className="news-main">
           {lead ? (
-            <a href={lead.sourceUrl ?? "#"} className="card" style={{ flex: "none" }} target="_blank" rel="noopener noreferrer">
-              <NewsThumb n={lead} className="card-img" width={1200} style={{ height: 300 }} />
-              <div className="card-body" style={{ padding: "20px 24px 24px", gap: 8 }}>
+            <a href={lead.sourceUrl ?? "#"} className="card news-feature" target="_blank" rel="noopener noreferrer">
+              <NewsThumb n={lead} className="card-img" width={1200} />
+              <div className="card-body">
                 <div className="topic">{lead.topic}</div>
-                <div style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.2 }}>{lead.title}</div>
+                <div className="headline">{lead.title}</div>
                 <p className="muted">{lead.summary}</p>
                 <div className="small muted">
                   {lead.sourceName ? `${lead.sourceName} · ` : ""}
@@ -61,11 +80,11 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
             <div className="empty">{sw18Only ? "No SW18 stories right now. Try All of Wandsworth." : "No news right now. Check back soon."}</div>
           )}
           {rest.map((n) => (
-            <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }} target="_blank" rel="noopener noreferrer">
-              <NewsThumb n={n} className="thumb" width={400} style={{ width: 160, height: 112 }} />
-              <div style={{ flex: "1 1 260px", minWidth: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+            <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" target="_blank" rel="noopener noreferrer">
+              <NewsThumb n={n} className="thumb" width={400} />
+              <div className="text">
                 <div className="topic">{n.topic}</div>
-                <div style={{ fontWeight: 600, fontSize: 18 }}>{n.title}</div>
+                <div className="headline">{n.title}</div>
                 <div className="small muted">{n.summary}</div>
                 <div className="small muted">
                   {n.sourceName ? `${n.sourceName} · ` : ""}
@@ -77,15 +96,15 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
           ))}
         </div>
 
-        <aside style={{ flex: "1 1 320px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
-          <div className="panel" id="whats-on" style={{ gap: 12 }}>
+        <aside className="news-side">
+          <div className="panel" id="whats-on">
             <h2 style={{ fontSize: 20 }}>What&apos;s on</h2>
             {events.length ? (
               events.slice(0, 8).map((e) => (
-                <a key={e.id} href={e.link ?? "#whats-on"} className="event" style={{ padding: 10, gap: 12 }}>
-                  <div className="date" style={{ width: 52 }}>
+                <a key={e.id} href={e.link ?? "#whats-on"} className="event">
+                  <div className="date">
                     <span>{dayShort(e.startsAt)}</span>
-                    <b style={{ fontSize: 18 }}>{dayNum(e.startsAt)}</b>
+                    <b>{dayNum(e.startsAt)}</b>
                   </div>
                   <div style={{ minWidth: 0 }}>
                     <div style={{ fontWeight: 600 }}>{e.title}</div>
@@ -97,7 +116,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               <p className="small muted">No upcoming events yet.</p>
             )}
           </div>
-          <div className="panel" style={{ gap: 10 }}>
+          <div className="panel">
             <h2 style={{ fontSize: 20 }}>Weekly SW18 round-up</h2>
             <p className="small muted">News, events and new places in one email.</p>
             <LeadForm formName="waitlist" fields={[{ name: "email", label: "Your email", type: "email" }]} button="Subscribe" done="Thanks, you are on the list." />

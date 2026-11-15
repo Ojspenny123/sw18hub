@@ -46,8 +46,8 @@ export default function LeadForm({
   return (
     <form onSubmit={onSubmit} className="form-row" aria-label={button}>
       {fields.map((f) => (
-        <span key={f.name} style={{ flex: "1 1 200px", minWidth: 0, display: "flex" }}>
-          <label htmlFor={`${formName}-${f.name}`} style={{ position: "absolute", left: -9999 }}>
+        <span key={f.name} className="field">
+          <label htmlFor={`${formName}-${f.name}`} className="sr">
             {f.label}
           </label>
           <input
@@ -60,7 +60,7 @@ export default function LeadForm({
           />
         </span>
       ))}
-      <button type="submit" className="btn" disabled={state === "sending"} style={{ height: 48 }}>
+      <button type="submit" className="btn" disabled={state === "sending"}>
         {state === "sending" ? "Sending..." : button}
       </button>
       {state === "error" ? <span role="alert" className="small">Something went wrong. Please try again.</span> : null}
