@@ -24,6 +24,8 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
   const [openNow, setOpenNow] = useState(false);
   const [sort, setSort] = useState<Sort>("rating");
   const [selected, setSelected] = useState<string | null>(null);
+  // The Google map is billed per load, so it only loads when someone asks for it.
+  const [mapOn, setMapOn] = useState(false);
 
   const list = useMemo(() => {
     const out = venues.filter(
@@ -122,7 +124,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </div>
 
         <div className="map-panel">
-          {MAPS_KEY ? (
+          {MAPS_KEY && (mapOn || view === "map") ? (
             <div className="gm">
               <APIProvider apiKey={MAPS_KEY}>
                 <Map
@@ -148,6 +150,10 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
                 </Map>
               </APIProvider>
             </div>
+          ) : MAPS_KEY ? (
+            <button type="button" className="btn" onClick={() => setMapOn(true)}>
+              Show map
+            </button>
           ) : (
             <p className="muted" style={{ padding: 24 }}>
               The map appears here once a Google Maps API key is added (NEXT_PUBLIC_GOOGLE_MAPS_API_KEY).

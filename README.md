@@ -46,9 +46,8 @@ GOOGLE_MAPS_API_KEY=... CONTENTFUL_SPACE_ID=rfvqnggtcs8w CONTENTFUL_MANAGEMENT_T
 
 It only saves matches that look right and skips venues Google marks as closed. Check the lines marked `CHECK`. Only the Place ID is stored: ratings, open now and map position are fetched live, because Google's terms limit storing them.
 
-## Google data caching (weekly)
-
-Ratings, open-now and map positions are cached and only refreshed once a week, on Sunday at 03:00 UTC, by the Netlify scheduled function `netlify/functions/weekly-refresh.mjs`. It calls `/api/revalidate-google`, then visits `/places` and `/` once so visitors never trigger Google calls. Set `REVALIDATE_SECRET` in Netlify (any long random string). The same Sunday job refreshes the events calendars (`src/lib/events.ts`): Putney.news (with their agreement), filtered to SW18 mentions, plus any feeds in `EVENT_ICAL_FEEDS`. Events added by hand in Contentful show first. A new deploy starts with an empty cache, so it makes one round of Google calls (one per venue).
+## Google data: one refresh a week
+Google Places is called by one thing only: `refreshGoogle()` in `src/lib/google.ts`, run from `POST /api/revalidate-google` (needs `REVALIDATE_SECRET`). The Netlify scheduled function `netlify/functions/weekly-refresh.mjs` calls it every Sunday at 03:00 UTC. Results are saved as one snapshot in Netlify Blobs, so deploys, rebuilds and page renders never call Google: pages only read the snapshot. The refresh skips itself if the snapshot is under 6 days old, and never calls Google if it cannot save the result. Set `GOOGLE_API_DISABLED=1` in Netlify to switch every Google call off. The map (Maps JavaScript API, billed per load) only loads when a visitor taps "Show map". To refresh by hand: `curl -X POST -H "Authorization: Bearer $REVALIDATE_SECRET" "https://YOUR-SITE/api/revalidate-google?force=1"`. `/api/status` shows when the snapshot was taken. The same Sunday job refreshes the events calendars (`src/lib/events.ts`).
 
 ## Local news (RSS)
 

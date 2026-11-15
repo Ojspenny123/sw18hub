@@ -1,4 +1,5 @@
 import { CONTENT_TYPES, SITE_TAG } from "@/lib/contentful";
+import { readSnapshot } from "@/lib/google";
 
 export const dynamic = "force-dynamic";
 
@@ -36,6 +37,7 @@ export async function GET() {
     contentful,
     contentTypes: CONTENT_TYPES,
     counts,
+    googleSnapshot: await readSnapshot().then((x) => (x ? { fetchedAt: x.fetchedAt, places: Object.keys(x.ratings).length } : "none yet")),
     GOOGLE_MAPS_API_KEY: Boolean(process.env.GOOGLE_MAPS_API_KEY),
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY),
     NEXT_PUBLIC_GOOGLE_MAP_ID: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID),
