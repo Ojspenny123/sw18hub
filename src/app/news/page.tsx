@@ -1,3 +1,4 @@
+import NewsThumb from "@/components/NewsThumb";
 import type { Metadata } from "next";
 import Link from "next/link";
 import LeadForm from "@/components/LeadForm";
@@ -44,7 +45,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
         <div style={{ flex: "2 1 560px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
           {lead ? (
             <a href={lead.sourceUrl ?? "#"} className="card" style={{ flex: "none" }}>
-              <div className="card-img" style={{ height: 300, ...(lead.image ? { backgroundImage: `url(${lead.image}?w=1200&fm=webp)` } : {}) }} />
+              <NewsThumb n={lead} className="card-img" width={1200} style={{ height: 300 }} />
               <div className="card-body" style={{ padding: "20px 24px 24px", gap: 8 }}>
                 <div className="topic">{lead.topic}</div>
                 <div style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.2 }}>{lead.title}</div>
@@ -61,7 +62,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
           )}
           {rest.map((n) => (
             <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" style={{ flexWrap: "wrap" }}>
-              <div className="thumb" style={{ width: 160, height: 112, ...(n.image ? { backgroundImage: `url(${n.image}?w=400&fm=webp)` } : {}) }} />
+              <NewsThumb n={n} className="thumb" width={400} style={{ width: 160, height: 112 }} />
               <div style={{ flex: "1 1 260px", minWidth: 0, display: "flex", flexDirection: "column", gap: 6 }}>
                 <div className="topic">{n.topic}</div>
                 <div style={{ fontWeight: 600, fontSize: 18 }}>{n.title}</div>

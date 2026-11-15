@@ -1,3 +1,4 @@
+import NewsThumb from "@/components/NewsThumb";
 import Link from "next/link";
 import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
@@ -84,7 +85,7 @@ export default async function Home() {
         {lead ? (
           <div className="row" style={{ gap: 24 }}>
             <a href={lead.sourceUrl ?? "/news"} className="card news-feature">
-              <div className="card-img" style={lead.image ? { backgroundImage: `url(${lead.image}?w=1000&fm=webp)` } : undefined} />
+              <NewsThumb n={lead} className="card-img" width={1000} />
               <div className="card-body">
                 <div className="topic">{lead.topic}</div>
                 <div style={{ fontSize: 24, fontWeight: 700, lineHeight: 1.2 }}>{lead.title}</div>
@@ -97,7 +98,7 @@ export default async function Home() {
             <div className="news-list">
               {more.map((n) => (
                 <a key={n.id} href={n.sourceUrl ?? "/news"} className="news-item">
-                  <div className="thumb" style={n.image ? { backgroundImage: `url(${n.image}?w=300&fm=webp)` } : undefined} />
+                  <NewsThumb n={n} className="thumb" width={300} />
                   <div style={{ minWidth: 0 }}>
                     <div className="topic">{n.topic}</div>
                     <div style={{ fontWeight: 600 }}>{n.title}</div>
