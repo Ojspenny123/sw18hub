@@ -1,0 +1,25 @@
+name: commons-images
+# Free, one-off: finds openly licensed venue photos on Wikimedia Commons and commits data/venue-images.json.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/commons-images.mjs
+      - .github/workflows/commons-images.yml
+permissions:
+  contents: write
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/commons-images.mjs
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/venue-images.json
+          git diff --staged --quiet || (git commit -m "Add Commons venue photos [skip ci]" && git push)
