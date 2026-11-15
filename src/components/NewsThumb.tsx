@@ -25,7 +25,7 @@ export default function NewsThumb({ n, className, width, style }: { n: NewsArtic
   const onPink = topic === "Community";
   return (
     <div className={className} style={{ ...style, background: COLOURS[topic], display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
-      <svg width="44%" height="44%" style={{ maxWidth: 64, maxHeight: 64 }} viewBox="0 0 24 24" fill="none" stroke={onPink ? "#fff" : "var(--pink)"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="40%" height="40%" style={{ maxWidth: 96, maxHeight: 96 }} viewBox="0 0 24 24" fill="none" stroke={onPink ? "#fff" : "var(--pink)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d={ICONS[topic]} />
       </svg>
     </div>

@@ -1,10 +1,9 @@
-import NewsThumb from "@/components/NewsThumb";
+import NewsCard from "@/components/NewsCard";
 import type { Metadata } from "next";
 import Link from "next/link";
 import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews } from "@/lib/contentful";
 import { NEWS_TOPICS } from "@/lib/types";
-import { timeAgo } from "@/lib/format";
 import EventRow from "@/components/EventRow";
 import JsonLd from "@/components/JsonLd";
 import { abs } from "@/lib/seo";
@@ -26,8 +25,6 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
   };
   const [all, events] = await Promise.all([getNews(), getEvents()]);
   const news = all.filter((n) => (!topic || n.topic === topic) && (!sw18Only || n.sw18));
-  const lead = news.find((n) => n.featured) ?? news[0];
-  const rest = news.filter((n) => n.id !== lead?.id);
 
   return (
     <div className="wrap section" style={{ paddingTop: 24 }}>
@@ -61,62 +58,29 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
         ))}
       </div>
 
-      <div className="news-cols">
-        <div className="news-main">
-          {lead ? (
-            <a href={lead.sourceUrl ?? "#"} className="card news-feature" target="_blank" rel="noopener noreferrer">
-              <NewsThumb n={lead} className="card-img" width={1200} />
-              <div className="card-body">
-                <div className="topic">{lead.topic}</div>
-                <div className="headline">{lead.title}</div>
-                <p className="muted">{lead.summary}</p>
-                <div className="small muted">
-                  {lead.sourceName ? `${lead.sourceName} · ` : ""}
-                  {timeAgo(lead.publishedAt)}
-                </div>
-                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
-              </div>
-            </a>
-          ) : (
-            <div className="empty">{sw18Only ? "No SW18 stories right now. Try All of Wandsworth." : "No news right now. Check back soon."}</div>
-          )}
-          {rest.map((n) => (
-            <a key={n.id} href={n.sourceUrl ?? "#"} className="news-item" target="_blank" rel="noopener noreferrer">
-              <NewsThumb n={n} className="thumb" width={400} />
-              <div className="text">
-                <div className="topic">{n.topic}</div>
-                <div className="headline">{n.title}</div>
-                <div className="small muted">{n.summary}</div>
-                <div className="small muted">
-                  {n.sourceName ? `${n.sourceName} · ` : ""}
-                  {timeAgo(n.publishedAt)}
-                </div>
-                {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
-              </div>
-            </a>
+      {news.length ? (
+        <div className="news-grid">
+          {news.slice(0, 24).map((n) => (
+            <NewsCard key={n.id} n={n} />
           ))}
         </div>
+      ) : (
+        <div className="empty">{sw18Only ? "No SW18 stories right now. Try All of Wandsworth." : "No news right now. Check back soon."}</div>
+      )}
 
-        <aside className="news-side">
-          <div className="panel" id="whats-on">
-            <h2 style={{ fontSize: 20 }}>What&apos;s on</h2>
-            {events.length ? (
-              events.slice(0, 8).map((e) => (
-                <EventRow key={e.id} e={e} showType={false} />
-              ))
-            ) : (
-              <p className="small muted">No upcoming events yet.</p>
-            )}
-            <Link href="/whats-on" className="more-link">
-              See all events
-            </Link>
-          </div>
-          <div className="panel">
-            <h2 style={{ fontSize: 20 }}>Weekly SW18 round-up</h2>
-            <p className="small muted">News, events and new places in one email.</p>
-            <LeadForm formName="waitlist" fields={[{ name: "email", label: "Your email", type: "email" }]} button="Subscribe" done="Thanks, you are on the list." />
-          </div>
-        </aside>
+      <div className="extras">
+        <div className="panel" id="whats-on">
+          <h2 style={{ fontSize: 20 }}>What&apos;s on</h2>
+          {events.length ? events.slice(0, 5).map((e) => <EventRow key={e.id} e={e} showType={false} />) : <p className="small muted">No upcoming events yet.</p>}
+          <Link href="/whats-on" className="more-link">
+            See all events
+          </Link>
+        </div>
+        <div className="panel">
+          <h2 style={{ fontSize: 20 }}>Weekly SW18 round-up</h2>
+          <p className="small muted">News, events and new places in one email.</p>
+          <LeadForm formName="waitlist" fields={[{ name: "email", label: "Your email", type: "email" }]} button="Subscribe" done="Thanks, you are on the list." />
+        </div>
       </div>
     </div>
   );

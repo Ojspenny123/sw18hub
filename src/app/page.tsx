@@ -1,10 +1,9 @@
-import NewsThumb from "@/components/NewsThumb";
+import NewsCard from "@/components/NewsCard";
 import Link from "next/link";
 import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews, getVenues } from "@/lib/contentful";
 import { byRating, withRatings } from "@/lib/google";
-import { timeAgo } from "@/lib/format";
 import EventRow from "@/components/EventRow";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -24,8 +23,6 @@ export default async function Home() {
   const [venues, news, events] = await Promise.all([getVenues(), getNews(), getEvents()]);
   const rated = await withRatings(venues);
   const top = [...rated].sort((a, b) => byRating(a, b) || Number(b.featured) - Number(a.featured)).slice(0, 4);
-  const lead = news.find((n) => n.featured) ?? news[0];
-  const more = news.filter((n) => n.id !== lead?.id).slice(0, 3);
 
   return (
     <>
@@ -89,36 +86,11 @@ export default async function Home() {
             All news
           </Link>
         </div>
-        {lead ? (
-          <div className="news-split stack" style={{ gap: 16 }}>
-            <a href={lead.sourceUrl ?? "/news"} className="card news-feature" {...(lead.sourceUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-              <NewsThumb n={lead} className="card-img" width={1000} />
-              <div className="card-body">
-                <div className="topic">{lead.topic}</div>
-                <div className="headline">{lead.title}</div>
-                <div className="small muted">
-                  {lead.sourceName ? `${lead.sourceName} · ` : ""}
-                  {timeAgo(lead.publishedAt)}
-                </div>
-                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
-              </div>
-            </a>
-            <div className="news-list">
-              {more.map((n) => (
-                <a key={n.id} href={n.sourceUrl ?? "/news"} className="news-item" {...(n.sourceUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                  <NewsThumb n={n} className="thumb" width={300} />
-                  <div className="text">
-                    <div className="topic">{n.topic}</div>
-                    <div className="headline">{n.title}</div>
-                    <div className="small muted">
-                      {n.sourceName ? `${n.sourceName} · ` : ""}
-                      {timeAgo(n.publishedAt)}
-                    </div>
-                    {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
-                  </div>
-                </a>
-              ))}
-            </div>
+        {news.length ? (
+          <div className="news-grid">
+            {news.slice(0, 4).map((n) => (
+              <NewsCard key={n.id} n={n} />
+            ))}
           </div>
         ) : (
           <div className="empty">No news right now. Check back soon.</div>
