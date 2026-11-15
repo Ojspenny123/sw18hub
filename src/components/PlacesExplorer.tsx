@@ -12,6 +12,7 @@ const CENTER = { lat: 51.455, lng: -0.19 };
 type Sort = "rating" | "reviews" | "name";
 
 export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }) {
+  const [view, setView] = useState<"list" | "map">("list");
   const [type, setType] = useState("All");
   const [area, setArea] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
@@ -45,22 +46,33 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
   return (
     <>
       <div className="filters">
-        <div className="filter-row">
-          <span className="lbl" style={{ fontSize: 14, fontWeight: 600, marginRight: 4 }}>Type</span>
+        <div className="filter-row scroll" role="group" aria-label="Type">
           {["All", ...VENUE_TYPES].map((t) => (
             <button key={t} type="button" className="chip" aria-pressed={type === t} onClick={() => setType(t)}>
               {t === "Cafe" ? "Cafes" : t === "All" ? "All" : `${t}s`}
             </button>
           ))}
         </div>
-        <div className="filter-row">
-          <label className="lbl" htmlFor="area">Area</label>
-          <select id="area" value={area} onChange={(e) => setArea(e.target.value)}>
-            <option value="">All areas</option>
-            {AREAS.map((a) => (
-              <option key={a}>{a}</option>
-            ))}
-          </select>
+        <div className="filter-selects">
+          <label className="sel">
+            <span className="lbl">Area</span>
+            <select id="area" value={area} onChange={(e) => setArea(e.target.value)}>
+              <option value="">All areas</option>
+              {AREAS.map((a) => (
+                <option key={a}>{a}</option>
+              ))}
+            </select>
+          </label>
+          <label className="sel">
+            <span className="lbl">Sort</span>
+            <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
+              <option value="rating">Top rated</option>
+              <option value="reviews">Most reviewed</option>
+              <option value="name">A to Z</option>
+            </select>
+          </label>
+        </div>
+        <div className="filter-row scroll" role="group" aria-label="More filters">
           <button type="button" className="chip" aria-pressed={highRated} onClick={() => setHighRated((x) => !x)}>
             Rating 4.0+
           </button>
@@ -72,20 +84,21 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
               {f}
             </button>
           ))}
-          <span style={{ flex: "1 1 auto" }} />
-          <label className="lbl" htmlFor="sort">Sort</label>
-          <select id="sort" value={sort} onChange={(e) => setSort(e.target.value as Sort)}>
-            <option value="rating">Top rated</option>
-            <option value="reviews">Most reviewed</option>
-            <option value="name">A to Z</option>
-          </select>
         </div>
+      </div>
+      <div className="view-toggle" role="group" aria-label="Show">
+        <button type="button" className="chip" aria-pressed={view === "list"} onClick={() => setView("list")}>
+          List
+        </button>
+        <button type="button" className="chip" aria-pressed={view === "map"} onClick={() => setView("map")}>
+          Map
+        </button>
       </div>
       <p className="small muted" aria-live="polite">
         {list.length} {list.length === 1 ? "place" : "places"} in SW18
       </p>
 
-      <div className="split">
+      <div className="split" data-view={view}>
         <div className="venue-list">
           {list.length === 0 ? <div className="empty">No places match those filters.</div> : null}
           {list.map((v, i) => (
@@ -137,9 +150,10 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </div>
 
         {MAPS_KEY ? (
-          <div className="map" style={{ padding: 0 }}>
+          <div className="map map-panel" style={{ padding: 0 }}>
             <APIProvider apiKey={MAPS_KEY}>
               <Map
+                key={view}
                 defaultCenter={CENTER}
                 defaultZoom={14}
                 mapId={MAP_ID}
@@ -164,7 +178,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
             </APIProvider>
           </div>
         ) : (
-          <div className="map">
+          <div className="map map-panel">
             <p className="muted">The map appears here once a Google Maps API key is added (NEXT_PUBLIC_GOOGLE_MAPS_API_KEY).</p>
           </div>
         )}

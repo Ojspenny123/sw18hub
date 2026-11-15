@@ -55,7 +55,7 @@ h2.sub { font-size: 28px; }
 .btn.outline:hover { background: var(--yellow-pale); color: var(--ink); }
 .btn.dark { background: var(--ink); }
 .chip { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #8c8c86; background: #fff; color: var(--ink); font-size: 14px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; }
-.chip[aria-pressed="true"], .chip.on { background: var(--pink); border-color: var(--pink); color: #fff; }
+.chip[aria-pressed="true"], .chip.on, .chips .chip.on { background: var(--pink); border-color: var(--pink); color: #fff; }
 .pill { padding: 10px 14px; border-radius: 999px; background: var(--fill); color: var(--ink); font-size: 14px; font-weight: 500; text-decoration: none; }
 .tag { font-size: 12px; background: var(--fill); padding: 3px 8px; border-radius: 4px; }
 .topic { font-size: 12px; font-weight: 600; color: var(--pink); text-transform: uppercase; letter-spacing: 0.04em; }
@@ -137,12 +137,72 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .try { min-height: 44px; padding: 8px 14px; text-align: left; border-radius: 8px; border: 1px solid #8c8c86; background: #fff; cursor: pointer; font-size: 14px; }
 .try:hover { background: var(--yellow-pale); }
 
-@media (max-width: 600px) {
-  .wrap { padding: 0 16px; }
-  .hero h1 { font-size: 34px; }
-  .hero { padding: 28px 0; }
-  .map { height: 420px; }
-}
-
 .ext { font-size: 14px; font-weight: 600; color: var(--pink-dark); margin-top: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* header menu (mobile) */
+.menu-btn { display: none; margin-left: auto; min-height: 44px; padding: 0 16px; border: 1.5px solid var(--ink); border-radius: 8px; background: #fff; color: var(--ink); font-weight: 600; cursor: pointer; }
+.nav-wrap { display: flex; flex: 1 1 auto; flex-wrap: wrap; align-items: center; gap: 8px 32px; }
+
+/* places filters */
+.filter-selects { display: flex; flex-wrap: wrap; gap: 12px; }
+.filter-selects .sel { display: flex; align-items: center; gap: 8px; }
+.filter-selects .lbl { font-size: 14px; font-weight: 600; }
+.filter-selects select { height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid #8c8c86; background: #fff; font-size: 14px; }
+.view-toggle { display: none; gap: 8px; }
+
+@media (max-width: 820px) {
+  .header .wrap { padding-top: 8px; padding-bottom: 8px; gap: 0 12px; }
+  .menu-btn { display: inline-flex; align-items: center; }
+  .nav-wrap { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 4px; padding: 8px 0 12px; }
+  .nav-wrap.open { display: flex; }
+  .nav { flex-direction: column; gap: 0; }
+  .nav a { padding: 14px 4px; font-size: 18px; border-bottom: 1px solid var(--fill); }
+  .nav-wrap .btn { margin-top: 8px; }
+  .hero-art { display: none; }
+
+  /* map / list toggle instead of a long list with the map at the bottom */
+  .view-toggle { display: flex; }
+  .view-toggle .chip { flex: 1; justify-content: center; }
+  .split[data-view="list"] .map-panel { display: none; }
+  .split[data-view="map"] .venue-list { display: none; }
+  .venue-list { max-width: none; flex-basis: 100%; }
+  .map { height: 70vh; min-height: 360px; flex-basis: 100%; }
+}
+
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
+  .hero { padding: 24px 0 28px; }
+  .hero h1 { font-size: 32px; }
+  .hero p.lead { font-size: 16px; }
+  .hero-text { gap: 16px; }
+  .section { padding-top: 36px; }
+  h1.title { font-size: 28px; }
+  h2.sub { font-size: 24px; }
+  .logo img { height: 34px !important; }
+
+  /* chip rows scroll sideways instead of wrapping into a tall block */
+  .filters { padding: 12px; gap: 10px; }
+  .filter-row.scroll { flex-wrap: nowrap; overflow-x: auto; margin: 0 -12px; padding: 2px 12px; scrollbar-width: none; }
+  .filter-row.scroll::-webkit-scrollbar { display: none; }
+  .filter-row.scroll .chip { flex: none; }
+  .filter-selects { display: grid; grid-template-columns: 1fr 1fr; }
+  .filter-selects .sel { flex-direction: column; align-items: stretch; gap: 4px; }
+  .filter-selects select { width: 100%; }
+
+  .cats { gap: 8px; }
+  .cat { flex-basis: calc(50% - 4px); padding: 14px 12px; }
+  .card-img { height: 170px !important; }
+  .news-feature .card-img { height: 190px; }
+  .news-item { flex-direction: column; }
+  .news-item .thumb { width: 100% !important; height: 120px !important; }
+  .venue { padding: 10px; gap: 12px; }
+  .venue .thumb { width: 80px; height: 80px; }
+  .teaser { padding: 20px; }
+  .panel { padding: 16px; }
+  .msgs { padding: 16px; min-height: 220px; }
+  .chat form { padding: 12px 16px; }
+  .chat form .btn { width: 100%; }
+  .askbox .btn { width: 100%; }
+  .footer .wrap { flex-direction: column; }
+}

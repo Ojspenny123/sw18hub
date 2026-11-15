@@ -54,7 +54,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
                   {lead.sourceName ? `${lead.sourceName} · ` : ""}
                   {timeAgo(lead.publishedAt)}
                 </div>
-                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
+                {lead.sourceUrl ? <div className="ext">Read on {lead.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
               </div>
             </a>
           ) : (
@@ -71,7 +71,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
                   {n.sourceName ? `${n.sourceName} · ` : ""}
                   {timeAgo(n.publishedAt)}
                 </div>
-                {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">\u2197</span> <span className="sr">(opens in a new tab)</span></div> : null}
+                {n.sourceUrl ? <div className="ext">Read on {n.sourceName ?? "the publisher\u2019s site"} <span aria-hidden="true">↗</span> <span className="sr">(opens in a new tab)</span></div> : null}
               </div>
             </a>
           ))}
