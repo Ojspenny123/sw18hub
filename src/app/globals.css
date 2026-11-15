@@ -72,7 +72,7 @@ h2.sub { font-size: 28px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips .chip { background: #fff; }
 .hero-art { flex: 1 1 420px; min-height: 320px; display: flex; align-items: center; justify-content: center; }
-.hero-art img { width: 100%; max-width: 420px; height: auto; }
+.hero-art img { width: 100%; max-width: 460px; height: auto; }
 
 /* cards */
 .card { flex: 1 1 240px; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: var(--ink); }

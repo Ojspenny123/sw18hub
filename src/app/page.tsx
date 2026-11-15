@@ -44,7 +44,7 @@ export default async function Home() {
           </div>
           <div className="hero-art">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="SW18 Hub" width={400} height={240} />
+            <img src="/logo.svg" alt="SW18 Hub" width={460} height={150} />
           </div>
         </div>
       </section>
