@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-15T17:36:28.690Z",
+ "fetchedAt": "2026-11-15T17:43:04.302Z",
  "source": "OpenStreetMap contributors (ODbL)",
  "venues": {
   "the-alma": {
@@ -10,7 +10,7 @@
    "website": "https://www.almawandsworth.com",
    "osm": "https://www.openstreetmap.org/way/204031258",
    "matchedName": "The Alma",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-ship-wandsworth": {
@@ -19,7 +19,7 @@
    "website": "https://www.theship.co.uk/",
    "osm": "https://www.openstreetmap.org/way/331995902",
    "matchedName": "The Ship",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-cats-back": {
@@ -57,7 +57,7 @@
    "lon": -0.185742,
    "osm": "https://www.openstreetmap.org/way/790879743",
    "matchedName": "The East Hill",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "queen-adelaide": {
@@ -68,7 +68,7 @@
    "website": "https://www.thequeenadelaide.co.uk/",
    "osm": "https://www.openstreetmap.org/way/30838121",
    "matchedName": "Queen Adelaide",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-grapes-wandsworth": {
@@ -77,7 +77,7 @@
    "website": "https://www.youngs.co.uk/pub-detail.asp?PubID=283",
    "osm": "https://www.openstreetmap.org/way/436523538",
    "matchedName": "Grapes",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "megans-in-the-tonsleys": {
@@ -94,7 +94,7 @@
    "website": "https://www.youngs.co.uk/pub-detail.asp?PubID=308",
    "osm": "https://www.openstreetmap.org/way/317442798",
    "matchedName": "The Old Sergeant",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "halfway-house-earlsfield": {
@@ -104,7 +104,15 @@
    "website": "https://www.thehalfway.com/",
    "osm": "https://www.openstreetmap.org/node/1737829082",
    "matchedName": "Halfway House",
-   "score": 1.25,
+   "score": 1.35,
+   "via": "overpass"
+  },
+  "the-earlsfield": {
+   "lat": 51.442377,
+   "lon": -0.188091,
+   "osm": "https://www.openstreetmap.org/node/3423539966",
+   "matchedName": "The Earlsfield",
+   "score": 1.35,
    "via": "overpass"
   },
   "the-country-house": {
@@ -113,7 +121,7 @@
    "openingHours": "Mo-Th 12:00-23:00; Fr-Sa 12:00-24:00; Su 12:00-22:30",
    "osm": "https://www.openstreetmap.org/node/5782065244",
    "matchedName": "The Country House",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-wandle-earlsfield": {
@@ -124,7 +132,7 @@
    "website": "https://www.wandleearlsfield.com/",
    "osm": "https://www.openstreetmap.org/node/1737829080",
    "matchedName": "The Wandle",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-jolly-gardeners": {
@@ -132,7 +140,7 @@
    "lon": -0.189613,
    "osm": "https://www.openstreetmap.org/way/757708319",
    "matchedName": "The Jolly Gardener",
-   "score": 1.1,
+   "score": 1.2,
    "via": "overpass"
   },
   "park-tavern": {
@@ -143,7 +151,7 @@
    "website": "http://park-tavern.com/",
    "osm": "https://www.openstreetmap.org/way/791165727",
    "matchedName": "The Park Tavern",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-earl-spencer": {
@@ -170,7 +178,7 @@
    "website": "https://www.greeneking.co.uk/pubs/greater-london/old-fields",
    "osm": "https://www.openstreetmap.org/way/956366728",
    "matchedName": "The Old Fields",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "pig-and-whistle": {
@@ -197,7 +205,7 @@
    "website": "https://theroundhousewandsworth.com/",
    "osm": "https://www.openstreetmap.org/way/99420375",
    "matchedName": "The Roundhouse",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "the-county-arms": {
@@ -269,7 +277,7 @@
    "website": "https://www.hoppercoffeehouse.co.uk/",
    "osm": "https://www.openstreetmap.org/way/204489480",
    "matchedName": "Hopper Coffee House",
-   "score": 1.1,
+   "score": 1.2,
    "via": "overpass"
   },
   "lockdown-bakehouse": {
@@ -279,7 +287,7 @@
    "website": "https://www.lockdownbakehouse.com/",
    "osm": "https://www.openstreetmap.org/way/667660289",
    "matchedName": "Lockdown Bakehouse",
-   "score": 1.25,
+   "score": 1.35,
    "via": "overpass"
   },
   "belle-amie": {
@@ -296,14 +304,6 @@
    "openingHours": "Tu-Sa 09:00-17:30; Mo 09:30-17:30; PH,Su off",
    "osm": "https://www.openstreetmap.org/way/325168264",
    "matchedName": "Wandsworth Cafe",
-   "score": 0.85,
-   "via": "overpass"
-  },
-  "brookwood-garden-coffee-brunch": {
-   "lat": 51.443354,
-   "lon": -0.204754,
-   "osm": "https://www.openstreetmap.org/way/1105375770",
-   "matchedName": "Brookwood Garden",
    "score": 0.85,
    "via": "overpass"
   },
@@ -342,15 +342,23 @@
    "website": "https://www.theraminnsw18.co.uk/",
    "osm": "https://www.openstreetmap.org/way/204180594",
    "matchedName": "The Ram Inn",
-   "score": 1.1,
+   "score": 1.2,
    "via": "overpass"
   },
   "michaels-fish-bar-kebab": {
-   "lat": 51.447037,
-   "lon": -0.198994,
-   "osm": "https://www.openstreetmap.org/way/923963737",
-   "matchedName": "Michaels Fish Bar & Kebab",
-   "score": 1,
+   "lat": 51.43006,
+   "lon": -0.165535,
+   "osm": "https://www.openstreetmap.org/way/940172449",
+   "matchedName": "BA",
+   "score": 0.85,
+   "via": "overpass"
+  },
+  "kings-chikn": {
+   "lat": 51.457815,
+   "lon": -0.185195,
+   "osm": "https://www.openstreetmap.org/way/793284934",
+   "matchedName": "Mumbai Tadka",
+   "score": 0.8,
    "via": "overpass"
   },
   "the-best-kebabs-burgers": {
@@ -369,14 +377,6 @@
    "score": 1,
    "via": "overpass"
   },
-  "butty-and-co": {
-   "lat": 51.440868,
-   "lon": -0.187164,
-   "osm": "https://www.openstreetmap.org/node/5650354934",
-   "matchedName": "Donburi & Co",
-   "score": 0.67,
-   "via": "overpass"
-  },
   "golden-palace": {
    "lat": 51.440665,
    "lon": -0.187111,
@@ -388,7 +388,7 @@
   "amrutha": {
    "lat": 51.44366,
    "lon": -0.189999,
-   "website": "https://amrutha.co.uk/restaurants/earlsfield/",
+   "website": "https://www.amrutha.co.uk/",
    "osm": "https://www.openstreetmap.org/node/1402845963",
    "matchedName": "Amrutha Lounge",
    "score": 0.85,
@@ -457,20 +457,20 @@
   }
  },
  "unmatched": [
-  "the-earlsfield",
   "the-olive-garden-southfields",
   "thai-girder",
   "double-a",
   "crumbs-and-doilies",
+  "brookwood-garden-coffee-brunch",
   "wylies-coffee",
   "yard-sale-pizza",
   "lady-buddha",
   "la-finestra",
   "regine-pizzeria",
   "pizza-house-southfields",
-  "kings-chikn",
   "wandsworth-sushi-daily",
   "city-dragon",
+  "butty-and-co",
   "chapter-2-biryani-centre",
   "pizzeria-pomodoretto",
   "poke-the-bear",
