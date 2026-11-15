@@ -1,20 +1,25 @@
 "use client";
 
 import { byScore } from "@/lib/rank";
+import Link from "next/link";
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import VenueRow from "@/components/VenueRow";
+import { venueImage } from "@/lib/images";
 import { AREAS, FEATURES, VENUE_TYPES, type VenueWithRating } from "@/lib/types";
 
+const VenueMap = dynamic(() => import("@/components/VenueMap"), { ssr: false, loading: () => <p className="muted" style={{ padding: 24 }}>Loading map…</p> });
 
 type Sort = "name" | "rating";
 
 export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }) {
-    const [showFilters, setShowFilters] = useState(false);
+  const [view, setView] = useState<"list" | "map">("list");
+  const [showFilters, setShowFilters] = useState(false);
   const [type, setType] = useState("All");
   const [area, setArea] = useState("");
   const [features, setFeatures] = useState<string[]>([]);
     const [sort, setSort] = useState<Sort>("name");
-  const [selected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   const list = useMemo(() => {
     const out = venues.filter(
@@ -25,9 +30,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         true,
     );
     out.sort((a, b) =>
-      sort === "name"
-        ? a.name.localeCompare(b.name)
-        : byScore(a, b) || a.name.localeCompare(b.name),
+      sort === "name" ? a.name.localeCompare(b.name) : byScore(a, b) || a.name.localeCompare(b.name),
     );
     return out;
   }, [venues, type, area, features, sort]);
@@ -38,6 +41,8 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
     setArea("");
     setFeatures([]);
   };
+  const sel = list.find((v) => v.id === selected);
+  const selImg = sel ? venueImage(sel, 160) : undefined;
 
   return (
     <>
@@ -89,7 +94,7 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
         </div>
       ) : null}
 
-      <div className="split">
+      <div className="split" data-view={view}>
         <div className="venue-list">
           {list.length === 0 ? <div className="empty">No places match those filters.</div> : null}
           {list.map((v, i) => (
@@ -97,7 +102,33 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
           ))}
         </div>
 
+        <div className="map-panel">
+          <VenueMap
+            points={list.map((v, i) => ({ id: v.id, n: i + 1, name: v.name, lat: v.lat, lon: v.lon }))}
+            selected={selected}
+            onSelect={setSelected}
+          />
+          {sel ? (
+            <div className="map-card">
+              <div className="thumb" style={selImg ? { backgroundImage: `url(${selImg})` } : undefined} aria-hidden="true" />
+              <div className="body">
+                <span style={{ fontWeight: 600 }}>{sel.name}</span>
+                <span className="small muted">
+                  {sel.google?.rating ? `★ ${sel.google.rating.toFixed(1)} · ` : ""}
+                  {sel.type} · {sel.area}
+                </span>
+              </div>
+              <Link href={`/places/${sel.slug}`} className="btn">
+                Details
+              </Link>
+            </div>
+          ) : null}
+        </div>
       </div>
+
+      <button type="button" className="view-fab" onClick={() => setView((v) => (v === "list" ? "map" : "list"))} aria-label={view === "list" ? "Show map" : "Show list"}>
+        {view === "list" ? "Map" : "List"}
+      </button>
     </>
   );
 }

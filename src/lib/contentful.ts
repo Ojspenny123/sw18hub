@@ -1,3 +1,4 @@
+import { osmFor } from "./osm";
 import type { Deal, EventItem, NewsArticle, Venue } from "./types";
 import { getFeedEvents } from "./events";
 import { getRssNews } from "./rss";
@@ -96,9 +97,12 @@ export async function getVenues(): Promise<Venue[]> {
     area: e.fields.area,
     googlePlaceId: e.fields.googlePlaceId,
     address: e.fields.address,
-    lat: e.fields.location?.lat,
-    lon: e.fields.location?.lon,
-    website: e.fields.website,
+    lat: e.fields.location?.lat ?? osmFor(e.fields.slug)?.lat,
+    lon: e.fields.location?.lon ?? osmFor(e.fields.slug)?.lon,
+    website: e.fields.website ?? osmFor(e.fields.slug)?.website,
+    phone: osmFor(e.fields.slug)?.phone,
+    openingHours: osmFor(e.fields.slug)?.openingHours,
+    osmUrl: osmFor(e.fields.slug)?.osm,
     description: e.fields.description,
     features: e.fields.features ?? [],
     featured: Boolean(e.fields.featured),

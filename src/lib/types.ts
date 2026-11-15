@@ -14,6 +14,9 @@ export interface Venue {
   lat?: number;
   lon?: number;
   website?: string;
+  phone?: string;
+  openingHours?: string;
+  osmUrl?: string;
   description?: string;
   features: string[];
   featured: boolean;

@@ -50,3 +50,6 @@ Events and news are cached and only refreshed once a week, on Sunday at 03:00 UT
 ## Ask SW18 chatbot
 
 `/api/ask` answers only from what is on the site (places and Google ratings, SW18 news, events, deals), built by `src/lib/ask-context.ts`. Anything off-topic gets a friendly "I only know SW18". Cost controls: Haiku model, questions capped at 400 characters, answers capped at 320 tokens, only the last 6 messages sent, the site data is prompt-cached, same-site requests only, and per-visitor and daily limits (`src/lib/ratelimit.ts`, in memory, so best-effort). Set `ANTHROPIC_API_KEY` in Netlify and a monthly spend limit in the Anthropic Console; that limit is the real cap.
+
+## Map and venue info (free, no paid APIs)
+The site makes no Google calls. The map is Leaflet with OpenStreetMap tiles (no key). Venue positions, opening hours and phone numbers come from OpenStreetMap, looked up once by `scripts/osm-lookup.mjs` (run by the GitHub Action `osm-venues`, or `node scripts/osm-lookup.mjs`) and saved in `data/venue-osm.json`; the site only reads that file, so nothing is fetched at runtime. Venues not found in OpenStreetMap are listed under `unmatched` in that file and simply do not appear on the map. To add a venue by hand, add `lat` and `lon` in the Contentful `location` field (it overrides the OpenStreetMap value). Map data (c) OpenStreetMap contributors.

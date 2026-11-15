@@ -48,7 +48,7 @@
    "phone": "+44 20 8875 7000",
    "website": "https://www.kingsarmswandsworth.co.uk",
    "osm": "https://www.openstreetmap.org/way/204488347",
-   "matchedName": "The King’s Arms",
+   "matchedName": "The King\u2019s Arms",
    "score": 1.25,
    "via": "overpass"
   },
@@ -84,7 +84,7 @@
    "lat": 51.459715,
    "lon": -0.189028,
    "osm": "https://www.openstreetmap.org/way/204026103",
-   "matchedName": "Megan’s",
+   "matchedName": "Megan\u2019s",
    "score": 1.1,
    "via": "overpass"
   },
@@ -231,7 +231,7 @@
    "openingHours": "Mo-Fr 07:30-18:30; Sa-Su 09:00-18:30",
    "phone": "+44 2030842888",
    "osm": "https://www.openstreetmap.org/way/1032398469",
-   "matchedName": "Puccio’s",
+   "matchedName": "Puccio\u2019s",
    "score": 0.85,
    "via": "overpass"
   },
@@ -359,7 +359,8 @@
    "osm": "https://www.openstreetmap.org/way/793284934",
    "matchedName": "Mumbai Tadka",
    "score": 0.8,
-   "via": "overpass"
+   "via": "overpass",
+   "note": "Matched by address only; the OSM listing at this address has a different name, so its hours/phone are not used."
   },
   "the-best-kebabs-burgers": {
    "lat": 51.43006,

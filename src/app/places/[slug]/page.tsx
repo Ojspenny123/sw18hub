@@ -64,9 +64,8 @@ export default async function VenuePage({ params }: Props) {
   const rank = peers.findIndex((p) => p.id === v.id) + 1;
   const img = venueImage(v, 900);
   const nearby = peers.filter((p) => p.id !== v.id && p.area === v.area).slice(0, 4);
-  const directions = v.googlePlaceId
-    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.name)}&query_place_id=${v.googlePlaceId}`
-    : undefined;
+  const directions =
+    v.lat !== undefined && v.lon !== undefined ? `https://www.openstreetmap.org/directions?to=${v.lat}%2C${v.lon}` : undefined;
 
   return (
     <div className="wrap section" style={{ paddingTop: 20 }}>
@@ -113,7 +112,7 @@ export default async function VenuePage({ params }: Props) {
           <div className="actions">
             {directions ? (
               <a className="btn" href={directions} target="_blank" rel="noopener noreferrer">
-                Directions <span className="sr">(opens Google Maps in a new tab)</span>
+                Directions <span className="sr">(opens OpenStreetMap in a new tab)</span>
               </a>
             ) : null}
             {v.website ? (
@@ -122,7 +121,24 @@ export default async function VenuePage({ params }: Props) {
               </a>
             ) : null}
           </div>
-          <p className="small muted">Check opening times with the venue.</p>
+          {v.openingHours ? (
+            <p className="small">
+              <strong>Opening hours</strong>
+              <br />
+              {v.openingHours.split(";").map((h) => (
+                <span key={h}>
+                  {h.trim()}
+                  <br />
+                </span>
+              ))}
+            </p>
+          ) : null}
+          {v.phone ? (
+            <p className="small">
+              Phone: <a href={`tel:${v.phone.replace(/\s/g, "")}`}>{v.phone}</a>
+            </p>
+          ) : null}
+          <p className="small muted">Opening hours and map position from OpenStreetMap contributors, so check with the venue.</p>
         </div>
       </div>
 
