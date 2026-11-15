@@ -1,0 +1,562 @@
+[
+ {
+  "slug": "the-alma",
+  "name": "The Alma",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "499 Old York Road, London SW18 1TF",
+  "website": null
+ },
+ {
+  "slug": "the-ship-wandsworth",
+  "name": "The Ship",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "41 Jews Row, London SW18 1TB",
+  "website": null
+ },
+ {
+  "slug": "the-cats-back",
+  "name": "The Cat's Back",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "52-54 Point Pleasant, London SW18 1NN",
+  "website": null
+ },
+ {
+  "slug": "spread-eagle",
+  "name": "Spread Eagle",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "69-71 Wandsworth High Street, London SW18 2PT",
+  "website": null
+ },
+ {
+  "slug": "the-kings-arms-wandsworth",
+  "name": "The King's Arms",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "94-96 Wandsworth High Street, London SW18 4LB",
+  "website": null
+ },
+ {
+  "slug": "the-east-hill",
+  "name": "The East Hill",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "21 Alma Road, London SW18 1AA",
+  "website": null
+ },
+ {
+  "slug": "queen-adelaide",
+  "name": "Queen Adelaide",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "35 Putney Bridge Road, London SW18 1NP",
+  "website": null
+ },
+ {
+  "slug": "the-grapes-wandsworth",
+  "name": "The Grapes",
+  "area": "Wandsworth Town",
+  "type": "Pub",
+  "address": "39 Fairfield Street, London SW18 1DX",
+  "website": null
+ },
+ {
+  "slug": "megans-in-the-tonsleys",
+  "name": "Megan's in the Tonsleys",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "539-541 Old York Road, London SW18",
+  "website": null
+ },
+ {
+  "slug": "the-old-sergeant",
+  "name": "The Old Sergeant",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "104 Garratt Lane, London SW18 4DJ",
+  "website": null
+ },
+ {
+  "slug": "halfway-house-earlsfield",
+  "name": "Halfway House",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "521-523 Garratt Lane, London SW18 4SR",
+  "website": null
+ },
+ {
+  "slug": "the-earlsfield",
+  "name": "The Earlsfield",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "511 Garratt Lane, London SW18 4SW",
+  "website": null
+ },
+ {
+  "slug": "the-country-house",
+  "name": "The Country House",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "2-4 Groton Road, London SW18 4EP",
+  "website": null
+ },
+ {
+  "slug": "the-wandle-earlsfield",
+  "name": "The Wandle",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "332 Garratt Lane, London SW18 4EJ",
+  "website": null
+ },
+ {
+  "slug": "the-jolly-gardeners",
+  "name": "The Jolly Gardeners",
+  "area": "Earlsfield",
+  "type": "Pub",
+  "address": "214 Garratt Lane, London SW18 4EA",
+  "website": null
+ },
+ {
+  "slug": "park-tavern",
+  "name": "Park Tavern",
+  "area": "Southfields",
+  "type": "Pub",
+  "address": "212 Merton Road, London SW18 5SW",
+  "website": null
+ },
+ {
+  "slug": "the-earl-spencer",
+  "name": "The Earl Spencer",
+  "area": "Southfields",
+  "type": "Pub",
+  "address": "260-262 Merton Road, London SW18 5JL",
+  "website": null
+ },
+ {
+  "slug": "the-gardeners",
+  "name": "The Gardeners",
+  "area": "Southfields",
+  "type": "Pub",
+  "address": "266-268 Merton Road, London SW18 5JL",
+  "website": null
+ },
+ {
+  "slug": "the-old-fields",
+  "name": "The Old Fields",
+  "area": "Southfields",
+  "type": "Pub",
+  "address": "20 Replingham Road, London SW18 5LS",
+  "website": null
+ },
+ {
+  "slug": "pig-and-whistle",
+  "name": "Pig and Whistle",
+  "area": "Southfields",
+  "type": "Pub",
+  "address": "479-481 Merton Road, London SW18 5LD",
+  "website": null
+ },
+ {
+  "slug": "bosa-kitchen",
+  "name": "Bosa Kitchen",
+  "area": "Southfields",
+  "type": "Restaurant",
+  "address": "38 Replingham Road, London SW18 5LR",
+  "website": "https://www.bosakitchen.co.uk"
+ },
+ {
+  "slug": "the-olive-garden-southfields",
+  "name": "The Olive Garden",
+  "area": "Southfields",
+  "type": "Restaurant",
+  "address": "42 Replingham Road, London SW18 5LR",
+  "website": "https://www.theolivegardenrestaurant.co.uk"
+ },
+ {
+  "slug": "thai-girder",
+  "name": "Thai Girder",
+  "area": "Southfields",
+  "type": "Restaurant",
+  "address": "36 Replingham Road, London SW18 5LR",
+  "website": "https://www.thaigirder.co.uk"
+ },
+ {
+  "slug": "the-roundhouse",
+  "name": "The Roundhouse",
+  "area": "Wandsworth Common",
+  "type": "Pub",
+  "address": "2 North Side, Wandsworth Common, London SW18 2SS",
+  "website": null
+ },
+ {
+  "slug": "the-county-arms",
+  "name": "The County Arms",
+  "area": "Wandsworth Common",
+  "type": "Pub",
+  "address": "Trinity Road, London SW18 3SH",
+  "website": null
+ },
+ {
+  "slug": "le-gothique",
+  "name": "Le Gothique",
+  "area": "Wandsworth Common",
+  "type": "Restaurant",
+  "address": "Royal Victoria Patriotic Building, London SW18 3SX",
+  "website": null
+ },
+ {
+  "slug": "puccios-italian-shop",
+  "name": "Puccio's Italian Shop",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "1 Chivers Psge, London SW18 1UP",
+  "website": null
+ },
+ {
+  "slug": "tads-cafe",
+  "name": "Tad's Cafe",
+  "area": "Southfields",
+  "type": "Cafe",
+  "address": "3 Standen Rd, London SW18 5TH",
+  "website": null
+ },
+ {
+  "slug": "earlsfield-grocer",
+  "name": "Earlsfield Grocer",
+  "area": "Earlsfield",
+  "type": "Cafe",
+  "address": "383 Garratt Ln, London SW18 4SL",
+  "website": null
+ },
+ {
+  "slug": "bakery-lamour",
+  "name": "Bakery Lamour",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "10 Huguenot Pl, London SW18 2EN",
+  "website": null
+ },
+ {
+  "slug": "home-community-cafe",
+  "name": "Home Community Cafe C.I.C",
+  "area": "Earlsfield",
+  "type": "Cafe",
+  "address": "St Andrew's, Garratt Ln, London SW18 4SR",
+  "website": null
+ },
+ {
+  "slug": "hopper-coffee-wandsworth",
+  "name": "Hopper Coffee Wandsworth",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "177a Wandsworth High St, London SW18 4JE",
+  "website": null
+ },
+ {
+  "slug": "lockdown-bakehouse",
+  "name": "Lockdown Bakehouse",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "6 Ferrier St, London SW18 1SW",
+  "website": null
+ },
+ {
+  "slug": "belle-amie",
+  "name": "Belle Amie",
+  "area": "Earlsfield",
+  "type": "Cafe",
+  "address": "404 Garratt Ln, London SW18 4HP",
+  "website": null
+ },
+ {
+  "slug": "magna-cafe",
+  "name": "Magna Cafe",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "15 Baltimore House, 13 Juniper Dr, London SW18 1TS",
+  "website": null
+ },
+ {
+  "slug": "double-a",
+  "name": "Double A",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "157 Wandsworth High St, London SW18 4JB",
+  "website": null
+ },
+ {
+  "slug": "crumbs-and-doilies",
+  "name": "Crumbs & Doilies",
+  "area": "Wandsworth Town",
+  "type": "Cafe",
+  "address": "5 Morie St, London SW18 1SL",
+  "website": null
+ },
+ {
+  "slug": "brookwood-garden-coffee-brunch",
+  "name": "Brookwood Garden Coffee & Brunch",
+  "area": "Southfields",
+  "type": "Cafe",
+  "address": "11 Brookwood Rd, London SW18 5BL",
+  "website": null
+ },
+ {
+  "slug": "wylies-coffee",
+  "name": "Wylie's Coffee",
+  "area": "Southfields",
+  "type": "Cafe",
+  "address": "40 Replingham Rd, London SW18 5LR",
+  "website": null
+ },
+ {
+  "slug": "the-drop-dropshot-coffee",
+  "name": "The Drop by DropShot Coffee",
+  "area": "Southfields",
+  "type": "Cafe",
+  "address": "81 Revelstoke Rd, London SW18 5NL",
+  "website": null
+ },
+ {
+  "slug": "cafe-elena",
+  "name": "Cafe Elena",
+  "area": "Earlsfield",
+  "type": "Cafe",
+  "address": "470-472 Garratt Ln, London SW18 4HJ",
+  "website": null
+ },
+ {
+  "slug": "boom-battle-bar-wandsworth",
+  "name": "Boom Battle Bar Wandsworth",
+  "area": "Wandsworth Town",
+  "type": "Bar",
+  "address": "9 Barley Walk, London SW18 1UL",
+  "website": null
+ },
+ {
+  "slug": "the-ram",
+  "name": "The Ram",
+  "area": "Wandsworth Town",
+  "type": "Bar",
+  "address": "68 Wandsworth High St, London SW18 4LB",
+  "website": null
+ },
+ {
+  "slug": "yard-sale-pizza",
+  "name": "Yard Sale Pizza",
+  "area": "Earlsfield",
+  "type": "Takeaway",
+  "address": "406 Garratt Ln, London SW18 4HP",
+  "website": null
+ },
+ {
+  "slug": "lady-buddha",
+  "name": "Lady Buddha",
+  "area": "Wandsworth Town",
+  "type": "Takeaway",
+  "address": "207 Garratt Ln, London SW18 4DS",
+  "website": null
+ },
+ {
+  "slug": "la-finestra",
+  "name": "La Finestra",
+  "area": "Southfields",
+  "type": "Takeaway",
+  "address": "270 Merton Rd, Longfield St, London SW18 5JN",
+  "website": null
+ },
+ {
+  "slug": "regine-pizzeria",
+  "name": "Regine Pizzeria",
+  "area": "Wandsworth Town",
+  "type": "Takeaway",
+  "address": "Unit 4, 20 Enterprise Way, London SW18 1SA",
+  "website": null
+ },
+ {
+  "slug": "pizza-house-southfields",
+  "name": "Pizza House",
+  "area": "Southfields",
+  "type": "Takeaway",
+  "address": "3 Granville Rd, London SW18 5SB",
+  "website": null
+ },
+ {
+  "slug": "michaels-fish-bar-kebab",
+  "name": "Michaels Fish Bar & Kebab",
+  "area": "Southfields",
+  "type": "Takeaway",
+  "address": "302 Merton Rd, London SW18 5JW",
+  "website": null
+ },
+ {
+  "slug": "kings-chikn",
+  "name": "King's Chik'n",
+  "area": "Wandsworth Town",
+  "type": "Takeaway",
+  "address": "102 East Hill, London SW18 2HF",
+  "website": null
+ },
+ {
+  "slug": "wandsworth-sushi-daily",
+  "name": "Wandsworth Sushi Daily",
+  "area": "Wandsworth Town",
+  "type": "Takeaway",
+  "address": "66-67 Southside Shopping Centre, London SW18 4TF",
+  "website": null
+ },
+ {
+  "slug": "the-best-kebabs-burgers",
+  "name": "The Best Kebabs & Burgers",
+  "area": "Wandsworth Town",
+  "type": "Takeaway",
+  "address": "211 Garratt Ln, London SW18 4DS",
+  "website": null
+ },
+ {
+  "slug": "sea-horse-fish-bar",
+  "name": "Sea Horse Fish Bar",
+  "area": "Earlsfield",
+  "type": "Takeaway",
+  "address": "446 Garratt Ln, London SW18 4HL",
+  "website": null
+ },
+ {
+  "slug": "city-dragon",
+  "name": "City Dragon",
+  "area": "Southfields",
+  "type": "Takeaway",
+  "address": "300 Merton Rd, London SW18 5JW",
+  "website": null
+ },
+ {
+  "slug": "butty-and-co",
+  "name": "Butty & Co.",
+  "area": "Southfields",
+  "type": "Takeaway",
+  "address": "19 Replingham Rd, London SW18 5LT",
+  "website": null
+ },
+ {
+  "slug": "golden-palace",
+  "name": "Golden Palace",
+  "area": "Earlsfield",
+  "type": "Takeaway",
+  "address": "402 Garratt Ln, London SW18 4HP",
+  "website": null
+ },
+ {
+  "slug": "amrutha",
+  "name": "Amrutha",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "326 Garratt Ln, London SW18 4EJ",
+  "website": null
+ },
+ {
+  "slug": "chapter-2-biryani-centre",
+  "name": "Chapter 2 by The Biryani Centre",
+  "area": "Southfields",
+  "type": "Restaurant",
+  "address": "197-199 Replingham Rd, London SW18 5LY",
+  "website": null
+ },
+ {
+  "slug": "pizzeria-pomodoretto",
+  "name": "Pizzeria Pomodoretto",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "130 Wandsworth High St, London SW18 4JP",
+  "website": null
+ },
+ {
+  "slug": "poke-the-bear",
+  "name": "Poké The Bear",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "523 Old York Rd, London SW18 1TG",
+  "website": null
+ },
+ {
+  "slug": "darya-london",
+  "name": "Darya London",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "94 Point Pleasant, London SW18 1PP",
+  "website": null
+ },
+ {
+  "slug": "o-gourmet-libanais",
+  "name": "Ô Gourmet Libanais",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "D, Trafalgar House, 38 Juniper Dr, London SW18 1GY",
+  "website": null
+ },
+ {
+  "slug": "sushi-moka",
+  "name": "Sushi Moka",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "Ram Quarter, 24 Ryeland Blvd, London SW18 1UN",
+  "website": null
+ },
+ {
+  "slug": "arepa",
+  "name": "Arepa",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "107-109 Wandsworth High St, London SW18 4HY",
+  "website": null
+ },
+ {
+  "slug": "la-pernella",
+  "name": "La Pernella",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "470-472 Garratt Ln, London SW18 4HJ",
+  "website": null
+ },
+ {
+  "slug": "hotaru",
+  "name": "Hotaru",
+  "area": "Wandsworth Town",
+  "type": "Restaurant",
+  "address": "145-147 Wandsworth High St, London SW18 4JB",
+  "website": null
+ },
+ {
+  "slug": "cicchetti-and-wine",
+  "name": "Cicchetti & Wine",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "422D Garratt Ln, London SW18 4HW",
+  "website": null
+ },
+ {
+  "slug": "won-bbq",
+  "name": "WON BBQ",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "394 Garratt Ln, London SW18 4HP",
+  "website": null
+ },
+ {
+  "slug": "a1-sushi",
+  "name": "A1 Sushi",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "214 Garratt Ln, London SW18 4EA",
+  "website": null
+ },
+ {
+  "slug": "bulgogi",
+  "name": "Bulgogi",
+  "area": "Earlsfield",
+  "type": "Restaurant",
+  "address": "567 Garratt Ln, London SW18 4SR",
+  "website": null
+ }
+]

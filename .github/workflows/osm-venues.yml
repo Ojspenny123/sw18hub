@@ -1,0 +1,26 @@
+name: osm-venues
+# Free, one-off: looks up venue coordinates/hours from OpenStreetMap and commits data/venue-osm.json.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/osm-lookup.mjs
+      - data/venues-seed.json
+      - .github/workflows/osm-venues.yml
+permissions:
+  contents: write
+jobs:
+  lookup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/osm-lookup.mjs
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/venue-osm.json
+          git diff --staged --quiet || (git commit -m "Add OpenStreetMap venue data [skip ci]" && git push)
