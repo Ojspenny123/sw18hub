@@ -27,7 +27,7 @@ Set these in Netlify under Site configuration, Environment variables.
 
 ## Content model (Contentful)
 
-`venue`, `newsArticle`, `event`, `business`, `deal`. Google ratings are fetched live using the venue's `googlePlaceId`; they are not stored in Contentful.
+`sw18Venue`, `sw18NewsArticle`, `sw18Event`, `sw18Business`, `sw18Deal` (the space is shared with another site, so SW18 only reads these types and entries tagged `siteSw18Hub`; see `CONTENT_TYPES` in `src/lib/contentful.ts`). Google ratings are fetched live using the venue's `googlePlaceId`; they are not stored in Contentful.
 
 ## Forms
 
@@ -52,7 +52,7 @@ Ratings, open-now and map positions are cached and only refreshed once a week, o
 
 ## Local news (RSS)
 
-`src/lib/rss.ts` pulls headlines from public RSS feeds (South West Londoner, South London News, Putney.news Southfields and Wandsworth Town). It's free (no API key). Feeds are re-fetched at most every 3 hours. Only the headline, a short snippet and a link back to the publisher are shown. To add or remove a source, edit `NEWS_FEEDS`. Stories added by hand in Contentful (`newsArticle`) still work and appear alongside, with featured ones on top.
+`src/lib/rss.ts` pulls headlines from public RSS feeds (South West Londoner, South London News, Putney.news Southfields and Wandsworth Town). It's free (no API key). Feeds are re-fetched at most every 3 hours. Only the headline, a short snippet and a link back to the publisher are shown. To add or remove a source, edit `NEWS_FEEDS`. Stories added by hand in Contentful (`sw18NewsArticle`) still work and appear alongside, with featured ones on top.
 
 ## SEO and GEO
 

@@ -1,3 +1,5 @@
+import { CONTENT_TYPES, SITE_TAG } from "@/lib/contentful";
+
 export const dynamic = "force-dynamic";
 
 /** Setup check: shows which settings are present (never the values) and whether Contentful answers. */
@@ -7,25 +9,33 @@ export async function GET() {
   const env = process.env.CONTENTFUL_ENVIRONMENT || "master";
 
   let contentful: string = "not configured";
-  let venues: number | undefined;
+  const counts: Record<string, number | string> = {};
   if (space && token) {
-    try {
-      const res = await fetch(
-        `https://cdn.contentful.com/spaces/${space}/environments/${env}/entries?content_type=venue&limit=1`,
-        { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" },
-      );
-      contentful = res.ok ? "ok" : `error ${res.status}`;
-      if (res.ok) venues = (await res.json()).total;
-    } catch {
-      contentful = "network error";
-    }
+    const count = async (type: string, tagged: boolean) => {
+      const tag = tagged ? `&metadata.tags.sys.id[in]=${SITE_TAG}` : "";
+      try {
+        const res = await fetch(`https://cdn.contentful.com/spaces/${space}/environments/${env}/entries?content_type=${type}&limit=1${tag}`, {
+          headers: { Authorization: `Bearer ${token}` },
+          cache: "no-store",
+        });
+        return res.ok ? ((await res.json()).total as number) : `error ${res.status}`;
+      } catch {
+        return "network error";
+      }
+    };
+    counts.venues = await count(CONTENT_TYPES.venue, false);
+    counts.venuesTagged = await count(CONTENT_TYPES.venue, true);
+    counts.events = await count(CONTENT_TYPES.event, false);
+    counts.eventsTagged = await count(CONTENT_TYPES.event, true);
+    contentful = typeof counts.venues === "number" ? "ok" : String(counts.venues);
   }
 
   return Response.json({
     CONTENTFUL_SPACE_ID: Boolean(space),
     CONTENTFUL_DELIVERY_TOKEN: Boolean(token),
     contentful,
-    venuesInContentful: venues,
+    contentTypes: CONTENT_TYPES,
+    counts,
     GOOGLE_MAPS_API_KEY: Boolean(process.env.GOOGLE_MAPS_API_KEY),
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY),
     NEXT_PUBLIC_GOOGLE_MAP_ID: Boolean(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID),

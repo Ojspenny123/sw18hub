@@ -8,6 +8,19 @@ const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN;
 
 export const contentfulConfigured = Boolean(SPACE && TOKEN);
 
+/**
+ * SW18 Hub shares a Contentful space with another site, so it only ever reads its own `sw18*` content types
+ * and entries tagged `siteSw18Hub`. Never read types that start with `mc` (The Messy Chef).
+ */
+export const CONTENT_TYPES = {
+  venue: "sw18Venue",
+  event: "sw18Event",
+  news: "sw18NewsArticle",
+  business: "sw18Business",
+  deal: "sw18Deal",
+} as const;
+export const SITE_TAG = "siteSw18Hub";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface CfEntry {
   sys: { id: string };
@@ -34,16 +47,27 @@ async function query(contentType: string, params: Record<string, string> = {}): 
   url.searchParams.set("limit", "200");
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
 
+  const get = (u: URL) => fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` }, next: { revalidate: 60 } });
+
   try {
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${TOKEN}` },
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) {
+    // Belt and braces: the type prefix already keeps us on our own content; the tag filter adds a second check.
+    const tagged = new URL(url);
+    tagged.searchParams.set("metadata.tags.sys.id[in]", SITE_TAG);
+    let res = await get(tagged);
+    let data = res.ok ? ((await res.json()) as CfResponse) : undefined;
+    if (res.ok && data && data.items.length === 0) {
+      // Nothing carries the tag (for example entries tagged but not yet republished): fall back to the type alone.
+      const untagged = await get(url);
+      if (untagged.ok) {
+        res = untagged;
+        data = (await untagged.json()) as CfResponse;
+        if (data.items.length) console.warn(`Contentful ${contentType}: no entries tagged ${SITE_TAG}; using the type only`);
+      }
+    }
+    if (!res.ok || !data) {
       console.error(`Contentful ${contentType} request failed: ${res.status}`);
       return empty;
     }
-    const data = (await res.json()) as CfResponse;
     const assets = new Map<string, string>();
     for (const a of data.includes?.Asset ?? []) {
       const file = a.fields?.file?.url as string | undefined;
@@ -63,7 +87,7 @@ async function query(contentType: string, params: Record<string, string> = {}): 
 }
 
 export async function getVenues(): Promise<Venue[]> {
-  const r = await query("venue", { order: "fields.name" });
+  const r = await query(CONTENT_TYPES.venue, { order: "fields.name" });
   return r.items.map((e) => ({
     id: e.sys.id,
     name: e.fields.name,
@@ -92,7 +116,7 @@ export async function getNews(): Promise<NewsArticle[]> {
 }
 
 async function getOwnNews(): Promise<NewsArticle[]> {
-  const r = await query("newsArticle", { order: "-fields.publishedAt" });
+  const r = await query(CONTENT_TYPES.news, { order: "-fields.publishedAt" });
   return r.items.map((e) => ({
     id: e.sys.id,
     title: e.fields.title,
@@ -111,7 +135,7 @@ async function getOwnNews(): Promise<NewsArticle[]> {
 async function getContentfulEvents(): Promise<EventItem[]> {
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
-  const r = await query("event", {
+  const r = await query(CONTENT_TYPES.event, {
     order: "fields.startsAt",
     "fields.startsAt[gte]": startOfToday.toISOString(),
   });
@@ -142,7 +166,7 @@ export async function getEvents(): Promise<EventItem[]> {
 
 export async function getDeals(): Promise<Deal[]> {
   const today = new Date().toISOString().slice(0, 10);
-  const r = await query("deal", { order: "-sys.createdAt" });
+  const r = await query(CONTENT_TYPES.deal, { order: "-sys.createdAt" });
   return r.items
     .map((e) => {
       const b = r.entry(e.fields.business);

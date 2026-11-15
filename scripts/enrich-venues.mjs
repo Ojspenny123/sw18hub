@@ -47,7 +47,7 @@ async function searchPlace(name, address) {
 }
 
 async function main() {
-  const res = await fetch(`${CMA}/entries?content_type=venue&limit=200`, { headers: cmaHeaders });
+  const res = await fetch(`${CMA}/entries?content_type=sw18Venue&limit=200`, { headers: cmaHeaders });
   if (!res.ok) throw new Error(`Contentful ${res.status}: ${await res.text()}`);
   const { items } = await res.json();
   console.log(`${items.length} venues found. ${WRITE ? "WRITING changes." : "Dry run (add --write to save)."}\n`);
