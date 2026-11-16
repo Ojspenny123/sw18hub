@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-16T09:36:18.523Z",
+ "fetchedAt": "2026-11-16T10:11:22.297Z",
  "source": "Wikimedia Commons (openly licensed)",
  "images": {
   "the-alma": {
@@ -65,45 +65,17 @@
    "author": "Ewan Munro from London, UK",
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
-  "the-old-sergeant": {
-   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Old_Sergeant%2C_Wandsworth%2C_SW18_%283958570454%29.jpg/960px-Old_Sergeant%2C_Wandsworth%2C_SW18_%283958570454%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "page": "https://commons.wikimedia.org/wiki/File:Old_Sergeant,_Wandsworth,_SW18_(3958570454).jpg",
-   "title": "Old Sergeant, Wandsworth, SW18 (3958570454)",
-   "author": "Ewan Munro from London, UK",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
-  "halfway-house-earlsfield": {
-   "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Halfway_House%2C_Earlsfield_-_geograph.org.uk_-_2495791.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-   "page": "https://commons.wikimedia.org/wiki/File:Halfway_House,_Earlsfield_-_geograph.org.uk_-_2495791.jpg",
-   "title": "Halfway House, Earlsfield   geograph.org.uk   2495791",
-   "author": "N Chadwick",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
-  "the-jolly-gardeners": {
-   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Jolly_Gardeners%2C_Earlsfield%2C_SW18_%283957793349%29.jpg/960px-Jolly_Gardeners%2C_Earlsfield%2C_SW18_%283957793349%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "page": "https://commons.wikimedia.org/wiki/File:Jolly_Gardeners,_Earlsfield,_SW18_(3957793349).jpg",
-   "title": "Jolly Gardeners, Earlsfield, SW18 (3957793349)",
-   "author": "Ewan Munro from London, UK",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
-  "park-tavern": {
-   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/The_Park_Tavern%2C_Wandsworth_-_geograph.org.uk_-_3295781.jpg/960px-The_Park_Tavern%2C_Wandsworth_-_geograph.org.uk_-_3295781.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "page": "https://commons.wikimedia.org/wiki/File:The_Park_Tavern,_Wandsworth_-_geograph.org.uk_-_3295781.jpg",
-   "title": "The Park Tavern, Wandsworth   geograph.org.uk   3295781",
-   "author": "David Anstiss",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   }
  },
  "none": [
   "megans-in-the-tonsleys",
+  "the-old-sergeant",
+  "halfway-house-earlsfield",
   "the-earlsfield",
   "the-country-house",
   "the-wandle-earlsfield",
+  "the-jolly-gardeners",
+  "park-tavern",
   "the-earl-spencer",
   "the-gardeners",
   "the-old-fields",

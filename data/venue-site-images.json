@@ -1,1 +1,98 @@
-{"images":{},"none":[]}
+{
+ "fetchedAt": "2026-11-16T10:11:47.642Z",
+ "source": "Venue websites (credited to the venue)",
+ "images": {
+  "the-wandle-earlsfield": {
+   "url": "https://gkbr-p-001.sitecorecontenthub.cloud/api/public/content/46766d0ee0054ee19eb7d1de48c7fad6?v=e9e31cc2",
+   "page": "https://www.wandleearlsfield.com/",
+   "site": "wandleearlsfield.com"
+  },
+  "the-old-fields": {
+   "url": "https://gkbr-p-001.sitecorecontenthub.cloud/api/public/content/af91d46392b243298604c18794805254?v=15dc93d2",
+   "page": "https://www.greeneking.co.uk/pubs/greater-london/old-fields",
+   "site": "greeneking.co.uk"
+  },
+  "bosa-kitchen": {
+   "url": "https://bosakitchen.co.uk/wp-content/uploads/2019/11/TJP_2019_11_11_0064.jpg",
+   "page": "https://bosakitchen.co.uk/",
+   "site": "bosakitchen.co.uk"
+  },
+  "the-olive-garden-southfields": {
+   "url": "https://flipdish.imgix.net/org49151/059781073e38ffbfbf650190eaef15f3.jpeg?h=250&w=250&fit=fill&fill=solid&fill-color=FFFFFF&fm=png32",
+   "page": "https://www.theolivegardenrestaurant.co.uk/",
+   "site": "theolivegardenrestaurant.co.uk"
+  },
+  "amrutha": {
+   "url": "https://res.cloudinary.com/djebexjuh/image/upload/yvvmj9xbjehmwbmlzas0",
+   "page": "https://www.amrutha.co.uk/",
+   "site": "amrutha.co.uk"
+  },
+  "sushi-moka": {
+   "url": "https://sushimoka.co.uk/images/og.jpg",
+   "page": "https://sushimoka.co.uk/",
+   "site": "sushimoka.co.uk"
+  }
+ },
+ "none": [
+  [
+   "the-old-sergeant",
+   "no image tag"
+  ],
+  [
+   "halfway-house-earlsfield",
+   "no image tag"
+  ],
+  [
+   "park-tavern",
+   "no image tag"
+  ],
+  [
+   "the-gardeners",
+   "no image tag"
+  ],
+  [
+   "pig-and-whistle",
+   "fetch failed"
+  ],
+  [
+   "thai-girder",
+   "fetch failed"
+  ],
+  [
+   "the-roundhouse",
+   "no image tag"
+  ],
+  [
+   "le-gothique",
+   "no image tag"
+  ],
+  [
+   "hopper-coffee-wandsworth",
+   "fetch failed"
+  ],
+  [
+   "lockdown-bakehouse",
+   "looks like a logo"
+  ],
+  [
+   "the-drop-dropshot-coffee",
+   "looks like a logo"
+  ],
+  [
+   "boom-battle-bar-wandsworth",
+   "no image tag"
+  ],
+  [
+   "the-ram",
+   "looks like a logo"
+  ],
+  [
+   "la-pernella",
+   "page 403"
+  ],
+  [
+   "hotaru",
+   "looks like a logo"
+  ]
+ ]
+}
