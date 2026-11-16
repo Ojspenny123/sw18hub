@@ -12,7 +12,7 @@ const MAX_OUTPUT_TOKENS = 700;
 
 /** If the model hit the ceiling anyway, end on the last complete line or sentence rather than mid-word or mid-link. */
 function trimToComplete(text: string): string {
-  let t = text.replace(/\[[^\]]*$/, "").replace(/\[[^\]]*\]\([^)]*$/, ""); // drop a half-written link
+  const t = text.replace(/\[[^\]]*$/, "").replace(/\[[^\]]*\]\([^)]*$/, ""); // drop a half-written link
   const lines = t.split("\n");
   const last = lines[lines.length - 1];
   if (last && !/[.!?…)]$/.test(last.trim())) {
