@@ -17,11 +17,6 @@
    "page": "https://bosakitchen.co.uk/",
    "site": "bosakitchen.co.uk"
   },
-  "the-olive-garden-southfields": {
-   "url": "https://flipdish.imgix.net/org49151/059781073e38ffbfbf650190eaef15f3.jpeg?h=250&w=250&fit=fill&fill=solid&fill-color=FFFFFF&fm=png32",
-   "page": "https://www.theolivegardenrestaurant.co.uk/",
-   "site": "theolivegardenrestaurant.co.uk"
-  },
   "amrutha": {
    "url": "https://res.cloudinary.com/djebexjuh/image/upload/yvvmj9xbjehmwbmlzas0",
    "page": "https://www.amrutha.co.uk/",
@@ -93,6 +88,10 @@
   [
    "hotaru",
    "looks like a logo"
+  ],
+  [
+   "the-olive-garden-southfields",
+   "tiny 250px image, likely a logo"
   ]
  ]
 }

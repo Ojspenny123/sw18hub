@@ -31,7 +31,7 @@ for (const v of seed) {
     const page = await fetch(site, { headers: { "User-Agent": UA }, redirect: "follow", signal: AbortSignal.timeout(12000) });
     if (!page.ok) { none.push([v.slug, "page " + page.status]); continue; }
     const img = pickImage(await page.text(), page.url);
-    if (!img || !/^https:/.test(img) || /logo|favicon|icon|placeholder/i.test(img)) { none.push([v.slug, img ? "looks like a logo" : "no image tag"]); continue; }
+    if (!img || !/^https:/.test(img) || /logo|favicon|icon|placeholder/i.test(img) || /[?&](w|h|width|height)=\d{1,3}(&|$)/i.test(img)) { none.push([v.slug, img ? "looks like a logo" : "no image tag"]); continue; }
     const head = await fetch(img, { headers: { "User-Agent": UA }, signal: AbortSignal.timeout(12000) });
     if (!head.ok || !/^image\/(jpeg|png|webp)/.test(head.headers.get("content-type") || "")) { none.push([v.slug, "image not usable"]); continue; }
     out[v.slug] = { url: img, page: page.url, site: new URL(page.url).hostname.replace(/^www\./, "") };
