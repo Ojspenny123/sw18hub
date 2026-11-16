@@ -6,7 +6,22 @@ import { checkLimit, clientIp } from "@/lib/ratelimit";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5";
 const MAX_QUESTION = 400; // characters
 const KEEP_MESSAGES = 6; // only the last few turns are sent, which keeps each call small
-const MAX_OUTPUT_TOKENS = 320;
+// A ceiling, not a target: the prompt asks for under 80 words, and you only pay for tokens actually written.
+// It must leave room for the markdown links, which use a lot of tokens, or answers get cut off mid-sentence.
+const MAX_OUTPUT_TOKENS = 700;
+
+/** If the model hit the ceiling anyway, end on the last complete line or sentence rather than mid-word or mid-link. */
+function trimToComplete(text: string): string {
+  let t = text.replace(/\[[^\]]*$/, "").replace(/\[[^\]]*\]\([^)]*$/, ""); // drop a half-written link
+  const lines = t.split("\n");
+  const last = lines[lines.length - 1];
+  if (last && !/[.!?…)]$/.test(last.trim())) {
+    const cut = last.search(/[.!?](?=[^.!?]*$)/);
+    if (cut > 20) lines[lines.length - 1] = last.slice(0, cut + 1);
+    else lines.pop();
+  }
+  return lines.join("\n").trim();
+}
 
 interface Msg {
   role: "user" | "assistant";
@@ -83,7 +98,8 @@ export async function POST(req: Request) {
       ],
       messages: body.messages.slice(-KEEP_MESSAGES).map((m: Msg) => ({ role: m.role, content: m.content.slice(0, MAX_QUESTION) })),
     });
-    const answer = res.content.map((b) => (b.type === "text" ? b.text : "")).join("").trim();
+    let answer = res.content.map((b) => (b.type === "text" ? b.text : "")).join("").trim();
+    if (res.stop_reason === "max_tokens") answer = trimToComplete(answer);
     return Response.json({ answer: answer || "Sorry, I don't have an answer for that. Try the Places or What's on pages." });
   } catch (err) {
     console.error("ask route error", err);
