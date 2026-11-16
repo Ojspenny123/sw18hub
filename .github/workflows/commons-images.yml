@@ -2,10 +2,6 @@ name: commons-images
 # Free, one-off: finds openly licensed venue photos on Wikimedia Commons and commits data/venue-images.json.
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - scripts/commons-images.mjs
-      - .github/workflows/commons-images.yml
 permissions:
   contents: write
 jobs:

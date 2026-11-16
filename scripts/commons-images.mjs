@@ -32,17 +32,30 @@ async function near(lat, lon) {
   return Object.values((await res.json()).query?.pages || {});
 }
 
+async function byName(name) {
+  const q = encodeURIComponent(`${name} Wandsworth OR Earlsfield OR Southfields OR London`);
+  const url =
+    "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrlimit=15" +
+    `&gsrsearch=${q}&prop=imageinfo&iiprop=url%7Cmime%7Cextmetadata&iiurlwidth=900`;
+  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  if (!res.ok) return [];
+  return Object.values((await res.json()).query?.pages || {});
+}
+
 async function main() {
   const seed = JSON.parse(readFileSync(new URL("../data/venues-seed.json", import.meta.url)));
   const osm = JSON.parse(readFileSync(new URL("../data/venue-osm.json", import.meta.url))).venues;
   const out = {}, none = [];
   for (const v of seed) {
     const p = osm[v.slug];
-    if (!p) { none.push(v.slug); continue; }
     await new Promise((r) => setTimeout(r, 400));
     let files = [];
-    try { files = await near(p.lat, p.lon); } catch (e) { console.error(v.slug, e.message); }
-    const hit = files.find((f) => acceptable(v.name, f));
+    try { if (p && !p.approx) files = await near(p.lat, p.lon); } catch (e) { console.error(v.slug, e.message); }
+    let hit = files.find((f) => acceptable(v.name, f));
+    if (!hit) {
+      await new Promise((r) => setTimeout(r, 400));
+      try { hit = (await byName(v.name)).find((f) => acceptable(v.name, f)); } catch (e) { console.error(v.slug, e.message); }
+    }
     if (!hit) { none.push(v.slug); continue; }
     const i = hit.imageinfo[0], m = i.extmetadata || {};
     out[v.slug] = {
