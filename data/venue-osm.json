@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-15T17:43:04.302Z",
+ "fetchedAt": "2026-11-16T09:24:45.794Z",
  "source": "OpenStreetMap contributors (ODbL)",
  "venues": {
   "the-alma": {
@@ -48,7 +48,7 @@
    "phone": "+44 20 8875 7000",
    "website": "https://www.kingsarmswandsworth.co.uk",
    "osm": "https://www.openstreetmap.org/way/204488347",
-   "matchedName": "The King\u2019s Arms",
+   "matchedName": "The King’s Arms",
    "score": 1.25,
    "via": "overpass"
   },
@@ -84,7 +84,7 @@
    "lat": 51.459715,
    "lon": -0.189028,
    "osm": "https://www.openstreetmap.org/way/204026103",
-   "matchedName": "Megan\u2019s",
+   "matchedName": "Megan’s",
    "score": 1.1,
    "via": "overpass"
   },
@@ -231,7 +231,7 @@
    "openingHours": "Mo-Fr 07:30-18:30; Sa-Su 09:00-18:30",
    "phone": "+44 2030842888",
    "osm": "https://www.openstreetmap.org/way/1032398469",
-   "matchedName": "Puccio\u2019s",
+   "matchedName": "Puccio’s",
    "score": 0.85,
    "via": "overpass"
   },
@@ -455,28 +455,147 @@
    "matchedName": "422 Cicchetti and Wine",
    "score": 0.85,
    "via": "overpass"
+  },
+  "the-olive-garden-southfields": {
+   "lat": 51.4448837,
+   "lon": -0.2040101,
+   "osm": "way/1105375860",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "thai-girder": {
+   "lat": 51.4448351,
+   "lon": -0.2042271,
+   "osm": "way/1105375863",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "double-a": {
+   "lat": 51.4573453,
+   "lon": -0.1953715,
+   "osm": "way/690860115",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "crumbs-and-doilies": {
+   "lat": 51.4601682,
+   "lon": -0.1905523,
+   "osm": "way/757723866",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "brookwood-garden-coffee-brunch": {
+   "lat": 51.4433541,
+   "lon": -0.2047544,
+   "osm": "way/1105375770",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "wylies-coffee": {
+   "lat": 51.4448949,
+   "lon": -0.2040903,
+   "osm": "way/1105375861",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "yard-sale-pizza": {
+   "lat": 51.4405565,
+   "lon": -0.1871304,
+   "osm": "way/591901604",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "lady-buddha": {
+   "lat": 51.4506583,
+   "lon": -0.1899764,
+   "osm": "way/4020010",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "la-finestra": {
+   "lat": 51.4478069,
+   "lon": -0.1993478,
+   "osm": "way/1091698370",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "regine-pizzeria": {
+   "lat": 51.461918,
+   "lon": -0.1960052,
+   "osm": "way/681501235",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "pizza-house-southfields": {
+   "lat": 51.4497429,
+   "lon": -0.200246,
+   "osm": "way/924557955",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "wandsworth-sushi-daily": {
+   "lat": 51.4541789,
+   "lon": -0.193773,
+   "osm": "way/1189863628",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "city-dragon": {
+   "lat": 51.4470765,
+   "lon": -0.1989912,
+   "osm": "way/923963743",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "butty-and-co": {
+   "lat": 51.444884,
+   "lon": -0.2053581,
+   "osm": "way/956045172",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "chapter-2-biryani-centre": {
+   "lat": 51.4457913,
+   "lon": -0.1998998,
+   "osm": "way/956045218",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "pizzeria-pomodoretto": {
+   "lat": 51.4573252,
+   "lon": -0.1971477,
+   "osm": "way/979896144",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "poke-the-bear": {
+   "lat": 51.4599742,
+   "lon": -0.188445,
+   "osm": "way/793322397",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "won-bbq": {
+   "lat": 51.4408616,
+   "lon": -0.1872054,
+   "osm": "way/591901834",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "a1-sushi": {
+   "lat": 51.4468851,
+   "lon": -0.1895655,
+   "osm": "way/757708319",
+   "via": "address",
+   "note": "Placed from street address"
+  },
+  "bulgogi": {
+   "lat": 51.4405033,
+   "lon": -0.1866253,
+   "osm": "way/589492626",
+   "via": "address",
+   "note": "Placed from street address"
   }
  },
- "unmatched": [
-  "the-olive-garden-southfields",
-  "thai-girder",
-  "double-a",
-  "crumbs-and-doilies",
-  "brookwood-garden-coffee-brunch",
-  "wylies-coffee",
-  "yard-sale-pizza",
-  "lady-buddha",
-  "la-finestra",
-  "regine-pizzeria",
-  "pizza-house-southfields",
-  "wandsworth-sushi-daily",
-  "city-dragon",
-  "butty-and-co",
-  "chapter-2-biryani-centre",
-  "pizzeria-pomodoretto",
-  "poke-the-bear",
-  "won-bbq",
-  "a1-sushi",
-  "bulgogi"
- ]
+ "unmatched": []
 }

@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-15T22:06:29.473Z",
+ "fetchedAt": "2026-11-16T09:26:48.840Z",
  "source": "Wikimedia Commons (openly licensed)",
  "images": {
   "the-alma": {
@@ -74,19 +74,27 @@
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
-  "the-roundhouse": {
-   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Roundhouse%2C_Wandsworth%2C_SW18_%283695134441%29.jpg/960px-Roundhouse%2C_Wandsworth%2C_SW18_%283695134441%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "page": "https://commons.wikimedia.org/wiki/File:Roundhouse,_Wandsworth,_SW18_(3695134441).jpg",
-   "title": "Roundhouse, Wandsworth, SW18 (3695134441)",
-   "author": "Ewan Munro from London, UK",
+  "halfway-house-earlsfield": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Halfway_House_Public_House%2C_Earlsfield_-_geograph.org.uk_-_725705.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "page": "https://commons.wikimedia.org/wiki/File:Halfway_House_Public_House,_Earlsfield_-_geograph.org.uk_-_725705.jpg",
+   "title": "Halfway House Public House, Earlsfield   geograph.org.uk   725705",
+   "author": "Stacey Harris",
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
-  "the-county-arms": {
-   "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/The_County_Arms%2C_Wandsworth_-_geograph.org.uk_-_2491585.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-   "page": "https://commons.wikimedia.org/wiki/File:The_County_Arms,_Wandsworth_-_geograph.org.uk_-_2491585.jpg",
-   "title": "The County Arms, Wandsworth   geograph.org.uk   2491585",
-   "author": "N Chadwick",
+  "the-earlsfield": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/London_Bus_route_44_at_Earlsfield.jpg/960px-London_Bus_route_44_at_Earlsfield.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "page": "https://commons.wikimedia.org/wiki/File:London_Bus_route_44_at_Earlsfield.jpg",
+   "title": "London Bus route 44 at Earlsfield",
+   "author": "Matthew Black from London, UK",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "the-wandle-earlsfield": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/The_Wandle_at_Earlsfield_-_geograph.org.uk_-_1603991.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "page": "https://commons.wikimedia.org/wiki/File:The_Wandle_at_Earlsfield_-_geograph.org.uk_-_1603991.jpg",
+   "title": "The Wandle at Earlsfield   geograph.org.uk   1603991",
+   "author": "Derek Harper",
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
@@ -101,10 +109,7 @@
  },
  "none": [
   "megans-in-the-tonsleys",
-  "halfway-house-earlsfield",
-  "the-earlsfield",
   "the-country-house",
-  "the-wandle-earlsfield",
   "the-jolly-gardeners",
   "park-tavern",
   "the-earl-spencer",
@@ -114,6 +119,8 @@
   "bosa-kitchen",
   "the-olive-garden-southfields",
   "thai-girder",
+  "the-roundhouse",
+  "the-county-arms",
   "le-gothique",
   "puccios-italian-shop",
   "tads-cafe",
