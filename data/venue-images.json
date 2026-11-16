@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-16T10:11:22.297Z",
+ "fetchedAt": "2026-11-16T10:14:13.281Z",
  "source": "Wikimedia Commons (openly licensed)",
  "images": {
   "the-alma": {
@@ -65,12 +65,26 @@
    "author": "Ewan Munro from London, UK",
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "the-old-sergeant": {
+   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Old_Sergeant%2C_Wandsworth%2C_SW18_%283958570454%29.jpg/960px-Old_Sergeant%2C_Wandsworth%2C_SW18_%283958570454%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "page": "https://commons.wikimedia.org/wiki/File:Old_Sergeant,_Wandsworth,_SW18_(3958570454).jpg",
+   "title": "Old Sergeant, Wandsworth, SW18 (3958570454)",
+   "author": "Ewan Munro from London, UK",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "halfway-house-earlsfield": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Halfway_House_Public_House%2C_Earlsfield_-_geograph.org.uk_-_725705.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "page": "https://commons.wikimedia.org/wiki/File:Halfway_House_Public_House,_Earlsfield_-_geograph.org.uk_-_725705.jpg",
+   "title": "Halfway House Public House, Earlsfield   geograph.org.uk   725705",
+   "author": "Stacey Harris",
+   "license": "CC BY-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   }
  },
  "none": [
   "megans-in-the-tonsleys",
-  "the-old-sergeant",
-  "halfway-house-earlsfield",
   "the-earlsfield",
   "the-country-house",
   "the-wandle-earlsfield",

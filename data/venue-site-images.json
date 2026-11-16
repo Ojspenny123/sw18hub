@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-11-16T10:11:47.642Z",
+ "fetchedAt": "2026-11-16T10:14:32.045Z",
  "source": "Venue websites (credited to the venue)",
  "images": {
   "the-wandle-earlsfield": {
@@ -11,11 +11,6 @@
    "url": "https://gkbr-p-001.sitecorecontenthub.cloud/api/public/content/af91d46392b243298604c18794805254?v=15dc93d2",
    "page": "https://www.greeneking.co.uk/pubs/greater-london/old-fields",
    "site": "greeneking.co.uk"
-  },
-  "bosa-kitchen": {
-   "url": "https://bosakitchen.co.uk/wp-content/uploads/2019/11/TJP_2019_11_11_0064.jpg",
-   "page": "https://bosakitchen.co.uk/",
-   "site": "bosakitchen.co.uk"
   },
   "amrutha": {
    "url": "https://res.cloudinary.com/djebexjuh/image/upload/yvvmj9xbjehmwbmlzas0",
@@ -30,14 +25,6 @@
  },
  "none": [
   [
-   "the-old-sergeant",
-   "no image tag"
-  ],
-  [
-   "halfway-house-earlsfield",
-   "no image tag"
-  ],
-  [
    "park-tavern",
    "no image tag"
   ],
@@ -48,6 +35,14 @@
   [
    "pig-and-whistle",
    "fetch failed"
+  ],
+  [
+   "bosa-kitchen",
+   "no image tag"
+  ],
+  [
+   "the-olive-garden-southfields",
+   "looks like a logo"
   ],
   [
    "thai-girder",
@@ -88,10 +83,6 @@
   [
    "hotaru",
    "looks like a logo"
-  ],
-  [
-   "the-olive-garden-southfields",
-   "tiny 250px image, likely a logo"
   ]
  ]
 }
