@@ -56,3 +56,6 @@ The site makes no Google calls. The map is Leaflet with OpenStreetMap tiles (no 
 
 ## Venue photos (free, openly licensed)
 Photos come from your own Contentful `image` field first. Where a venue has none, the site uses an openly licensed (CC BY / CC BY-SA / CC0 / public domain) photo from Wikimedia Commons, found once by `scripts/commons-images.mjs` (GitHub Action `commons-images`) and saved in `data/venue-images.json`. The licences require crediting the photographer, so the credit shows under each photo. A photo is only used if its Commons title matches the venue name. No photos are taken from Google or general web search.
+
+## News pictures
+For feeds with `images: true` in `src/lib/rss.ts`, the news tiles show the picture the publisher puts in its own feed, credited as "Image: {publisher}" and linking to their article. Only switch this on for publishers who have given permission. Stories with no picture keep the hand-drawn topic icon. Pictures are loaded straight from the publisher's site (nothing is stored or paid for).

@@ -49,6 +49,9 @@ export interface NewsArticle {
   sourceUrl?: string;
   publishedAt: string;
   image?: string;
+  /** Picture supplied by the publisher in its feed (used with their permission) and who to credit. */
+  imageUrl?: string;
+  imageCredit?: string;
   featured: boolean;
   /** Mentions or is tagged to one of our SW18 areas. */
   sw18?: boolean;

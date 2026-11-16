@@ -18,6 +18,15 @@ const COLOURS: Record<string, string> = {
 };
 
 export default function NewsThumb({ n, className, width, style }: { n: NewsArticle; className: string; width: number; style?: CSSProperties }) {
+  if (n.imageUrl) {
+    return (
+      <div className={className} style={{ ...style, position: "relative", overflow: "hidden" }}>
+        {/* The publisher's own picture, shown with their permission and credited on the card. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={n.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+    );
+  }
   if (n.image) {
     return <div className={className} style={{ ...style, backgroundImage: `url(${n.image}?w=${width}&fm=webp)` }} />;
   }

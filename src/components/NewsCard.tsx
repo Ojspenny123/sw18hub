@@ -19,6 +19,7 @@ export default function NewsCard({ n }: { n: NewsArticle }) {
           {n.sourceName ? `${n.sourceName} · ` : ""}
           {timeAgo(n.publishedAt)}
         </div>
+        {n.imageUrl && n.imageCredit ? <div className="small muted">Image: {n.imageCredit}</div> : null}
         {external ? (
           <div className="ext">
             Read on {n.sourceName ?? "the publisher’s site"} <span aria-hidden="true">↗</span>

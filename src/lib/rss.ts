@@ -6,12 +6,20 @@ import type { NewsArticle } from "./types";
  * We show only the headline, a short snippet and a link back to the publisher (never the full article).
  * Feeds are re-fetched at most every 3 hours.
  */
-export const NEWS_FEEDS: { name: string; url: string; local?: boolean }[] = [
-  { name: "South West Londoner", url: "https://swlondoner.co.uk/tag/wandsworth/feed" },
-  { name: "South London News", url: "https://southlondon.co.uk/tag/wandsworth/feed" },
+export type NewsFeed = {
+  name: string;
+  url: string;
+  local?: boolean;
+  /** Show the picture the publisher puts in its feed, credited to them. Only switch on with the publisher's permission. */
+  images?: boolean;
+};
+
+export const NEWS_FEEDS: NewsFeed[] = [
+  { name: "South West Londoner", url: "https://swlondoner.co.uk/tag/wandsworth/feed", images: true },
+  { name: "South London News", url: "https://southlondon.co.uk/tag/wandsworth/feed", images: true },
   // `local`: the publisher has already tagged these to Southfields / Wandsworth Town.
-  { name: "Putney.news", url: "https://putney.news/category/putney-wards/southfields/feed/", local: true },
-  { name: "Putney.news", url: "https://putney.news/category/putney-wards/wandsworth-town/feed/", local: true },
+  { name: "Putney.news", url: "https://putney.news/category/putney-wards/southfields/feed/", local: true, images: true },
+  { name: "Putney.news", url: "https://putney.news/category/putney-wards/wandsworth-town/feed/", local: true, images: true },
 ];
 
 const SW18_WORDS =
@@ -22,9 +30,26 @@ export const mentionsSW18 = (s: string) => SW18_WORDS.test(s);
 
 const REVALIDATE_SECONDS = 3 * 60 * 60;
 const MAX_AGE_DAYS = 60;
-const parser = new XMLParser({ ignoreAttributes: true, processEntities: true });
+const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_", processEntities: true });
 
 const text = (v: unknown): string => (typeof v === "string" ? v : v && typeof v === "object" && "#text" in v ? String((v as Record<string, unknown>)["#text"]) : "");
+
+const asList = (v: unknown): Record<string, unknown>[] => (Array.isArray(v) ? v : v ? [v as Record<string, unknown>] : []);
+
+/** The publisher's picture for an item: media tags, an image enclosure, or the first <img> in the post. */
+function feedImage(it: Record<string, unknown>): string | undefined {
+  const ok = (u: unknown) => (typeof u === "string" && /^https:\/\//.test(u) ? u : undefined);
+  for (const m of [...asList(it["media:content"]), ...asList(it["media:thumbnail"])]) {
+    const type = String(m["@_type"] ?? m["@_medium"] ?? "image");
+    if (/image/.test(type) && ok(m["@_url"])) return m["@_url"] as string;
+  }
+  for (const e of asList(it.enclosure)) {
+    if (/image/.test(String(e["@_type"] ?? "")) && ok(e["@_url"])) return e["@_url"] as string;
+  }
+  const html = `${text(it["content:encoded"])} ${text(it.description)}`;
+  const m = html.match(/<img[^>]+src=["'](https:\/\/[^"']+)["']/i);
+  return m ? m[1].replace(/&amp;/g, "&") : undefined;
+}
 
 function clean(html: string, max = 200): string {
   const s = html
@@ -52,7 +77,7 @@ function topicFor(title: string, summary: string): string {
   return "Community";
 }
 
-async function readFeed(feed: { name: string; url: string; local?: boolean }): Promise<NewsArticle[]> {
+async function readFeed(feed: NewsFeed): Promise<NewsArticle[]> {
   try {
     const res = await fetch(feed.url, {
       headers: { "User-Agent": "SW18Hub/1.0 (+local news aggregator; links back to source)" },
@@ -82,6 +107,7 @@ async function readFeed(feed: { name: string; url: string; local?: boolean }): P
         publishedAt: date.toISOString(),
         featured: false,
         sw18: Boolean(feed.local) || mentionsSW18(fullText),
+        ...(feed.images ? (() => { const u = feedImage(it); return u ? { imageUrl: u, imageCredit: feed.name } : {}; })() : {}),
       });
     }
     return out;
