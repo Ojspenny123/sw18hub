@@ -42,11 +42,15 @@ async function byName(name) {
   return Object.values((await res.json()).query?.pages || {});
 }
 
+// Pub names that are also place names: a title match would pick up buses and rivers, so these stay without a photo.
+const SKIP = new Set(["the-earlsfield", "the-wandle-earlsfield"]);
+
 async function main() {
   const seed = JSON.parse(readFileSync(new URL("../data/venues-seed.json", import.meta.url)));
   const osm = JSON.parse(readFileSync(new URL("../data/venue-osm.json", import.meta.url))).venues;
   const out = {}, none = [];
   for (const v of seed) {
+    if (SKIP.has(v.slug)) { none.push(v.slug); continue; }
     const p = osm[v.slug];
     await new Promise((r) => setTimeout(r, 400));
     let files = [];

@@ -82,22 +82,6 @@
    "license": "CC BY-SA 2.0",
    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
   },
-  "the-earlsfield": {
-   "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/London_Bus_route_44_at_Earlsfield.jpg/960px-London_Bus_route_44_at_Earlsfield.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-   "page": "https://commons.wikimedia.org/wiki/File:London_Bus_route_44_at_Earlsfield.jpg",
-   "title": "London Bus route 44 at Earlsfield",
-   "author": "Matthew Black from London, UK",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
-  "the-wandle-earlsfield": {
-   "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/The_Wandle_at_Earlsfield_-_geograph.org.uk_-_1603991.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-   "page": "https://commons.wikimedia.org/wiki/File:The_Wandle_at_Earlsfield_-_geograph.org.uk_-_1603991.jpg",
-   "title": "The Wandle at Earlsfield   geograph.org.uk   1603991",
-   "author": "Derek Harper",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
-  },
   "belle-amie": {
    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Belle_Amie%2C_Earlsfield_-_panoramio.jpg/960px-Belle_Amie%2C_Earlsfield_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "page": "https://commons.wikimedia.org/wiki/File:Belle_Amie,_Earlsfield_-_panoramio.jpg",
@@ -164,6 +148,8 @@
   "cicchetti-and-wine",
   "won-bbq",
   "a1-sushi",
-  "bulgogi"
+  "bulgogi",
+  "the-earlsfield",
+  "the-wandle-earlsfield"
  ]
 }
