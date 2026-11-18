@@ -95,10 +95,19 @@ export interface Popup {
   heading: string;
   body: string;
   detail?: string;
+  /** Address of the page on this site that the pop-up links to: /featured/<slug>. */
+  slug?: string;
+  imageUrl?: string;
+  imageCredit?: string;
+  /** Longer text for the page the pop-up links to. */
+  pageText?: string;
+  /** The button on that page, which links out to the organiser's own site. */
   linkLabel?: string;
   linkUrl?: string;
   showFrom?: string;
   showUntil?: string;
   showOnDays?: string[];
   frequency: "Once per visit" | "Once per day" | "Every page load";
+  /** "Show it" in Contentful. */
+  active: boolean;
 }

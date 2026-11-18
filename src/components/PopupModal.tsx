@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { track } from "@/lib/analytics";
 import type { Popup } from "@/lib/types";
 
@@ -40,7 +41,7 @@ function markSeen(p: Popup, today: string) {
   }
 }
 
-/** Shows the first Contentful pop-up that is due today, once the page has loaded. */
+/** Shows the first Contentful pop-up that is due today, once the page has loaded. Closes with the cross or a click anywhere outside it. */
 export default function PopupModal({ popups }: { popups: Popup[] }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [popup, setPopup] = useState<Popup | null>(null);
@@ -65,6 +66,17 @@ export default function PopupModal({ popups }: { popups: Popup[] }) {
 
   if (!popup) return null;
   const close = () => ref.current?.close();
+  const href = popup.slug ? `/featured/${popup.slug}` : popup.linkUrl;
+  const internal = Boolean(popup.slug);
+
+  const content = (
+    <>
+      <h2 id="popup-title">{popup.heading}</h2>
+      <p>{popup.body}</p>
+      {popup.detail ? <p className="popup-detail">{popup.detail}</p> : null}
+      {href ? <span className="popup-more">Find out more &rarr;</span> : null}
+    </>
+  );
 
   return (
     <dialog
@@ -73,30 +85,32 @@ export default function PopupModal({ popups }: { popups: Popup[] }) {
       aria-labelledby="popup-title"
       onClose={() => setPopup(null)}
       onClick={(e) => {
-        if (e.target === ref.current) close(); // click on the dimmed backdrop
+        if (e.target === ref.current) close(); // click on the dimmed area around the card
       }}
     >
       <div className="popup-card">
         <button type="button" className="popup-x" onClick={close} aria-label="Close">
           &times;
         </button>
-        <h2 id="popup-title">{popup.heading}</h2>
-        <p>{popup.body}</p>
-        {popup.detail ? <p className="popup-detail">{popup.detail}</p> : null}
-        <div className="popup-actions">
-          {popup.linkUrl && popup.linkLabel ? (
-            <a
-              className="btn"
-              href={popup.linkUrl}
-              {...(popup.linkUrl.startsWith("/") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-              onClick={() => track("popup_click", { popup_id: popup.id })}
-            >
-              {popup.linkLabel}
+        {popup.imageUrl ? (
+          <figure className="popup-fig">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={popup.imageUrl} alt="" width={480} height={270} />
+            {popup.imageCredit ? <figcaption>{popup.imageCredit}</figcaption> : null}
+          </figure>
+        ) : null}
+        <div className="popup-body">
+          {href && internal ? (
+            <Link href={href} className="popup-link" onClick={() => { track("popup_click", { popup_id: popup.id }); close(); }}>
+              {content}
+            </Link>
+          ) : href ? (
+            <a href={href} className="popup-link" target="_blank" rel="noopener noreferrer" onClick={() => track("popup_click", { popup_id: popup.id })}>
+              {content}
             </a>
-          ) : null}
-          <button type="button" className="btn outline" onClick={close}>
-            Close
-          </button>
+          ) : (
+            content
+          )}
         </div>
       </div>
     </dialog>

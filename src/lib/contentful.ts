@@ -195,23 +195,38 @@ export async function getDeals(): Promise<Deal[]> {
     .filter((d) => (!d.validTo || d.validTo.slice(0, 10) >= today) && (!d.validFrom || d.validFrom.slice(0, 10) <= today));
 }
 
-/** Pop-ups switched on in Contentful, newest edit first. The browser decides which one (if any) to show today. */
-export async function getPopups(): Promise<Popup[]> {
+const safeUrl = (u: unknown) => (typeof u === "string" && /^(https:\/\/|\/)/.test(u) ? u : undefined);
+
+async function popupEntries(): Promise<Popup[]> {
   const r = await query(CONTENT_TYPES.popup, { order: "-sys.updatedAt" });
   return r.items
-    .filter((e) => e.fields.active === true && e.fields.heading && e.fields.body)
+    .filter((e) => e.fields.heading && e.fields.body)
     .map((e) => ({
       id: e.sys.id,
       version: String(e.sys.updatedAt ?? ""),
       heading: e.fields.heading,
       body: e.fields.body,
       detail: e.fields.detail,
+      slug: e.fields.slug,
+      imageUrl: safeUrl(e.fields.imageUrl),
+      imageCredit: e.fields.imageCredit,
+      pageText: e.fields.pageText,
       linkLabel: e.fields.linkLabel,
-      // Only web links or pages on this site.
-      linkUrl: typeof e.fields.linkUrl === "string" && /^(https?:\/\/|\/)/.test(e.fields.linkUrl) ? e.fields.linkUrl : undefined,
+      linkUrl: safeUrl(e.fields.linkUrl),
       showFrom: e.fields.showFrom,
       showUntil: e.fields.showUntil,
       showOnDays: e.fields.showOnDays,
       frequency: e.fields.frequency ?? "Once per visit",
+      active: e.fields.active === true,
     }));
+}
+
+/** Pop-ups switched on in Contentful, newest edit first. The browser decides which one (if any) to show today. */
+export async function getPopups(): Promise<Popup[]> {
+  return (await popupEntries()).filter((p) => p.active);
+}
+
+/** The page a pop-up links to. Works even after the pop-up is switched off, so old links keep working. */
+export async function getPopupPage(slug: string): Promise<Popup | undefined> {
+  return (await popupEntries()).find((p) => p.slug === slug);
 }

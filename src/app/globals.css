@@ -328,11 +328,18 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .cookie-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* Pop-up modal (content from Contentful, see components/PopupModal.tsx) */
-.popup { border: 0; padding: 0; background: transparent; max-width: min(480px, calc(100vw - 24px)); width: 100%; margin: auto; }
+.popup { border: 0; padding: 0; background: transparent; max-width: min(480px, calc(100vw - 24px)); width: 100%; margin: auto; overflow: visible; }
 .popup::backdrop { background: rgba(29, 29, 27, 0.6); }
-.popup-card { position: relative; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); padding: 28px 22px 22px; border-top: 8px solid var(--pink); }
-.popup-card h2 { margin: 0 44px 10px 0; font-size: 24px; line-height: 1.2; }
+.popup-card { position: relative; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); border-top: 8px solid var(--pink); overflow: hidden; }
+.popup-fig, .featured-fig { margin: 0; }
+.popup-fig img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--fill); }
+.popup-fig figcaption, .featured-fig figcaption { font-size: 12px; color: var(--muted); padding: 4px 12px 0; }
+.featured-fig img { display: block; width: 100%; max-width: 720px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); background: var(--fill); }
+.featured-fig figcaption { padding-left: 0; }
+.popup-body { padding: 16px 20px 20px; }
+.popup-link { display: block; color: inherit; text-decoration: none; }
+.popup-card h2 { margin: 0 0 8px; font-size: 24px; line-height: 1.2; }
 .popup-card p { margin: 0 0 10px; }
 .popup-detail { font-weight: 600; background: var(--yellow-pale); padding: 8px 10px; border-radius: 8px; }
-.popup-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.popup-x { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; font-size: 28px; line-height: 1; background: transparent; border: 0; cursor: pointer; color: var(--ink); }
+.popup-more { display: inline-block; margin-top: 4px; font-weight: 700; color: var(--pink-dark); text-decoration: underline; }
+.popup-x { position: absolute; z-index: 2; top: 6px; right: 6px; width: 44px; height: 44px; font-size: 28px; line-height: 1; background: #fff; border: 2px solid var(--ink); border-radius: 50%; cursor: pointer; color: var(--ink); }
