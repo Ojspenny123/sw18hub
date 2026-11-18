@@ -8,10 +8,10 @@ import type { EventItem } from "@/lib/types";
 
 type When = "any" | "today" | "weekend" | "week" | `m:${string}`;
 
-export default function EventsExplorer({ events, todayKey }: { events: EventItem[]; todayKey: string }) {
+export default function EventsExplorer({ events, todayKey, startDay }: { events: EventItem[]; todayKey: string; startDay?: string }) {
   const [when, setWhen] = useState<When>("any");
   const [type, setType] = useState<EventType | "all">("all");
-  const [view, setView] = useState<"list" | "calendar">("list");
+  const [view, setView] = useState<"list" | "calendar">(startDay ? "calendar" : "list");
 
   // Every event as a date range of London calendar days.
   const items = useMemo(
@@ -117,7 +117,7 @@ export default function EventsExplorer({ events, todayKey }: { events: EventItem
       </div>
 
       {view === "calendar" ? (
-        <EventsCalendar items={items.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} />
+        <EventsCalendar items={items.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} startDay={startDay} />
       ) : shown.length === 0 ? (
         <p className="muted">Nothing matches those filters. Try another day or type.</p>
       ) : (

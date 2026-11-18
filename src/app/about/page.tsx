@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import { abs } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "How SW18 Hub ranks places, and where the data comes from",
+  title: "About SW18 Hub: how places are chosen, and where the data comes from",
   description: "SW18 Hub is an independent local guide to Wandsworth Town, Earlsfield and Southfields. How places are chosen and how often data is refreshed.",
   alternates: { canonical: "/about" },
 };

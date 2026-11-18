@@ -5,7 +5,7 @@ import { AREAS, VENUE_TYPES } from "./types";
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || "https://brilliant-bunny-36c3c1.netlify.app").replace(/\/$/, "");
 export const SITE_NAME = "SW18 Hub";
 export const SITE_DESCRIPTION =
-  "Top-rated cafes, restaurants, bars, pubs and takeaways in SW18 (Wandsworth Town, Earlsfield, Southfields and Wandsworth Common), plus local news, events and deals.";
+  "Cafes, restaurants, bars, pubs and takeaways in SW18 (Wandsworth Town, Earlsfield, Southfields and Wandsworth Common), plus local events and news.";
 
 export const abs = (path = "/") => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 
@@ -48,7 +48,7 @@ export function bestCombos(venues: { type: string; area: string }[], min = 3) {
 
 export function bestTitle(type: string, area?: string) {
   const t = typePlural(type);
-  return `Best ${t} in ${area ?? "SW18"}`;
+  return `${t.charAt(0).toUpperCase()}${t.slice(1)} in ${area ?? "SW18"}`;
 }
 
 const SCHEMA_TYPE: Record<string, string> = {

@@ -16,11 +16,11 @@ const shiftMonth = (ym: string, n: number) => {
 };
 
 /** Month grid. Days with events are tappable; the day's events list underneath. */
-export default function EventsCalendar({ items, todayKey }: { items: Item[]; todayKey: string }) {
+export default function EventsCalendar({ items, todayKey, startDay }: { items: Item[]; todayKey: string; startDay?: string }) {
   const thisMonth = todayKey.slice(0, 7);
   const lastMonth = useMemo(() => items.reduce((m, it) => (it.start.slice(0, 7) > m ? it.start.slice(0, 7) : m), thisMonth), [items, thisMonth]);
-  const [ym, setYm] = useState(thisMonth);
-  const [picked, setPicked] = useState<string | null>(todayKey);
+  const [ym, setYm] = useState(startDay ? startDay.slice(0, 7) : thisMonth);
+  const [picked, setPicked] = useState<string | null>(startDay ?? todayKey);
 
   // Day key -> events on that day. Very long runs (exhibitions) only mark their start day.
   const byDay = useMemo(() => {

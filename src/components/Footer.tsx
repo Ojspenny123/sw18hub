@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { AREAS } from "@/lib/types";
-import { bestSlug } from "@/lib/seo";
 import CookieSettings from "./CookieSettings";
 
 export default function Footer() {
@@ -11,18 +9,8 @@ export default function Footer() {
           <strong style={{ color: "var(--ink)" }}>SW18 Hub</strong>
           <span className="fine">A local guide to Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.</span>
         </div>
-        <nav aria-label="Best of SW18">
-          <Link href={`/best/${bestSlug("Restaurant")}`}>Restaurants</Link>
-          <Link href={`/best/${bestSlug("Cafe")}`}>Cafes</Link>
-          <Link href={`/best/${bestSlug("Bar")}`}>Bars</Link>
-          <Link href={`/best/${bestSlug("Takeaway")}`}>Takeaways</Link>
-          {AREAS.slice(0, 3).map((a) => (
-            <Link key={a} href={`/best/${bestSlug("Restaurant", a)}`}>Eat in {a}</Link>
-          ))}
-        </nav>
         <nav aria-label="Footer">
-          <Link href="/whats-on">What&apos;s on</Link>
-          <Link href="/about">How we rank places</Link>
+          <Link href="/about">About</Link>
           <Link href="/deals#business">Add your business</Link>
           <Link href="/privacy">Privacy and cookies</Link>
           <CookieSettings />

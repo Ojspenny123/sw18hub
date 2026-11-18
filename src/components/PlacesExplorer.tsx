@@ -97,8 +97,8 @@ export default function PlacesExplorer({ venues }: { venues: VenueWithRating[] }
       <div className="split" data-view={view}>
         <div className="venue-list">
           {list.length === 0 ? <div className="empty">No places match those filters.</div> : null}
-          {list.map((v, i) => (
-            <VenueRow key={v.id} v={v} rank={i + 1} selected={selected === v.id} />
+          {list.map((v) => (
+            <VenueRow key={v.id} v={v} selected={selected === v.id} />
           ))}
         </div>
 

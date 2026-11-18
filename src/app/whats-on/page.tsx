@@ -14,7 +14,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/whats-on" },
 };
 
-export default async function WhatsOnPage() {
+export default async function WhatsOnPage({ searchParams }: { searchParams: Promise<{ day?: string }> }) {
+  const { day } = await searchParams;
+  const startDay = day && /^\d{4}-\d{2}-\d{2}$/.test(day) ? day : undefined;
   const [events, featured] = await Promise.all([getEvents(), getPopups()]);
   const todayKey = dayKey(new Date().toISOString());
 
@@ -54,7 +56,7 @@ export default async function WhatsOnPage() {
           </Link>
         ))}
 
-      {events.length === 0 ? <p className="muted">No upcoming events listed yet. Check back soon.</p> : <EventsExplorer events={events} todayKey={todayKey} />}
+      {events.length === 0 ? <p className="muted">No upcoming events listed yet. Check back soon.</p> : <EventsExplorer events={events} todayKey={todayKey} startDay={startDay} />}
 
       <div className="panel" style={{ marginTop: 32 }}>
         <h2 style={{ fontSize: 20 }}>Running an event in SW18?</h2>

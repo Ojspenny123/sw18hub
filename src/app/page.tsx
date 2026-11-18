@@ -1,10 +1,13 @@
-import NewsCard from "@/components/NewsCard";
+import NewsRow from "@/components/NewsRow";
+import MiniCalendar from "@/components/MiniCalendar";
+import HomePlaces from "@/components/HomePlaces";
 import AskBox from "@/components/AskBox";
 import Link from "next/link";
-import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
 import { getEvents, getNews, getPopups, getVenues } from "@/lib/contentful";
-import { byRating, withRatings } from "@/lib/google";
+import { withRatings } from "@/lib/google";
+import { dayKey } from "@/lib/event-types";
+import { VENUE_TYPES } from "@/lib/types";
 import EventRow from "@/components/EventRow";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
@@ -17,8 +20,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const CHIPS = ["Best pubs near Earlsfield", "Sunday roast", "What is on this weekend?"];
-const CATEGORIES: [string, string][] = [["Restaurants", "Restaurant"], ["Cafes", "Cafe"], ["Bars", "Bar"], ["Pubs", "Pub"], ["Takeaways", "Takeaway"]];
+const CHIPS: [string, string][] = [
+  ["Eat", `/best/${bestSlug("Restaurant")}`],
+  ["Drink", `/best/${bestSlug("Pub")}`],
+  ["Coffee", `/best/${bestSlug("Cafe")}`],
+  ["What is on this weekend?", "/whats-on"],
+];
 
 export default async function Home() {
   const [venues, news, events, popups] = await Promise.all([getVenues(), getNews(), getEvents(), getPopups()]);
@@ -35,7 +42,14 @@ export default async function Home() {
       !(p.showOnDays?.length && !p.showOnDays.includes(dow)),
   );
   const rated = await withRatings(venues);
-  const top = [...rated].sort((a, b) => byRating(a, b) || Number(b.featured) - Number(a.featured)).slice(0, 4);
+  // Four places per type, featured first then A to Z. "All" takes one of each type in turn so it is a mix.
+  const pick = (list: typeof rated) => [...list].sort((x, y) => Number(y.featured) - Number(x.featured) || x.name.localeCompare(y.name)).slice(0, 4);
+  const byType = VENUE_TYPES.map((type) => ({ type: type as string, venues: pick(rated.filter((v) => v.type === type)) })).filter((g) => g.venues.length);
+  const mixed: typeof rated = [];
+  for (let i = 0; i < 4; i++) for (const g of byType) if (g.venues[i] && mixed.length < 4) mixed.push(g.venues[i]);
+  const groups = [{ type: "All", venues: mixed }, ...byType];
+  const todayKey = dayKey(new Date().toISOString());
+  const upcoming = events.filter((e) => dayKey(e.endsAt ?? e.startsAt) >= todayKey);
 
   return (
     <>
@@ -43,12 +57,12 @@ export default async function Home() {
         <div className="wrap">
           <div className="hero-text">
             <h1>Everything happening in SW18</h1>
-            <p className="lead">Top-rated places, local news, events and deals for Wandsworth, Earlsfield and Southfields.</p>
+            <p className="lead">Places, local news and events for Wandsworth, Earlsfield and Southfields.</p>
             <AskBox />
             <div className="chips">
-              {CHIPS.map((c) => (
-                <Link key={c} href={`/ask?q=${encodeURIComponent(c)}`} className="chip">
-                  {c}
+              {CHIPS.map(([label, href]) => (
+                <Link key={label} href={href} className="chip">
+                  {label}
                 </Link>
               ))}
             </div>
@@ -76,28 +90,35 @@ export default async function Home() {
         </div>
       </section>
 
-      <div className="wrap section" style={{ paddingTop: 24 }}>
-        <nav className="chips" aria-label="Browse by type">
-          {CATEGORIES.map(([label, type]) => (
-            <Link key={type} href={`/best/${bestSlug(type)}`} className="chip">
-              {label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      <section className="wrap section">
+        <div className="between">
+          <h2 className="sub">This week in SW18</h2>
+          <Link href="/whats-on" className="more-link">
+            Full calendar
+          </Link>
+        </div>
+        {upcoming.length ? (
+          <div className="home-events">
+            <div className="stack">
+              {upcoming.slice(0, 5).map((e) => (
+                <EventRow key={e.id} e={e} />
+              ))}
+            </div>
+            <MiniCalendar events={upcoming} todayKey={todayKey} />
+          </div>
+        ) : (
+          <div className="empty">No upcoming events yet. Check back soon.</div>
+        )}
+      </section>
 
       <section className="wrap section">
         <div className="between">
-          <h2 className="sub">Top rated near you</h2>
+          <h2 className="sub">Places we like</h2>
           <Link href="/places" className="more-link">
             See all on the map
           </Link>
         </div>
-        {top.length ? (
-          <div className="snap">{top.map((v) => <VenueCard key={v.id} v={v} />)}</div>
-        ) : (
-          <div className="empty">Places are on their way. Add venues in Contentful and they will show up here.</div>
-        )}
+        {mixed.length ? <HomePlaces groups={groups} /> : <div className="empty">Places are on their way. Add venues in Contentful and they will show up here.</div>}
       </section>
 
       <section className="wrap section">
@@ -108,9 +129,9 @@ export default async function Home() {
           </Link>
         </div>
         {news.length ? (
-          <div className="news-grid">
-            {news.slice(0, 4).map((n) => (
-              <NewsCard key={n.id} n={n} />
+          <div className="nrows">
+            {news.slice(0, 3).map((n) => (
+              <NewsRow key={n.id} n={n} />
             ))}
           </div>
         ) : (
@@ -119,35 +140,17 @@ export default async function Home() {
       </section>
 
       <section className="wrap section">
-        <div className="between">
-          <h2 className="sub">What&apos;s on this week</h2>
-          <Link href="/whats-on" className="more-link">
-            Full calendar
-          </Link>
-        </div>
-        {events.length ? (
-          <div className="stack">
-            {events.slice(0, 4).map((e) => (
-              <EventRow key={e.id} e={e} showType={false} />
-            ))}
-          </div>
-        ) : (
-          <div className="empty">No upcoming events yet. Add events in Contentful.</div>
-        )}
-      </section>
-
-      <section className="wrap section">
         <div className="teaser">
           <div>
-            <h2 className="sub">Local deals are coming</h2>
-            <p className="muted">Exclusive discount codes from SW18 pubs, cafés and shops. Get notified when the first ones go live.</p>
+            <h2 className="sub">The Sunday round-up</h2>
+            <p className="muted">One email a week with what is on, local news and, soon, deals from SW18 pubs and cafes.</p>
           </div>
           <div>
             <LeadForm
               formName="waitlist"
               fields={[{ name: "email", label: "Your email", type: "email" }]}
-              button="Notify me"
-              done="Thanks, we will let you know."
+              button="Sign me up"
+              done="Thanks, see you on Sunday."
             />
           </div>
         </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import PlacesExplorer from "@/components/PlacesExplorer";
 import { getVenues } from "@/lib/contentful";
-import { byRating, withRatings } from "@/lib/google";
+import { withRatings } from "@/lib/google";
 import { abs } from "@/lib/seo";
 
 export const revalidate = 60;
@@ -15,15 +15,14 @@ export const metadata: Metadata = {
 
 export default async function PlacesPage() {
   const venues = await withRatings(await getVenues());
-  const top = [...venues].sort(byRating).slice(0, 20);
+  const top = venues.slice(0, 20);
   return (
     <div className="wrap section" style={{ paddingTop: 24 }}>
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
-          name: "Top ranked places to eat and drink in SW18",
-          itemListOrder: "https://schema.org/ItemListOrderDescending",
+          name: "Places to eat and drink in SW18",
           itemListElement: top.map((v, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/places/${v.slug}`), name: v.name })),
         }}
       />
