@@ -53,3 +53,14 @@ export function track(name: string, params: Record<string, string | number | boo
   if (typeof window === "undefined" || typeof window.gtag !== "function" || getConsent() !== "granted") return;
   window.gtag("event", name, params);
 }
+
+/** Search terms for analytics: first 100 characters, with anything that looks like an email address or phone number removed. */
+export function searchTerm(text: string): string {
+  return text
+    .replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, "[removed]")
+    .replace(/\+?\d[\d\s().-]{7,}\d/g, "[removed]")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 100)
+    .toLowerCase();
+}

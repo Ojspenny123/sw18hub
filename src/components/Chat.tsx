@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@/lib/analytics";
+import { searchTerm, track } from "@/lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import RichText from "./RichText";
 
@@ -52,8 +52,8 @@ export default function Chat({ initialQuestion }: { initialQuestion?: string }) 
     setMsgs(next);
     setInput("");
     setBusy(true);
-    // Count only: the question text is never sent to analytics.
-    track("chatbot_question", { question_number: next.filter((m) => m.role === "user").length });
+    // Question text is shortened and emails/phone numbers are removed first (see /privacy).
+    track("chatbot_question", { question_number: next.filter((m) => m.role === "user").length, question_text: searchTerm(q) });
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
