@@ -21,5 +21,5 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add data/probe-kerb.json
+          git add data/probe-img
           git diff --staged --quiet || (git commit -m "Probe KERB pages for a popup photo [skip ci]" && git push)
