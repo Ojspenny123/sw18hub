@@ -1,6 +1,6 @@
 import { osmFor } from "./osm";
 import { photoFor } from "./venue-images";
-import type { Deal, EventItem, NewsArticle, Venue } from "./types";
+import type { Deal, EventItem, NewsArticle, Popup, Venue } from "./types";
 import { getFeedEvents } from "./events";
 import { getRssNews } from "./rss";
 
@@ -20,12 +20,13 @@ export const CONTENT_TYPES = {
   news: "sw18NewsArticle",
   business: "sw18Business",
   deal: "sw18Deal",
+  popup: "sw18Popup",
 } as const;
 export const SITE_TAG = "siteSw18Hub";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface CfEntry {
-  sys: { id: string };
+  sys: { id: string; updatedAt?: string };
   fields: Record<string, any>;
 }
 interface CfResponse {
@@ -192,4 +193,25 @@ export async function getDeals(): Promise<Deal[]> {
       } as Deal;
     })
     .filter((d) => (!d.validTo || d.validTo.slice(0, 10) >= today) && (!d.validFrom || d.validFrom.slice(0, 10) <= today));
+}
+
+/** Pop-ups switched on in Contentful, newest edit first. The browser decides which one (if any) to show today. */
+export async function getPopups(): Promise<Popup[]> {
+  const r = await query(CONTENT_TYPES.popup, { order: "-sys.updatedAt" });
+  return r.items
+    .filter((e) => e.fields.active === true && e.fields.heading && e.fields.body)
+    .map((e) => ({
+      id: e.sys.id,
+      version: String(e.sys.updatedAt ?? ""),
+      heading: e.fields.heading,
+      body: e.fields.body,
+      detail: e.fields.detail,
+      linkLabel: e.fields.linkLabel,
+      // Only web links or pages on this site.
+      linkUrl: typeof e.fields.linkUrl === "string" && /^(https?:\/\/|\/)/.test(e.fields.linkUrl) ? e.fields.linkUrl : undefined,
+      showFrom: e.fields.showFrom,
+      showUntil: e.fields.showUntil,
+      showOnDays: e.fields.showOnDays,
+      frequency: e.fields.frequency ?? "Once per visit",
+    }));
 }

@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/Analytics";
+import PopupModal from "@/components/PopupModal";
+import { getPopups } from "@/lib/contentful";
 import JsonLd from "@/components/JsonLd";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, abs } from "@/lib/seo";
 import "./globals.css";
@@ -43,7 +45,8 @@ const siteJsonLd = [
   },
 ];
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const popups = await getPopups();
   return (
     <html lang="en-GB">
       <head>
@@ -53,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <PopupModal popups={popups} />
         <Analytics />
       </body>
     </html>

@@ -86,3 +86,19 @@ export interface Deal {
   validTo?: string;
   image?: string;
 }
+
+/** A pop-up shown when a page loads (Contentful type sw18Popup). Date and day rules are applied in the browser so pages can stay cached. */
+export interface Popup {
+  id: string;
+  /** Changes whenever the entry is edited, so an edited pop-up is shown again to people who dismissed the old one. */
+  version: string;
+  heading: string;
+  body: string;
+  detail?: string;
+  linkLabel?: string;
+  linkUrl?: string;
+  showFrom?: string;
+  showUntil?: string;
+  showOnDays?: string[];
+  frequency: "Once per visit" | "Once per day" | "Every page load";
+}

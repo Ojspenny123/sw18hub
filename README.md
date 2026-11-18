@@ -66,3 +66,6 @@ For feeds with `images: true` in `src/lib/rss.ts`, the news tiles show the pictu
 - Custom events (see `track()` in `src/lib/analytics.ts`): `outbound_click` (link_domain, link_url, link_text, page_path), `chatbot_question` (question_number, and question_text: first 100 chars, emails/phones stripped), `map_pin_click` (venue), `lead_form_submit` (form_name). Events only fire on the live site (not localhost or Netlify previews). Page views and scrolls come from GA4 enhanced measurement.
 - Never put personal data or typed text in an event. Do not link BigQuery or a billing account.
 - Privacy page: `/privacy`.
+
+## Popups
+Content type `sw18Popup` in Contentful (tagged `siteSw18Hub`). The first popup that is switched on ("Show it") and due today (optional Show from / Show until dates and "Only on these days") appears when a page loads. "How often" controls repeats: once per visit, once per day or every page load. Editing a popup shows it again to people who dismissed the old version. Events: `popup_view`, `popup_click` (popup_id). Code: `src/components/PopupModal.tsx`, `getPopups()` in `src/lib/contentful.ts`.

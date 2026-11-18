@@ -326,3 +326,13 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .cookie-banner { position: fixed; z-index: 60; left: 12px; right: 12px; bottom: 12px; max-width: 640px; margin: 0 auto; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3); padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
 .cookie-banner p { margin: 0; }
 .cookie-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Pop-up modal (content from Contentful, see components/PopupModal.tsx) */
+.popup { border: 0; padding: 0; background: transparent; max-width: min(480px, calc(100vw - 24px)); width: 100%; margin: auto; }
+.popup::backdrop { background: rgba(29, 29, 27, 0.6); }
+.popup-card { position: relative; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); padding: 28px 22px 22px; border-top: 8px solid var(--pink); }
+.popup-card h2 { margin: 0 44px 10px 0; font-size: 24px; line-height: 1.2; }
+.popup-card p { margin: 0 0 10px; }
+.popup-detail { font-weight: 600; background: var(--yellow-pale); padding: 8px 10px; border-radius: 8px; }
+.popup-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.popup-x { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; font-size: 28px; line-height: 1; background: transparent; border: 0; cursor: pointer; color: var(--ink); }
