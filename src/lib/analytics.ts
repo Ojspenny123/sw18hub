@@ -17,6 +17,16 @@ declare global {
   }
 }
 
+/** Only count real visits to the live site: not localhost, and not Netlify deploy previews or branch deploys (their host names contain "--"). */
+export function analyticsAllowed(): boolean {
+  if (typeof window === "undefined") return false;
+  const h = window.location.hostname;
+  return h !== "localhost" && h !== "127.0.0.1" && h !== "[::1]" && !h.includes("--");
+}
+
+/** Holds a question typed in the home page box until the Ask page picks it up, so it never goes in the page address. */
+export const ASK_KEY = "sw18-ask-question";
+
 export function getConsent(): Consent {
   try {
     const v = window.localStorage.getItem(CONSENT_KEY);
@@ -50,7 +60,7 @@ export function setConsent(v: Consent) {
 
 /** Send a custom event. Does nothing unless the visitor has accepted analytics. Never pass personal data or typed text. */
 export function track(name: string, params: Record<string, string | number | boolean> = {}) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function" || getConsent() !== "granted") return;
+  if (!analyticsAllowed() || typeof window.gtag !== "function" || getConsent() !== "granted") return;
   window.gtag("event", name, params);
 }
 

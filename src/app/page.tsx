@@ -1,4 +1,5 @@
 import NewsCard from "@/components/NewsCard";
+import AskBox from "@/components/AskBox";
 import Link from "next/link";
 import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
@@ -31,15 +32,7 @@ export default async function Home() {
           <div className="hero-text">
             <h1>Everything happening in SW18</h1>
             <p className="lead">Top-rated places, local news, events and deals for Wandsworth, Earlsfield and Southfields.</p>
-            <form action="/ask" className="askbox">
-              <label htmlFor="q" className="sr">
-                Ask SW18
-              </label>
-              <input id="q" name="q" type="text" placeholder="Ask anything, e.g. dog-friendly pubs with a garden" />
-              <button type="submit" className="btn">
-                Ask
-              </button>
-            </form>
+            <AskBox />
             <div className="chips">
               {CHIPS.map((c) => (
                 <Link key={c} href={`/ask?q=${encodeURIComponent(c)}`} className="chip">

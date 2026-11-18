@@ -1,6 +1,6 @@
 "use client";
 
-import { searchTerm, track } from "@/lib/analytics";
+import { ASK_KEY, searchTerm, track } from "@/lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import RichText from "./RichText";
 
@@ -70,9 +70,20 @@ export default function Chat({ initialQuestion }: { initialQuestion?: string }) 
   }
 
   useEffect(() => {
-    if (initialQuestion && !started.current) {
+    if (started.current) return;
+    let q = initialQuestion;
+    try {
+      const saved = window.sessionStorage.getItem(ASK_KEY);
+      if (saved) {
+        window.sessionStorage.removeItem(ASK_KEY);
+        q = q || saved;
+      }
+    } catch {
+      /* storage blocked: fall back to the address */
+    }
+    if (q) {
       started.current = true;
-      send(initialQuestion);
+      send(q);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

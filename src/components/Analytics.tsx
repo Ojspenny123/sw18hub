@@ -2,7 +2,7 @@
 
 import { useEffect, useSyncExternalStore } from "react";
 import Script from "next/script";
-import { CONSENT_EVENT, GA_ID, getConsent, setConsent, track, type Consent } from "@/lib/analytics";
+import { analyticsAllowed, CONSENT_EVENT, GA_ID, getConsent, setConsent, track, type Consent } from "@/lib/analytics";
 
 function subscribe(cb: () => void) {
   window.addEventListener(CONSENT_EVENT, cb);
@@ -12,8 +12,8 @@ function subscribe(cb: () => void) {
     window.removeEventListener("storage", cb);
   };
 }
-// "unknown" on the server and during hydration, so the banner never flashes for people who already chose.
-const useConsent = (): Consent | "unknown" => useSyncExternalStore(subscribe, getConsent, () => "unknown" as const);
+// Off (no banner, no script) on localhost and deploy previews. "unknown" on the server and during hydration, so the banner never flashes for people who already chose.
+const useConsent = (): Consent | "unknown" => useSyncExternalStore(subscribe, () => (analyticsAllowed() ? getConsent() : "denied"), () => "unknown" as const);
 
 export default function Analytics() {
   const consent = useConsent();

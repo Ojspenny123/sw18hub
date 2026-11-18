@@ -63,6 +63,6 @@ For feeds with `images: true` in `src/lib/rss.ts`, the news tiles show the pictu
 ## Analytics (Google Analytics 4, free)
 - `src/components/Analytics.tsx` shows a cookie banner and loads GA4 **only after a visitor accepts**. Declining loads nothing. "Cookie settings" in the footer reopens the banner.
 - Measurement ID: `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Netlify (falls back to the ID in `src/lib/analytics.ts`; it is public, not a secret).
-- Custom events (see `track()` in `src/lib/analytics.ts`): `outbound_click` (link_domain, link_url, link_text, page_path), `chatbot_question` (question_number, and question_text: first 100 chars, emails/phones stripped), `map_pin_click` (venue), `form_submit` (form_name). Page views and scrolls come from GA4 enhanced measurement.
+- Custom events (see `track()` in `src/lib/analytics.ts`): `outbound_click` (link_domain, link_url, link_text, page_path), `chatbot_question` (question_number, and question_text: first 100 chars, emails/phones stripped), `map_pin_click` (venue), `lead_form_submit` (form_name). Events only fire on the live site (not localhost or Netlify previews). Page views and scrolls come from GA4 enhanced measurement.
 - Never put personal data or typed text in an event. Do not link BigQuery or a billing account.
 - Privacy page: `/privacy`.
