@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useEffect, useRef, useState } from "react";
 import RichText from "./RichText";
 
@@ -51,6 +52,8 @@ export default function Chat({ initialQuestion }: { initialQuestion?: string }) 
     setMsgs(next);
     setInput("");
     setBusy(true);
+    // Count only: the question text is never sent to analytics.
+    track("chatbot_question", { question_number: next.filter((m) => m.role === "user").length });
     try {
       const res = await fetch("/api/ask", {
         method: "POST",

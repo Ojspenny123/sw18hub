@@ -59,3 +59,10 @@ Photos come from your own Contentful `image` field first. Where a venue has none
 
 ## News pictures
 For feeds with `images: true` in `src/lib/rss.ts`, the news tiles show the picture the publisher puts in its own feed, credited as "Image: {publisher}" and linking to their article. Only switch this on for publishers who have given permission. Stories with no picture keep the hand-drawn topic icon. Pictures are loaded straight from the publisher's site (nothing is stored or paid for).
+
+## Analytics (Google Analytics 4, free)
+- `src/components/Analytics.tsx` shows a cookie banner and loads GA4 **only after a visitor accepts**. Declining loads nothing. "Cookie settings" in the footer reopens the banner.
+- Measurement ID: `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Netlify (falls back to the ID in `src/lib/analytics.ts`; it is public, not a secret).
+- Custom events (see `track()` in `src/lib/analytics.ts`): `outbound_click` (link_domain, link_url, link_text, page_path), `chatbot_question` (count only, never the text), `map_pin_click` (venue), `form_submit` (form_name). Page views and scrolls come from GA4 enhanced measurement.
+- Never put personal data or typed text in an event. Do not link BigQuery or a billing account.
+- Privacy page: `/privacy`.

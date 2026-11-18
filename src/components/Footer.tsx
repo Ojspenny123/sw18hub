@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AREAS } from "@/lib/types";
 import { bestSlug } from "@/lib/seo";
+import CookieSettings from "./CookieSettings";
 
 export default function Footer() {
   return (
@@ -23,6 +24,8 @@ export default function Footer() {
           <Link href="/whats-on">What&apos;s on</Link>
           <Link href="/about">How we rank places</Link>
           <Link href="/deals#business">Add your business</Link>
+          <Link href="/privacy">Privacy and cookies</Link>
+          <CookieSettings />
         </nav>
       </div>
     </footer>

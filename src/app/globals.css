@@ -321,3 +321,8 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
   * { scroll-behavior: auto !important; transition: none !important; }
 }
 
+
+.linklike { background: none; border: 0; padding: 8px 0; font: inherit; color: var(--ink); text-decoration: underline; cursor: pointer; }
+.cookie-banner { position: fixed; z-index: 60; left: 12px; right: 12px; bottom: 12px; max-width: 640px; margin: 0 auto; background: #fff; border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3); padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
+.cookie-banner p { margin: 0; }
+.cookie-actions { display: flex; flex-wrap: wrap; gap: 10px; }

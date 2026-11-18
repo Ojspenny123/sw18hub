@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 
 interface Field {
@@ -35,6 +36,7 @@ export default function LeadForm({
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
+      if (res.ok) track("form_submit", { form_name: formName });
       setState(res.ok ? "done" : "error");
     } catch {
       setState("error");

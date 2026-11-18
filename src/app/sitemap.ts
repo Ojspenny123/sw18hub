@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: abs("/whats-on"), changeFrequency: "daily", priority: 0.7 },
     { url: abs("/deals"), changeFrequency: "weekly", priority: 0.5 },
     { url: abs("/about"), changeFrequency: "yearly", priority: 0.4 },
+    { url: abs("/privacy"), changeFrequency: "yearly", priority: 0.1 },
   ];
   const best: MetadataRoute.Sitemap = bestCombos(venues).map((c) => ({
     url: abs(`/best/${bestSlug(c.type, c.area)}`),

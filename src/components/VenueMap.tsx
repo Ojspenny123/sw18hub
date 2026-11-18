@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -46,7 +47,7 @@ export default function VenueMap({ points, selected, onSelect }: { points: MapPo
         <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19} />
         <Fit key={key} pts={placed.map((p) => [p.lat as number, p.lon as number])} />
         {placed.map((p) => (
-          <Marker key={p.id} position={[p.lat as number, p.lon as number]} icon={icon(p.n, selected === p.id)} title={p.name} eventHandlers={{ click: () => onSelect(p.id) }} />
+          <Marker key={p.id} position={[p.lat as number, p.lon as number]} icon={icon(p.n, selected === p.id)} title={p.name} eventHandlers={{ click: () => { track("map_pin_click", { venue: p.name }); onSelect(p.id); } }} />
         ))}
       </MapContainer>
     </div>
