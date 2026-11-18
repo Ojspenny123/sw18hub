@@ -1,0 +1,42 @@
+{
+  "https://www.kerbfood.com/markets/new-acres/": {
+    "error": "TypeError: fetch failed"
+  },
+  "https://www.kerbfood.com/markets/": {
+    "error": "TypeError: fetch failed"
+  },
+  "https://www.kerbfood.com/kerb-life/": {
+    "error": "TypeError: fetch failed"
+  },
+  "https://www.kerbfood.com/category/events/": {
+    "error": "TypeError: fetch failed"
+  },
+  "https://www.newacreswandsworth.com/": {
+    "status": 200,
+    "title": "New Acres Wandsworth - Stylish 1, 2 and 3 bedroom apartments for rent",
+    "posts": [],
+    "imgs": [
+      "https://vz-912b2d61-3b2.b-cdn.net/308b20d1-ca9d-4b97-878c-cd08e31d484a/thumbnail.jpg",
+      "https://www.newacreswandsworth.com/images/New-Acres/home/find-us-1150x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/home/eat-drink-do-1026x922.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/home/amenites-1026x922.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/home/events-things-to-do-1026x922.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/events/slider/01-rooftop-riviera-800x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/events/slider/03-running-800x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/events/slider/04-pooltop-pilates-800x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/events/slider/02-tote-bag-800x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/events/slider/walk-in-packs-666x322.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/next/Apartments-750x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/next/whats-here-750x-1.webp",
+      "https://www.newacreswandsworth.com/images/New-Acres/next/life-here-750x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/469239279_17932565624960791_4720982647251531372_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/468821612_17932328252960791_7097015307087691971_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/468595766_17932087763960791_2792721940954836506_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/468253327_17931734591960791_3437149522301022161_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/468848531_1259116118463792_6821433674119041838_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/467762992_17931071366960791_6193750307547505637_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/467318703_17930955995960791_1479200808664106719_n-thumb-400x-1.webp",
+      "https://www.newacreswandsworth.com/images/instagram/467700535_17930850308960791_7353326069377474809_n-thumb-400x-1.webp"
+    ]
+  }
+}
