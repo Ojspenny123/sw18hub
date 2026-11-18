@@ -364,3 +364,21 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .feat img { width: 84px; height: auto; border-radius: 8px; flex: none; }
 .feat-k { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #be185d; }
 .feat h2 { font-size: 18px; margin: 2px 0; }
+
+/* Featured item in the home hero */
+.hero-feature { display: flex; background: #fff; border: 2px solid var(--ink); border-top: 6px solid var(--pink); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; box-shadow: 5px 5px 0 var(--ink); }
+.hero-feature:hover { color: var(--ink); }
+.hero-feature-img { width: 124px; flex: none; background: #a7ddd3; display: flex; align-items: center; }
+.hero-feature-img img { width: 100%; height: auto; display: block; }
+.hero-feature-text { padding: 12px; display: flex; flex-direction: column; gap: 6px; justify-content: center; min-width: 0; }
+.hero-feature-k { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--pink-dark); }
+.hero-feature-h { font-size: 18px; font-weight: 800; line-height: 1.15; }
+.hero-feature-d { font-size: 13px; font-weight: 600; }
+.hero-feature-c { font-size: 11px; color: var(--muted); }
+@media (min-width: 900px) {
+  .hero-feature { flex: none; width: 420px; box-shadow: 8px 8px 0 var(--ink); }
+  .hero-feature-img { width: 190px; }
+  .hero-feature-text { padding: 18px 16px; gap: 8px; }
+  .hero-feature-h { font-size: 22px; }
+  .hero-feature-d { font-size: 14px; background: var(--yellow-pale); padding: 6px 8px; border-radius: 8px; }
+}

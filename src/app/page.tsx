@@ -3,7 +3,7 @@ import AskBox from "@/components/AskBox";
 import Link from "next/link";
 import VenueCard from "@/components/VenueCard";
 import LeadForm from "@/components/LeadForm";
-import { getEvents, getNews, getVenues } from "@/lib/contentful";
+import { getEvents, getNews, getPopups, getVenues } from "@/lib/contentful";
 import { byRating, withRatings } from "@/lib/google";
 import EventRow from "@/components/EventRow";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
@@ -21,7 +21,19 @@ const CHIPS = ["Best pubs near Earlsfield", "Sunday roast", "What is on this wee
 const CATEGORIES: [string, string][] = [["Restaurants", "Restaurant"], ["Cafes", "Cafe"], ["Bars", "Bar"], ["Pubs", "Pub"], ["Takeaways", "Takeaway"]];
 
 export default async function Home() {
-  const [venues, news, events] = await Promise.all([getVenues(), getNews(), getEvents()]);
+  const [venues, news, events, popups] = await Promise.all([getVenues(), getNews(), getEvents(), getPopups()]);
+  // The newest active featured item with a page and a picture takes the hero art spot; it respects the same dates and days as the pop-up.
+  const now = new Date();
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(now);
+  const dow = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "long" }).format(now);
+  const feature = popups.find(
+    (p) =>
+      p.slug &&
+      p.imageUrl &&
+      !(p.showFrom && today < p.showFrom.slice(0, 10)) &&
+      !(p.showUntil && today > p.showUntil.slice(0, 10)) &&
+      !(p.showOnDays?.length && !p.showOnDays.includes(dow)),
+  );
   const rated = await withRatings(venues);
   const top = [...rated].sort((a, b) => byRating(a, b) || Number(b.featured) - Number(a.featured)).slice(0, 4);
 
@@ -41,10 +53,26 @@ export default async function Home() {
               ))}
             </div>
           </div>
-          <div className="hero-art">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="SW18 Hub" width={460} height={150} />
-          </div>
+          {feature ? (
+            <Link href={`/featured/${feature.slug}`} className="hero-feature">
+              <span className="hero-feature-img">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={feature.imageUrl} alt="" />
+              </span>
+              <span className="hero-feature-text">
+                <span className="hero-feature-k">New in SW18</span>
+                <span className="hero-feature-h">{feature.heading}</span>
+                {feature.detail ? <span className="hero-feature-d">{feature.detail}</span> : null}
+                <span className="popup-more">Find out more →</span>
+                {feature.imageCredit ? <span className="hero-feature-c">{feature.imageCredit}</span> : null}
+              </span>
+            </Link>
+          ) : (
+            <div className="hero-art">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="SW18 Hub" width={460} height={150} />
+            </div>
+          )}
         </div>
       </section>
 
