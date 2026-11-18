@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import EventRow from "./EventRow";
+import EventsCalendar from "./EventsCalendar";
 import { EVENT_TYPES, addDays, dayKey, eventType, longDay, monthLabel, weekday, type EventType } from "@/lib/event-types";
 import type { EventItem } from "@/lib/types";
 
@@ -10,6 +11,7 @@ type When = "any" | "today" | "weekend" | "week" | `m:${string}`;
 export default function EventsExplorer({ events, todayKey }: { events: EventItem[]; todayKey: string }) {
   const [when, setWhen] = useState<When>("any");
   const [type, setType] = useState<EventType | "all">("all");
+  const [view, setView] = useState<"list" | "calendar">("list");
 
   // Every event as a date range of London calendar days.
   const items = useMemo(
@@ -69,6 +71,15 @@ export default function EventsExplorer({ events, todayKey }: { events: EventItem
   return (
     <>
       <div className="stack" style={{ gap: 10, marginBottom: 20 }}>
+        <div className="chips" role="group" aria-label="View">
+          <button type="button" className={`chip${view === "list" ? " on" : ""}`} aria-pressed={view === "list"} onClick={() => setView("list")}>
+            List
+          </button>
+          <button type="button" className={`chip${view === "calendar" ? " on" : ""}`} aria-pressed={view === "calendar"} onClick={() => setView("calendar")}>
+            Calendar
+          </button>
+        </div>
+        {view === "list" && (
         <div className="chips" role="group" aria-label="When">
           {whenChips.map((c) => {
             const n = whenCount(c.id);
@@ -80,6 +91,7 @@ export default function EventsExplorer({ events, todayKey }: { events: EventItem
             );
           })}
         </div>
+        )}
         <div className="chips" role="group" aria-label="Type of event">
           <button type="button" className={`chip${type === "all" ? " on" : ""}`} aria-pressed={type === "all"} onClick={() => setType("all")}>
             All types
@@ -104,7 +116,9 @@ export default function EventsExplorer({ events, todayKey }: { events: EventItem
         </p>
       </div>
 
-      {shown.length === 0 ? (
+      {view === "calendar" ? (
+        <EventsCalendar items={items.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} />
+      ) : shown.length === 0 ? (
         <p className="muted">Nothing matches those filters. Try another day or type.</p>
       ) : (
         <div className="stack" style={{ gap: 24 }}>

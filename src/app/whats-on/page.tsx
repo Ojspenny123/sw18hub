@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
-import { getEvents } from "@/lib/contentful";
+import { getEvents, getPopups } from "@/lib/contentful";
 import EventsExplorer from "@/components/EventsExplorer";
 import { dayKey } from "@/lib/event-types";
 import { abs } from "@/lib/seo";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function WhatsOnPage() {
-  const events = await getEvents();
+  const [events, featured] = await Promise.all([getEvents(), getPopups()]);
   const todayKey = dayKey(new Date().toISOString());
 
   return (
@@ -37,6 +37,22 @@ export default async function WhatsOnPage() {
       <p className="muted" style={{ margin: "8px 0 20px" }}>
         Quiz nights, markets, classes and community events in Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Each one links to the organiser for tickets and details.
       </p>
+
+      {featured
+        .filter((f) => f.slug)
+        .map((f) => (
+          <Link key={f.id} href={`/featured/${f.slug}`} className="feat">
+            {f.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={f.imageUrl} alt="" />
+            ) : null}
+            <div>
+              <div className="feat-k">Featured</div>
+              <h2>{f.heading}</h2>
+              {f.detail ? <p className="small muted">{f.detail}</p> : null}
+            </div>
+          </Link>
+        ))}
 
       {events.length === 0 ? <p className="muted">No upcoming events listed yet. Check back soon.</p> : <EventsExplorer events={events} todayKey={todayKey} />}
 
