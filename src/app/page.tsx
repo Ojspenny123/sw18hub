@@ -15,7 +15,7 @@ import type { Metadata } from "next";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: { absolute: "SW18 Hub: best places to eat and drink in Wandsworth, Earlsfield and Southfields" },
+  title: { absolute: "SW18 Hub: what's on, run clubs, places and news in Wandsworth" },
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
 };

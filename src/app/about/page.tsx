@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "About SW18 Hub: how places are chosen, and where the data comes from",
   description: "SW18 Hub is an independent local guide to Wandsworth Town, Earlsfield and Southfields. How places are chosen and how often data is refreshed.",
   alternates: { canonical: "/about" },
+  openGraph: { title: "About SW18 Hub: how places are chosen, and where the data comes from", description: "SW18 Hub is an independent local guide to Wandsworth Town, Earlsfield and Southfields. How places are chosen and how often data is refreshed.", url: "/about", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "About SW18 Hub: how places are chosen, and where the data comes from", description: "SW18 Hub is an independent local guide to Wandsworth Town, Earlsfield and Southfields. How places are chosen and how often data is refreshed." },
 };
 
 export default function AboutPage() {

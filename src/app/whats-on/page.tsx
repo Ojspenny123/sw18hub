@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   title: "What's on in SW18: events in Wandsworth, Earlsfield and Southfields",
   description: "Upcoming events, quiz nights, markets and things to do in SW18, listed by date with links to the organisers.",
   alternates: { canonical: "/whats-on" },
+  openGraph: { title: "What's on in SW18: events in Wandsworth, Earlsfield and Southfields", description: "Upcoming events, quiz nights, markets and things to do in SW18, listed by date with links to the organisers.", url: "/whats-on", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "What's on in SW18: events in Wandsworth, Earlsfield and Southfields", description: "Upcoming events, quiz nights, markets and things to do in SW18, listed by date with links to the organisers." },
 };
 
 export default async function WhatsOnPage({ searchParams }: { searchParams: Promise<{ day?: string }> }) {

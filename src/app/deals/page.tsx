@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   title: "Local deals and discount codes in SW18",
   description: "Discount codes from independent pubs, cafes and shops in Wandsworth, Earlsfield and Southfields.",
   alternates: { canonical: "/deals" },
+  openGraph: { title: "Local deals and discount codes in SW18", description: "Discount codes from independent pubs, cafes and shops in Wandsworth, Earlsfield and Southfields.", url: "/deals", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "Local deals and discount codes in SW18", description: "Discount codes from independent pubs, cafes and shops in Wandsworth, Earlsfield and Southfields." },
 };
 
 const STEPS = [

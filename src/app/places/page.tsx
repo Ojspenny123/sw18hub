@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   title: "Places to eat and drink in SW18",
   description: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields in one place, listed A to Z. Filter by area, type and features.",
   alternates: { canonical: "/places" },
+  openGraph: { title: "Places to eat and drink in SW18", description: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields in one place, listed A to Z. Filter by area, type and features.", url: "/places", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "Places to eat and drink in SW18", description: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields in one place, listed A to Z. Filter by area, type and features." },
 };
 
 export default async function PlacesPage() {

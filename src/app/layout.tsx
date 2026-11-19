@@ -14,7 +14,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "SW18 Hub: best places to eat and drink in Wandsworth, Earlsfield and Southfields", template: "%s | SW18 Hub" },
+  title: { default: "SW18 Hub: what's on, run clubs, places and news in Wandsworth", template: "%s | SW18 Hub" },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   alternates: { canonical: "./" },

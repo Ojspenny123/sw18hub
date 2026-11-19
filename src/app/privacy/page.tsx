@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   title: "Privacy and cookies",
   description: "How SW18 Hub uses cookies and Google Analytics, and how to change your choice.",
   alternates: { canonical: "/privacy" },
+  openGraph: { title: "Privacy and cookies", description: "How SW18 Hub uses cookies and Google Analytics, and how to change your choice.", url: "/privacy", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "Privacy and cookies", description: "How SW18 Hub uses cookies and Google Analytics, and how to change your choice." },
 };
 
 export default function PrivacyPage() {

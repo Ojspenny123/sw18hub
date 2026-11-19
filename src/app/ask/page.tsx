@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: "Ask SW18",
   description: "Ask a question about places to eat and drink, news, events and deals in Wandsworth, Earlsfield and Southfields.",
   alternates: { canonical: "/ask" },
+  openGraph: { title: "Ask SW18", description: "Ask a question about places to eat and drink, news, events and deals in Wandsworth, Earlsfield and Southfields.", url: "/ask", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "Ask SW18", description: "Ask a question about places to eat and drink, news, events and deals in Wandsworth, Earlsfield and Southfields." },
 };
 
 export default async function AskPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {

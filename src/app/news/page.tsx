@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   title: "SW18 local news and what's on",
   description: "Latest local news for Wandsworth, Earlsfield and Southfields from trusted local sources, plus events and things to do in SW18.",
   alternates: { canonical: "/news" },
+  openGraph: { title: "SW18 local news and what's on", description: "Latest local news for Wandsworth, Earlsfield and Southfields from trusted local sources, plus events and things to do in SW18.", url: "/news", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
+  twitter: { card: "summary_large_image", title: "SW18 local news and what's on", description: "Latest local news for Wandsworth, Earlsfield and Southfields from trusted local sources, plus events and things to do in SW18." },
 };
 
 export default async function NewsPage({ searchParams }: { searchParams: Promise<{ topic?: string; area?: string }> }) {
