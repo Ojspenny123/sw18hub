@@ -276,7 +276,7 @@ export async function getSurvey(): Promise<Survey | undefined> {
       followUp: f.followUp || "Anything you'd like to tell us?",
       placeholder: f.placeholder || "A few words (max 50 characters)",
       thanks: f.thanks || "Thanks for your feedback.",
-      delaySeconds: typeof f.delaySeconds === "number" ? f.delaySeconds : 5,
+      delaySeconds: typeof f.delaySeconds === "number" ? f.delaySeconds : 20,
     };
   } catch {
     return undefined;

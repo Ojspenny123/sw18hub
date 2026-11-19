@@ -35,7 +35,7 @@ const clean = (s: string) =>
     .slice(0, MAX);
 
 /**
- * A small panel that slides in from the right once the page is scrolled halfway: score 1 to 5, then an optional short comment.
+ * A small panel that slides in from the right after the visitor has been on the site for a set time (20 seconds by default): score 1 to 5, then an optional short comment.
  * Answers are sent to Google Analytics as events, so it only appears for people who accepted analytics cookies.
  */
 export default function SurveyPopup({ survey }: { survey: Survey }) {
@@ -48,14 +48,12 @@ export default function SurveyPopup({ survey }: { survey: Survey }) {
   const pathname = usePathname();
   const path = () => window.location.pathname;
 
-  // Shows once the visitor has scrolled halfway down the page (and been on it for the minimum time).
+  // Shows once the visitor has been on the site for the set time. The clock starts on arrival and carries over between pages.
+  const arrived = useRef(Date.now());
   useEffect(() => {
     if (shown || !analyticsAllowed() || recentlyAsked()) return;
-    const start = Date.now();
     const id = window.setInterval(() => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max <= 0 || window.scrollY / max < 0.5) return;
-      if (Date.now() - start < survey.delaySeconds * 1000) return;
+      if (Date.now() - arrived.current < survey.delaySeconds * 1000) return;
       // Wait until analytics is accepted and no other pop-up is open.
       if (getConsent() !== "granted" || document.querySelector("dialog[open]")) return;
       window.clearInterval(id);
