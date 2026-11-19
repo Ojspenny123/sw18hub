@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { analyticsAllowed, getConsent, track } from "@/lib/analytics";
 import type { Survey } from "@/lib/pages";
 
@@ -34,7 +35,7 @@ const clean = (s: string) =>
     .slice(0, MAX);
 
 /**
- * A small panel that slides in from the right: score 1 to 5, then an optional short comment.
+ * A small panel that slides in from the right once the page is scrolled halfway: score 1 to 5, then an optional short comment.
  * Answers are sent to Google Analytics as events, so it only appears for people who accepted analytics cookies.
  */
 export default function SurveyPopup({ survey }: { survey: Survey }) {
@@ -44,24 +45,26 @@ export default function SurveyPopup({ survey }: { survey: Survey }) {
   const [score, setScore] = useState(0);
   const [text, setText] = useState("");
   const panel = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
   const path = () => window.location.pathname;
 
+  // Shows once the visitor has scrolled halfway down the page (and been on it for the minimum time).
   useEffect(() => {
-    if (!analyticsAllowed() || recentlyAsked()) return;
-    let id: number;
-    const tryShow = () => {
+    if (shown || !analyticsAllowed() || recentlyAsked()) return;
+    const start = Date.now();
+    const id = window.setInterval(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max <= 0 || window.scrollY / max < 0.5) return;
+      if (Date.now() - start < survey.delaySeconds * 1000) return;
       // Wait until analytics is accepted and no other pop-up is open.
-      if (getConsent() !== "granted" || document.querySelector("dialog[open]")) {
-        id = window.setTimeout(tryShow, 5000);
-        return;
-      }
+      if (getConsent() !== "granted" || document.querySelector("dialog[open]")) return;
+      window.clearInterval(id);
       setShown(true);
       requestAnimationFrame(() => requestAnimationFrame(() => setOpen(true)));
       track("survey_view", { page_path: path() });
-    };
-    id = window.setTimeout(tryShow, Math.max(5, survey.delaySeconds) * 1000);
-    return () => window.clearTimeout(id);
-  }, [survey.delaySeconds]);
+    }, 700);
+    return () => window.clearInterval(id);
+  }, [survey.delaySeconds, pathname, shown]);
 
   const hide = () => {
     setOpen(false);
