@@ -111,6 +111,7 @@ export async function getVenues(): Promise<Venue[]> {
     features: e.fields.features ?? [],
     featured: Boolean(e.fields.featured),
     image: r.asset(e.fields.image),
+    imageCredit: e.fields.imageCredit,
   }));
 }
 
@@ -140,6 +141,7 @@ async function getOwnNews(): Promise<NewsArticle[]> {
     sourceUrl: e.fields.sourceUrl,
     publishedAt: e.fields.publishedAt,
     image: r.asset(e.fields.image),
+    imageCredit: e.fields.imageCredit,
     featured: Boolean(e.fields.featured),
     sw18: true, // added by hand, so it is local by definition
   }));

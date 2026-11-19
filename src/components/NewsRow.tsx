@@ -14,7 +14,7 @@ export default function NewsRow({ n }: { n: NewsArticle }) {
           {n.sourceName ? `${n.sourceName} · ` : ""}
           {timeAgo(n.publishedAt)}
         </div>
-        {n.imageUrl && n.imageCredit ? <div className="small muted">Image: {n.imageCredit}</div> : null}
+        {(n.imageUrl || n.image) && n.imageCredit ? <div className="small muted">Image: {n.imageCredit}</div> : null}
       </div>
       <span className="nrow-go" aria-hidden="true">Read ↗</span>
       {external ? <span className="sr"> (opens in a new tab)</span> : null}

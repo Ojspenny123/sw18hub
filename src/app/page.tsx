@@ -7,7 +7,8 @@ import { getEvents, getNews, getPopups, getVenues } from "@/lib/contentful";
 import { withRatings } from "@/lib/google";
 import { dayKey } from "@/lib/event-types";
 import { VENUE_TYPES } from "@/lib/types";
-import EventCard from "@/components/EventCard";
+import EventLedger from "@/components/EventLedger";
+import { RUN_CLUBS } from "@/lib/recurring";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -49,7 +50,7 @@ export default async function Home() {
   const groups = [{ type: "All", venues: mixed }, ...byType];
   const todayKey = dayKey(new Date().toISOString());
   const upcoming = events.filter((e) => dayKey(e.endsAt ?? e.startsAt) >= todayKey);
-  // Next up: soonest first, each weekly event once, at most three weekly ones so one-off events still show.
+  // Coming up: soonest first, each weekly event once, at most three weekly ones so one-off events still show.
   const seenSeries = new Set<string>();
   let weeklyShown = 0;
   const nextUp = upcoming
@@ -60,64 +61,78 @@ export default async function Home() {
       weeklyShown++;
       return true;
     })
-    .slice(0, 10);
+    .slice(0, 6);
 
   return (
     <>
-      <section className="hero">
-        <div className="wrap">
-          <div className="hero-text">
-            <h1>Everything happening in SW18</h1>
-            <p className="lead">Places, local news and events for Wandsworth, Earlsfield and Southfields.</p>
+      <h1 className="sr">Everything happening in SW18</h1>
+
+      {feature ? (
+        <section className="wrap" style={{ paddingTop: 28 }}>
+          <Link href={`/featured/${feature.slug}`} className="hero-feature">
+            <span className="hero-feature-img">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={feature.imageUrl} alt="" />
+            </span>
+            <span className="hero-feature-text">
+              <span className="hero-feature-k">New in SW18</span>
+              <span className="hero-feature-h">{feature.heading}</span>
+              {feature.detail ? <span className="hero-feature-d">{feature.detail}</span> : null}
+              <span className="popup-more">Find out more →</span>
+              {feature.imageCredit ? <span className="hero-feature-c">{feature.imageCredit}</span> : null}
+            </span>
+          </Link>
+        </section>
+      ) : null}
+
+      <div className="wrap section home-main">
+        <section aria-labelledby="coming-up">
+          <div className="between" style={{ marginBottom: 12 }}>
+            <h2 className="sub" id="coming-up">
+              Coming up
+            </h2>
+            <Link href="/whats-on" className="more-link">
+              Full calendar
+            </Link>
+          </div>
+          {nextUp.length ? (
+            <div className="ledger">
+              {nextUp.map((e) => (
+                <EventLedger key={e.id} e={e} todayKey={todayKey} />
+              ))}
+            </div>
+          ) : (
+            <div className="empty">No upcoming events yet. Check back soon.</div>
+          )}
+        </section>
+        <div className="home-side">
+          <section className="askpanel" aria-labelledby="ask-h">
+            <h2 id="ask-h">Ask SW18</h2>
+            <p>Ask anything about the area, for example dog-friendly pubs with a garden.</p>
             <AskBox />
-            <div className="chips">
+            <div className="chips" style={{ marginTop: 4 }}>
               {CHIPS.map(([label, href]) => (
                 <Link key={label} href={href} className="chip">
                   {label}
                 </Link>
               ))}
             </div>
-          </div>
-          {feature ? (
-            <Link href={`/featured/${feature.slug}`} className="hero-feature">
-              <span className="hero-feature-img">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={feature.imageUrl} alt="" />
-              </span>
-              <span className="hero-feature-text">
-                <span className="hero-feature-k">New in SW18</span>
-                <span className="hero-feature-h">{feature.heading}</span>
-                {feature.detail ? <span className="hero-feature-d">{feature.detail}</span> : null}
-                <span className="popup-more">Find out more →</span>
-                {feature.imageCredit ? <span className="hero-feature-c">{feature.imageCredit}</span> : null}
-              </span>
-            </Link>
-          ) : (
-            <div className="hero-art">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.svg" alt="SW18 Hub" width={460} height={150} />
-            </div>
-          )}
-        </div>
-      </section>
-
-      <section className="wrap section">
-        <div className="between">
-          <h2 className="sub">Next up</h2>
-          <Link href="/whats-on" className="more-link">
-            All events
-          </Link>
-        </div>
-        {nextUp.length ? (
-          <div className="ncards">
-            {nextUp.map((e) => (
-              <EventCard key={e.id} e={e} todayKey={todayKey} />
+          </section>
+          <section className="clubpanel" aria-labelledby="clubs-h">
+            <h2 id="clubs-h">Run clubs</h2>
+            {RUN_CLUBS.slice(0, 2).map((c) => (
+              <p key={c.id}>
+                <strong>{c.name}</strong>
+                <br />
+                <span className="small muted">
+                  {c.when}, {c.place}
+                </span>
+              </p>
             ))}
-          </div>
-        ) : (
-          <div className="empty">No upcoming events yet. Check back soon.</div>
-        )}
-      </section>
+            <Link href="/run-clubs">All run clubs</Link>
+          </section>
+        </div>
+      </div>
 
       <section className="wrap section">
         <div className="between">

@@ -22,6 +22,7 @@ export interface Venue {
   features: string[];
   featured: boolean;
   image?: string;
+  imageCredit?: string;
 }
 
 export interface Rating {

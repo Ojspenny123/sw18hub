@@ -1,33 +1,58 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+
+const LINKS: [string, string][] = [
+  ["What's on", "/whats-on"],
+  ["Run clubs", "/run-clubs"],
+  ["Places", "/places"],
+  ["News", "/news"],
+];
+
+const today = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "long", day: "numeric", month: "long" }).format(new Date());
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const path = usePathname();
+  const home = path === "/";
   const close = () => setOpen(false);
   return (
-    <header className="header">
-      <div className="wrap">
-        <Link href="/" className="logo" aria-label="SW18 Hub home" onClick={close}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.svg" alt="SW18 Hub" width={105} height={36} />
-        </Link>
-        <button type="button" className="menu-btn" aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen((o) => !o)}>
-          {open ? "Close" : "Menu"}
-        </button>
-        <div id="main-nav" className={`nav-wrap${open ? " open" : ""}`}>
-          <nav className="nav" aria-label="Main">
-            <Link href="/whats-on" onClick={close}>What&apos;s on</Link>
-            <Link href="/run-clubs" onClick={close}>Run clubs</Link>
-            <Link href="/places" onClick={close}>Places</Link>
-            <Link href="/news" onClick={close}>News</Link>
+    <>
+      {home ? (
+        <div className="strip">
+          <div className="wrap">
+            <time suppressHydrationWarning>{today()}</time>
+            <span>Wandsworth Town, Earlsfield, Southfields, Wandsworth Common</span>
+          </div>
+        </div>
+      ) : null}
+      <div className={`masthead${home ? " big" : ""}`}>
+        <div className="wrap">
+          <Link href="/" className="mast-title" aria-label="SW18 Hub home" onClick={close}>
+            SW18 Hub
+          </Link>
+          {home ? <p className="mast-tag">The local noticeboard for south-west London</p> : null}
+        </div>
+      </div>
+      <header className="navbar">
+        <div className="wrap">
+          <button type="button" className="menu-btn" aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen((o) => !o)}>
+            {open ? "Close" : "Menu"}
+          </button>
+          <nav id="main-nav" className={`nav${open ? " open" : ""}`} aria-label="Main">
+            {LINKS.map(([label, href]) => (
+              <Link key={href} href={href} onClick={close} aria-current={path === href || path.startsWith(`${href}/`) ? "page" : undefined}>
+                {label}
+              </Link>
+            ))}
           </nav>
-          <Link href="/ask" className="btn" onClick={close}>
+          <Link href="/ask" className="ask-pill" onClick={close}>
             Ask SW18
           </Link>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

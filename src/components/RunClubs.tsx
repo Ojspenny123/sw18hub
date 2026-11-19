@@ -7,18 +7,18 @@ export default function RunClubs() {
       <p className="muted" style={{ marginBottom: 16 }}>
         Regular run clubs in and around SW18. Times can change, so check the club&apos;s page before you go.
       </p>
-      <div className="ncards ncards-grid">
+      <div className="rcards">
         {RUN_CLUBS.map((c) => (
-          <div key={c.id} className="ncard">
+          <div key={c.id} className="rcard">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="ncard-img" src={c.photo.image} alt="" loading="lazy" />
-            <span className="ncard-body">
-              <span className="ncard-day">{c.when}</span>
-              <a href={c.link} className="ncard-title ncard-link" target="_blank" rel="noopener noreferrer">
+            <img className="rcard-img" src={c.photo.image} alt="" loading="lazy" />
+            <span className="rcard-body">
+              <span className="rcard-when">{c.when}</span>
+              <a href={c.link} className="rcard-title" target="_blank" rel="noopener noreferrer">
                 {c.name}
-                <span className="sr-only"> (opens in a new tab)</span>
+                <span className="sr"> (opens in a new tab)</span>
               </a>
-              <span className="ncard-meta">{[c.place, c.area && `${c.area} (nearby)`].filter(Boolean).join(" · ")}</span>
+              <span className="small muted">{[c.place, c.area && `${c.area} (nearby)`].filter(Boolean).join(" · ")}</span>
               <span className="small">{c.description}</span>
               <ImageCredit e={c.photo} />
             </span>
