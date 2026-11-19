@@ -3,17 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-const LINKS: [string, string][] = [
-  ["What's on", "/whats-on"],
-  ["Run clubs", "/run-clubs"],
-  ["Places", "/places"],
-  ["News", "/news"],
-];
+import type { SiteSettings } from "@/lib/pages";
 
 const today = () => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "long", day: "numeric", month: "long" }).format(new Date());
 
-export default function Header() {
+export default function Header({ s }: { s: SiteSettings }) {
   const [open, setOpen] = useState(false);
   const path = usePathname();
   const home = path === "/";
@@ -24,7 +18,7 @@ export default function Header() {
         <div className="strip">
           <div className="wrap">
             <time suppressHydrationWarning>{today()}</time>
-            <span>Wandsworth Town, Earlsfield, Southfields, Wandsworth Common</span>
+            <span>{s.stripText}</span>
           </div>
         </div>
       ) : null}
@@ -34,10 +28,10 @@ export default function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.svg" alt="" width={364} height={124} />
           </Link>
-          <Link href="/" className="mast-title" aria-label="SW18 Hub home" onClick={close}>
-            SW18 Hub
+          <Link href="/" className="mast-title" aria-label={`${s.siteName} home`} onClick={close}>
+            {s.siteName}
           </Link>
-          {home ? <p className="mast-tag">The local noticeboard for south-west London</p> : null}
+          {home && s.tagline ? <p className="mast-tag">{s.tagline}</p> : null}
         </div>
       </div>
       <header className="navbar">
@@ -46,14 +40,14 @@ export default function Header() {
             {open ? "Close" : "Menu"}
           </button>
           <nav id="main-nav" className={`nav${open ? " open" : ""}`} aria-label="Main">
-            {LINKS.map(([label, href]) => (
+            {s.navLinks.map(({ label, href }) => (
               <Link key={href} href={href} onClick={close} aria-current={path === href || path.startsWith(`${href}/`) ? "page" : undefined}>
                 {label}
               </Link>
             ))}
           </nav>
-          <Link href="/ask" className="ask-pill" onClick={close}>
-            Ask SW18
+          <Link href={s.askUrl} className="ask-pill" onClick={close}>
+            {s.askLabel}
           </Link>
         </div>
       </header>

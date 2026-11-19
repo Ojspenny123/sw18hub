@@ -192,3 +192,63 @@ export function pageMetadata(p: PageData, path: string, absolute = false): Metad
     twitter: { card: "summary_large_image", title: p.seoTitle, description: p.seoDescription },
   };
 }
+
+/** Header and footer text. One `sw18SiteSettings` entry in Contentful; these defaults are used if it is missing. */
+export interface SiteSettings {
+  siteName: string;
+  tagline: string;
+  stripText: string;
+  navLinks: { label: string; href: string }[];
+  askLabel: string;
+  askUrl: string;
+  footerText: string;
+  footerLinks: { label: string; href: string }[];
+}
+export const DEFAULT_SETTINGS: SiteSettings = {
+  siteName: "SW18 Hub",
+  tagline: "The local noticeboard for south-west London",
+  stripText: "Wandsworth Town, Earlsfield, Southfields, Wandsworth Common",
+  navLinks: [
+    { label: "What's on", href: "/whats-on" },
+    { label: "Run clubs", href: "/run-clubs" },
+    { label: "Places", href: "/places" },
+    { label: "News", href: "/news" },
+  ],
+  askLabel: "Ask SW18",
+  askUrl: "/ask",
+  footerText: "A local guide to Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.",
+  footerLinks: [
+    { label: "About", href: "/about" },
+    { label: "Run clubs", href: "/run-clubs" },
+    { label: "Add your business", href: "/deals#business" },
+    { label: "Privacy and cookies", href: "/privacy" },
+  ],
+};
+
+const parseLinks = (v: unknown, fallback: { label: string; href: string }[]) => {
+  const out = (Array.isArray(v) ? (v as string[]) : [])
+    .map((s) => s.split("|").map((x) => x.trim()))
+    .filter((p) => p[0] && p[1])
+    .map(([label, href]) => ({ label, href }));
+  return out.length ? out : fallback;
+};
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  try {
+    const f = (await query("sw18SiteSettings", { limit: "1" })).items[0]?.fields;
+    if (!f) return DEFAULT_SETTINGS;
+    const d = DEFAULT_SETTINGS;
+    return {
+      siteName: f.siteName || d.siteName,
+      tagline: f.tagline ?? d.tagline,
+      stripText: f.stripText ?? d.stripText,
+      navLinks: parseLinks(f.navLinks, d.navLinks),
+      askLabel: f.askLabel || d.askLabel,
+      askUrl: f.askUrl || d.askUrl,
+      footerText: f.footerText ?? d.footerText,
+      footerLinks: parseLinks(f.footerLinks, d.footerLinks),
+    };
+  } catch {
+    return DEFAULT_SETTINGS;
+  }
+}

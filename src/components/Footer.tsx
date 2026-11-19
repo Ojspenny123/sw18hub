@@ -1,19 +1,22 @@
 import Link from "next/link";
 import CookieSettings from "./CookieSettings";
+import Rich from "./Rich";
+import type { SiteSettings } from "@/lib/pages";
 
-export default function Footer() {
+export default function Footer({ s }: { s: SiteSettings }) {
   return (
     <footer className="footer">
       <div className="wrap">
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <strong>SW18 Hub</strong>
-          <span className="fine">A local guide to Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.</span>
+          <strong>{s.siteName}</strong>
+          {s.footerText ? <Rich text={s.footerText} className="fine" /> : null}
         </div>
         <nav aria-label="Footer">
-          <Link href="/about">About</Link>
-          <Link href="/run-clubs">Run clubs</Link>
-          <Link href="/deals#business">Add your business</Link>
-          <Link href="/privacy">Privacy and cookies</Link>
+          {s.footerLinks.map((l) => (
+            <Link key={l.href + l.label} href={l.href}>
+              {l.label}
+            </Link>
+          ))}
           <CookieSettings />
         </nav>
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getSiteSettings } from "@/lib/pages";
 import Analytics from "@/components/Analytics";
 import PopupModal from "@/components/PopupModal";
 import { getPopups } from "@/lib/contentful";
@@ -50,7 +51,7 @@ const siteJsonLd = [
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const popups = await getPopups();
+  const [popups, settings] = await Promise.all([getPopups(), getSiteSettings()]);
   return (
     <html lang="en-GB">
       <head>
@@ -58,9 +59,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <a href="#main" className="skip">Skip to main content</a>
-        <Header />
+        <Header s={settings} />
         <main id="main" tabIndex={-1}>{children}</main>
-        <Footer />
+        <Footer s={settings} />
         <PopupModal popups={popups} />
         <Analytics />
       </body>
