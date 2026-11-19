@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlockDebug from "@/components/BlockDebug";
-import { getSiteSettings } from "@/lib/pages";
+import { getSiteSettings, getSurvey } from "@/lib/pages";
+import SurveyPopup from "@/components/SurveyPopup";
 import Analytics from "@/components/Analytics";
 import PopupModal from "@/components/PopupModal";
 import { getPopups } from "@/lib/contentful";
@@ -52,7 +53,7 @@ const siteJsonLd = [
 ];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [popups, settings] = await Promise.all([getPopups(), getSiteSettings()]);
+  const [popups, settings, survey] = await Promise.all([getPopups(), getSiteSettings(), getSurvey()]);
   return (
     <html lang="en-GB">
       <head>
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <PopupModal popups={popups} />
         <Analytics />
         <BlockDebug />
+        {survey ? <SurveyPopup survey={survey} /> : null}
       </body>
     </html>
   );

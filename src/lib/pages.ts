@@ -254,3 +254,31 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     return DEFAULT_SETTINGS;
   }
 }
+
+/** The feedback survey. One `sw18Survey` entry in Contentful; if there is none (or it is switched off) no survey shows. */
+export interface Survey {
+  question: string;
+  lowLabel: string;
+  highLabel: string;
+  followUp: string;
+  placeholder: string;
+  thanks: string;
+  delaySeconds: number;
+}
+export async function getSurvey(): Promise<Survey | undefined> {
+  try {
+    const f = (await query("sw18Survey", { limit: "1" })).items[0]?.fields;
+    if (!f || !f.active) return undefined;
+    return {
+      question: f.question || "How is your experience of SW18 Hub today?",
+      lowLabel: f.lowLabel || "Poor",
+      highLabel: f.highLabel || "Great",
+      followUp: f.followUp || "Anything you'd like to tell us?",
+      placeholder: f.placeholder || "A few words (max 50 characters)",
+      thanks: f.thanks || "Thanks for your feedback.",
+      delaySeconds: typeof f.delaySeconds === "number" ? f.delaySeconds : 20,
+    };
+  } catch {
+    return undefined;
+  }
+}
