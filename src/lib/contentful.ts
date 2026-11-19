@@ -111,6 +111,7 @@ export async function getVenues(): Promise<Venue[]> {
     photo: photoFor(e.fields.slug, e.fields.name),
     description: e.fields.description,
     features: e.fields.features ?? [],
+    highlights: e.fields.highlights ?? [],
     featured: Boolean(e.fields.featured),
     image: r.asset(e.fields.image),
     imageCredit: e.fields.imageCredit,

@@ -20,6 +20,7 @@ export interface Venue {
   photo?: { url: string; page?: string; credit: string };
   description?: string;
   features: string[];
+  highlights: string[];
   featured: boolean;
   image?: string;
   imageCredit?: string;

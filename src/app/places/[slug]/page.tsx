@@ -115,6 +115,16 @@ export default async function VenuePage({ params }: Props) {
           ) : null}
           <p>{summary(v, rank, peers.length)}</p>
           {v.description ? <p className="muted">{v.description}</p> : null}
+          {v.highlights?.length ? (
+            <div>
+              <h2 className="sub" style={{ fontSize: 16, marginBottom: 6 }}>Good to know</h2>
+              <ul style={{ margin: 0, paddingLeft: 20, display: "grid", gap: 4 }}>
+                {v.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
           <div className="actions">
             {directions ? (
               <a className="btn" href={directions} target="_blank" rel="noopener noreferrer">
