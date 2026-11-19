@@ -1,6 +1,6 @@
 /* SW18 Hub: mobile first. Base styles are for a phone; min-width queries add tablet and desktop. */
 :root {
-  --serif: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --serif: "Poppins", Arial, sans-serif;
   --pink: #e0006b;
   --pink-dark: #a8004e;
   --yellow: #fff94f;
@@ -20,7 +20,7 @@ html, body { margin: 0; padding: 0; }
 body {
   background: #fff;
   color: var(--ink);
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.45;
   overflow-x: hidden;
