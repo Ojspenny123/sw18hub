@@ -55,11 +55,14 @@ h2.sub { font-family: var(--serif); font-size: 26px; line-height: 1.25; backgrou
 .masthead { background: var(--yellow); text-align: center; padding: 10px 0; }
 .mast-title { font-family: var(--serif); font-weight: 700; font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
 .mast-title:hover { color: var(--ink); }
-.mast-logo { display: none; line-height: 0; }
-.mast-logo img { height: 34px; width: auto; }
-.masthead.big .mast-logo img { height: 48px; }
+.masthead .wrap { position: relative; }
+/* Phones: small logo at the left, beside the centred title (top-left above it on the home page) */
+.mast-logo { display: block; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); line-height: 0; margin: 0; }
+.mast-logo img { height: 26px; width: auto; }
+.masthead.big .mast-logo { top: -32px; transform: none; }
+.masthead.big .mast-logo img { height: 24px; }
 .mast-tag { margin-top: 8px; font-weight: 400; font-family: var(--serif); font-size: 15px; color: #3d3d3a; }
-.masthead.big { padding: 18px 0 14px; }
+.masthead.big { padding: 44px 0 14px; }
 .masthead.big .mast-title { font-size: 48px; }
 .navbar { position: sticky; top: 0; z-index: 40; background: var(--pink); color: #fff; }
 .navbar .wrap { display: flex; align-items: center; justify-content: space-between; min-height: var(--header-h); position: relative; gap: 12px; }
@@ -277,9 +280,10 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
   .footer .wrap { flex-direction: row; justify-content: space-between; align-items: flex-start; padding-bottom: 28px; }
   .footer nav { flex-direction: column; align-items: flex-start; gap: 0; min-width: 200px; }
   .footer nav a, .footer .linklike { padding: 5px 0; }
-  .masthead .wrap { position: relative; }
-  .mast-logo { display: block; position: absolute; left: 32px; top: 50%; transform: translateY(-50%); margin: 0; }
+  .mast-logo { left: 32px; top: 50%; transform: translateY(-50%); }
   .mast-logo img { height: 38px; }
+  .masthead.big { padding: 18px 0 14px; }
+  .masthead.big .mast-logo { top: 50%; transform: translateY(-50%); }
   .masthead.big .mast-logo img { height: 72px; }
 }
 
