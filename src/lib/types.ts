@@ -70,6 +70,11 @@ export interface EventItem {
   image?: string;
   /** Set for events pulled from an outside calendar feed (e.g. Putney.news). */
   source?: string;
+  /** Neighbourhood outside SW18 (e.g. Clapham, Fulham). Set means the event is "nearby". */
+  area?: string;
+  /** Weekly events: "Every Saturday". All dates of one series share `series`. */
+  repeats?: string;
+  series?: string;
 }
 
 export interface Deal {

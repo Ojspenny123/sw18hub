@@ -37,7 +37,7 @@ export default async function WhatsOnPage({ searchParams }: { searchParams: Prom
       />
       <h1 className="title">What&apos;s on in SW18</h1>
       <p className="muted" style={{ margin: "8px 0 20px" }}>
-        Quiz nights, markets, classes and community events in Wandsworth Town, Earlsfield, Southfields and Wandsworth Common. Each one links to the organiser for tickets and details.
+        Quiz nights, markets, classes and community events in Wandsworth Town, Earlsfield, Southfields and Wandsworth Common, plus nearby weekly events like parkruns in Tooting, Battersea, Clapham and Fulham. Each one links to the organiser for tickets and details.
       </p>
 
       {featured

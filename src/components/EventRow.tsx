@@ -24,7 +24,7 @@ export default function EventRow({ e, showType = true }: { e: EventItem; showTyp
       <div style={{ minWidth: 0 }}>
         <div style={{ fontWeight: 600 }}>{e.title}</div>
         <div className="small muted">
-          {[e.venueName, multiDay ? `until ${until}` : timeShort(e.startsAt), e.price, e.source && `via ${e.source}`].filter(Boolean).join(" · ")}
+          {[e.repeats, e.venueName, e.area && `${e.area} (nearby)`, multiDay ? `until ${until}` : timeShort(e.startsAt), e.price, e.source && `via ${e.source}`].filter(Boolean).join(" · ")}
         </div>
         {e.description ? <div className="small ev-desc">{e.description}</div> : null}
         <div className="ev-foot">

@@ -1,5 +1,4 @@
 import NewsRow from "@/components/NewsRow";
-import MiniCalendar from "@/components/MiniCalendar";
 import HomePlaces from "@/components/HomePlaces";
 import AskBox from "@/components/AskBox";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import { getEvents, getNews, getPopups, getVenues } from "@/lib/contentful";
 import { withRatings } from "@/lib/google";
 import { dayKey } from "@/lib/event-types";
 import { VENUE_TYPES } from "@/lib/types";
-import EventRow from "@/components/EventRow";
+import EventCard from "@/components/EventCard";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -50,6 +49,18 @@ export default async function Home() {
   const groups = [{ type: "All", venues: mixed }, ...byType];
   const todayKey = dayKey(new Date().toISOString());
   const upcoming = events.filter((e) => dayKey(e.endsAt ?? e.startsAt) >= todayKey);
+  // Next up: soonest first, each weekly event once, at most three weekly ones so one-off events still show.
+  const seenSeries = new Set<string>();
+  let weeklyShown = 0;
+  const nextUp = upcoming
+    .filter((e) => {
+      if (!e.series) return true;
+      if (seenSeries.has(e.series) || weeklyShown >= 3) return false;
+      seenSeries.add(e.series);
+      weeklyShown++;
+      return true;
+    })
+    .slice(0, 10);
 
   return (
     <>
@@ -92,19 +103,16 @@ export default async function Home() {
 
       <section className="wrap section">
         <div className="between">
-          <h2 className="sub">This week in SW18</h2>
+          <h2 className="sub">Next up</h2>
           <Link href="/whats-on" className="more-link">
-            Full calendar
+            All events
           </Link>
         </div>
-        {upcoming.length ? (
-          <div className="home-events">
-            <div className="stack">
-              {upcoming.slice(0, 5).map((e) => (
-                <EventRow key={e.id} e={e} />
-              ))}
-            </div>
-            <MiniCalendar events={upcoming} todayKey={todayKey} />
+        {nextUp.length ? (
+          <div className="ncards">
+            {nextUp.map((e) => (
+              <EventCard key={e.id} e={e} todayKey={todayKey} />
+            ))}
           </div>
         ) : (
           <div className="empty">No upcoming events yet. Check back soon.</div>

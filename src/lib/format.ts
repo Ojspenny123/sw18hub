@@ -20,3 +20,22 @@ export function timeAgo(iso: string) {
   if (hrs < 24) return `${hrs}h ago`;
   return dateLong(iso);
 }
+
+/** "9am", "6.30pm": short clock time in London. Empty for all-day dates. */
+export function clock(iso: string) {
+  if (!iso.includes("T")) return "";
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", { hour: "numeric", minute: "2-digit", hourCycle: "h23", timeZone: TZ }).formatToParts(new Date(iso)).map((x) => [x.type, x.value]),
+  );
+  const h = Number(p.hour);
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}${p.minute === "00" ? "" : `.${p.minute}`}${h < 12 ? "am" : "pm"}`;
+}
+/** "Sat 21 Nov" */
+export function dayMonth(iso: string) {
+  const d = new Date(iso);
+  const day = d.toLocaleDateString("en-GB", { weekday: "short", timeZone: TZ });
+  const num = d.toLocaleDateString("en-GB", { day: "numeric", timeZone: TZ });
+  const mon = d.toLocaleDateString("en-GB", { month: "short", timeZone: TZ });
+  return `${day} ${num} ${mon}`;
+}

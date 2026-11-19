@@ -1,6 +1,7 @@
 import { osmFor } from "./osm";
 import { photoFor } from "./venue-images";
 import type { Deal, EventItem, NewsArticle, Popup, Venue } from "./types";
+import { getRecurringEvents } from "./recurring";
 import { getFeedEvents } from "./events";
 import { getRssNews } from "./rss";
 
@@ -168,7 +169,8 @@ export async function getEvents(): Promise<EventItem[]> {
   const now = Date.now();
   // Long-running events (exhibitions) sort by today rather than their past start date.
   const when = (e: EventItem) => Math.max(Date.parse(e.startsAt), now);
-  return [...mine, ...feed.filter((e) => !have.has(key(e)))].sort((a, b) => when(a) - when(b));
+  const weekly = getRecurringEvents().filter((e) => !have.has(key(e)));
+  return [...mine, ...feed.filter((e) => !have.has(key(e))), ...weekly].sort((a, b) => when(a) - when(b));
 }
 
 export async function getDeals(): Promise<Deal[]> {

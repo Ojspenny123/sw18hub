@@ -12,6 +12,7 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
   const [when, setWhen] = useState<When>("any");
   const [type, setType] = useState<EventType | "all">("all");
   const [view, setView] = useState<"list" | "calendar">(startDay ? "calendar" : "list");
+  const [where, setWhere] = useState<"all" | "local" | "nearby">("all");
 
   // Every event as a date range of London calendar days.
   const items = useMemo(
@@ -23,6 +24,8 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
       }),
     [events],
   );
+  const nearbyCount = items.filter((it) => it.e.area).length;
+  const byWhere = items.filter((it) => where === "all" || (where === "nearby" ? Boolean(it.e.area) : !it.e.area));
 
   const range = (w: When): [string, string] | null => {
     if (w === "any") return null;
@@ -47,12 +50,27 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
     return [...set].sort();
   }, [items, todayKey]);
 
-  const byWhen = items.filter((it) => inRange(it, range(when)));
+  const byWhen = byWhere.filter((it) => inRange(it, range(when)));
   const typeCounts = new Map<EventType, number>();
-  for (const it of byWhen) typeCounts.set(it.type, (typeCounts.get(it.type) ?? 0) + 1);
-  const shown = byWhen.filter((it) => type === "all" || it.type === type);
+  const countedSeries = new Set<string>();
+  for (const it of byWhen) {
+    if (it.e.series) {
+      if (countedSeries.has(it.e.series)) continue;
+      countedSeries.add(it.e.series);
+    }
+    typeCounts.set(it.type, (typeCounts.get(it.type) ?? 0) + 1);
+  }
+  const matched = byWhen.filter((it) => type === "all" || it.type === type);
+  // The list shows each weekly event once (its next date). The calendar shows every date.
+  const seenSeries = new Set<string>();
+  const shown = matched.filter((it) => {
+    if (!it.e.series) return true;
+    if (seenSeries.has(it.e.series)) return false;
+    seenSeries.add(it.e.series);
+    return true;
+  });
 
-  const whenCount = (w: When) => items.filter((it) => inRange(it, range(w))).length;
+  const whenCount = (w: When) => byWhere.filter((it) => inRange(it, range(w))).length;
   const whenChips: { id: When; label: string }[] = [
     { id: "any", label: "Any time" },
     { id: "today", label: "Today" },
@@ -92,6 +110,15 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
           })}
         </div>
         )}
+        {nearbyCount > 0 && (
+          <div className="chips" role="group" aria-label="Where">
+            {([["all", "Everywhere"], ["local", "SW18 and Putney"], ["nearby", "Nearby: Clapham, Fulham, Tooting, Battersea"]] as const).map(([id, label]) => (
+              <button key={id} type="button" className={`chip${where === id ? " on" : ""}`} aria-pressed={where === id} onClick={() => setWhere(id)}>
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
         <div className="chips" role="group" aria-label="Type of event">
           <button type="button" className={`chip${type === "all" ? " on" : ""}`} aria-pressed={type === "all"} onClick={() => setType("all")}>
             All types
@@ -104,11 +131,11 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
         </div>
         <p className="small muted" aria-live="polite">
           {shown.length} {shown.length === 1 ? "event" : "events"}
-          {(when !== "any" || type !== "all") && (
+          {(when !== "any" || type !== "all" || where !== "all") && (
             <>
               {" "}
               ·{" "}
-              <button type="button" className="linklike" onClick={() => { setWhen("any"); setType("all"); }}>
+              <button type="button" className="linklike" onClick={() => { setWhen("any"); setType("all"); setWhere("all"); }}>
                 Clear filters
               </button>
             </>
@@ -117,7 +144,7 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
       </div>
 
       {view === "calendar" ? (
-        <EventsCalendar items={items.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} startDay={startDay} />
+        <EventsCalendar items={byWhere.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} startDay={startDay} />
       ) : shown.length === 0 ? (
         <p className="muted">Nothing matches those filters. Try another day or type.</p>
       ) : (

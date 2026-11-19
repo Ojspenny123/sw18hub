@@ -3,6 +3,7 @@ import type { EventItem } from "./types";
 /** Event types shown as filters. Worked out from the title and description, so it also covers feed events. */
 export const EVENT_TYPES = [
   "Quiz and games",
+  "Sport and fitness",
   "Music and nightlife",
   "Food and drink",
   "Markets and fairs",
@@ -15,8 +16,9 @@ export type EventType = (typeof EVENT_TYPES)[number];
 
 const RULES: [EventType, RegExp][] = [
   ["Quiz and games", /\b(quiz|bingo|trivia|board game|games night|poker|bridge|chess)\b/i],
+  ["Sport and fitness", /\b(parkrun|5k|10k|marathon|run club|netball|rugby|cricket|tennis|swim|swimming)\b/i],
   ["Markets and fairs", /\b(market|fair|fête|fete|festival|switch[- ]?on|christmas lights|yard sale|car boot)\b/i],
-  ["Classes and workshops", /\b(workshop|class|course|wreath|making|masterclass|lesson|fitness|yoga|pilates|run club|talk|lecture)\b/i],
+  ["Classes and workshops", /\b(workshop|class|course|wreath|making|masterclass|lesson|yoga|pilates|talk|lecture)\b/i],
   ["Music and nightlife", /\b(live music|gig|concert|dj|jazz|band|karaoke|open mic|choir|opera|comedy|club night|disco)\b/i],
   ["Food and drink", /\b(tasting|supper|dinner|brunch|beer|brewery|wine|cocktail|food|street food|pop-?up)\b/i],
   ["Arts and culture", /\b(exhibition|gallery|theatre|theater|film|cinema|screening|art|heritage|history|walk|tour|book)\b/i],
