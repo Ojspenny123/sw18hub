@@ -25,7 +25,7 @@ export default function AskBox() {
       <label htmlFor="q" className="sr">
         Ask SW18
       </label>
-      <input id="q" name="q" type="text" placeholder="Ask anything, e.g. dog-friendly pubs with a garden" />
+      <input id="q" name="q" type="text" placeholder="Ask anything, e.g. pubs in Wandsworth" />
       <button type="submit" className="btn">
         Ask
       </button>
