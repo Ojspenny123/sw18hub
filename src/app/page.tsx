@@ -12,7 +12,7 @@ import { RUN_CLUBS } from "@/lib/recurring";
 import { bestSlug, SITE_DESCRIPTION } from "@/lib/seo";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: { absolute: "SW18 Hub: best places to eat and drink in Wandsworth, Earlsfield and Southfields" },

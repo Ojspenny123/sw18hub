@@ -5,7 +5,7 @@ import { getVenues } from "@/lib/contentful";
 import { withRatings } from "@/lib/google";
 import { abs } from "@/lib/seo";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Places to eat and drink in SW18",

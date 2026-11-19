@@ -51,7 +51,7 @@ async function query(contentType: string, params: Record<string, string> = {}): 
   url.searchParams.set("limit", "200");
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
 
-  const get = (u: URL) => fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` }, next: { revalidate: 60 } });
+  const get = (u: URL) => fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` }, next: { revalidate: 300 } });
 
   try {
     // Belt and braces: the type prefix already keeps us on our own content; the tag filter adds a second check.

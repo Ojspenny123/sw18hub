@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPopupPage } from "@/lib/contentful";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 /** Pages are built on first visit, then cached and refreshed. */
 export function generateStaticParams() {

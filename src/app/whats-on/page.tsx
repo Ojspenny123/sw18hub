@@ -6,7 +6,7 @@ import EventsExplorer from "@/components/EventsExplorer";
 import { dayKey } from "@/lib/event-types";
 import { abs } from "@/lib/seo";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "What's on in SW18: events in Wandsworth, Earlsfield and Southfields",

@@ -7,7 +7,7 @@ import { getVenues } from "@/lib/contentful";
 import { byRating, withRatings } from "@/lib/google";
 import { abs, bestCombos, bestSlug, bestTitle, breadcrumbJsonLd, parseBestSlug, typePlural } from "@/lib/seo";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 /** Pages are built on first visit, then cached and refreshed (incremental static regeneration). */
 export function generateStaticParams() {

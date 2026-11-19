@@ -4,7 +4,7 @@ import LeadForm from "@/components/LeadForm";
 import { getDeals } from "@/lib/contentful";
 import { dateLong } from "@/lib/format";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Local deals and discount codes in SW18",

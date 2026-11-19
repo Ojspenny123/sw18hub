@@ -8,7 +8,7 @@ import { byRating, withRatings } from "@/lib/google";
 import { venueImage } from "@/lib/images";
 import { bestSlug, bestTitle, breadcrumbJsonLd, typePlural, venueJsonLd } from "@/lib/seo";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 /** Pages are built on first visit, then cached and refreshed (incremental static regeneration). */
 export function generateStaticParams() {
