@@ -417,6 +417,13 @@ a.ledger-row:hover .ledger-title { text-decoration: underline; }
 .askpanel .askbox input { border-radius: 6px; }
 .askpanel .askbox .btn { background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); border-radius: 6px; }
 .askpanel .askbox .btn:hover { background: var(--yellow-pale); color: var(--ink); }
+.askpanel.wide { padding: 16px; }
+.askpanel.wide .chips { margin-top: 0; }
+@media (min-width: 640px) {
+  .askpanel.wide { padding: 20px 24px; }
+  .askpanel.wide .askbox { flex-direction: row; }
+  .askpanel.wide .askbox .btn { width: auto; padding: 0 28px; }
+}
 .clubpanel { background: var(--yellow-pale); border: 2px solid var(--ink); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
 .clubpanel h2 { font-family: var(--serif); font-size: 24px; }
 .clubpanel a { color: var(--ink); font-weight: 600; }

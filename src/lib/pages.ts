@@ -59,10 +59,9 @@ export const DEFAULT_PAGES: Record<PageSlug, PageData> = {
     hideH1: true,
     seoTitle: "SW18 Hub: what's on, run clubs, places and news in Wandsworth",
     seoDescription: SITE_DESCRIPTION,
-    top: [b("Hero feature", { heading: "New in SW18", linkLabel: "Find out more →" })],
+    top: [b("Ask panel", { heading: "Ask SW18", body: "Ask anything about the area, for example dog-friendly pubs with a garden.", links: CHIPS, width: "Full" }), b("Hero feature", { heading: "New in SW18", linkLabel: "Find out more →" })],
     middle: [
       b("Coming up", { heading: "Coming up", linkLabel: "Full calendar", linkUrl: "/whats-on", count: 6, width: "Main" }),
-      b("Ask panel", { heading: "Ask SW18", body: "Ask anything about the area, for example dog-friendly pubs with a garden.", links: CHIPS, width: "Side" }),
       b("Run clubs panel", { heading: "Run clubs", linkLabel: "All run clubs", linkUrl: "/run-clubs", count: 2, width: "Side" }),
       b("Places showcase", { heading: "Places we like", linkLabel: "See all on the map", linkUrl: "/places", count: 4 }),
       b("News list", { heading: "Local news", linkLabel: "All news", linkUrl: "/news", count: 3 }),

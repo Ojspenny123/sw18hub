@@ -120,7 +120,7 @@ function Render({ b, data, params }: { b: Block; data: Data; params: Params }) {
     }
     case "Ask panel":
       return (
-        <section key={k} className="askpanel" aria-labelledby={`b-${k}`}>
+        <section key={k} className={`askpanel${b.width === "Full" ? " wide" : ""}`} aria-labelledby={`b-${k}`}>
           <Heading b={b} id={`b-${k}`} className="" />
           {b.body ? <p>{b.body}</p> : null}
           <AskBox />
