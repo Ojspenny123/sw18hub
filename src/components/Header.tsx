@@ -19,6 +19,7 @@ export default function Header() {
         <div id="main-nav" className={`nav-wrap${open ? " open" : ""}`}>
           <nav className="nav" aria-label="Main">
             <Link href="/whats-on" onClick={close}>What&apos;s on</Link>
+            <Link href="/run-clubs" onClick={close}>Run clubs</Link>
             <Link href="/places" onClick={close}>Places</Link>
             <Link href="/news" onClick={close}>News</Link>
           </nav>

@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import EventRow from "./EventRow";
 import EventsCalendar from "./EventsCalendar";
-import RunClubs from "./RunClubs";
 import { EVENT_TYPES, addDays, dayKey, eventType, longDay, monthLabel, weekday, type EventType } from "@/lib/event-types";
 import type { EventItem } from "@/lib/types";
 
@@ -12,7 +11,7 @@ type When = "any" | "today" | "weekend" | "week" | `m:${string}`;
 export default function EventsExplorer({ events, todayKey, startDay }: { events: EventItem[]; todayKey: string; startDay?: string }) {
   const [when, setWhen] = useState<When>("any");
   const [type, setType] = useState<EventType | "all">("all");
-  const [view, setView] = useState<"list" | "calendar" | "clubs">(startDay ? "calendar" : "list");
+  const [view, setView] = useState<"list" | "calendar">(startDay ? "calendar" : "list");
   const [where, setWhere] = useState<"all" | "local" | "nearby">("all");
 
   // Every event as a date range of London calendar days.
@@ -97,11 +96,8 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
           <button type="button" className={`chip${view === "calendar" ? " on" : ""}`} aria-pressed={view === "calendar"} onClick={() => setView("calendar")}>
             Calendar
           </button>
-          <button type="button" className={`chip${view === "clubs" ? " on" : ""}`} aria-pressed={view === "clubs"} onClick={() => setView("clubs")}>
-            Run clubs
-          </button>
         </div>
-        {view === "clubs" ? null : <>
+        {<>
         {view === "list" && (
         <div className="chips" role="group" aria-label="When">
           {whenChips.map((c) => {
@@ -149,9 +145,7 @@ export default function EventsExplorer({ events, todayKey, startDay }: { events:
         </>}
       </div>
 
-      {view === "clubs" ? (
-        <RunClubs />
-      ) : view === "calendar" ? (
+      {view === "calendar" ? (
         <EventsCalendar items={byWhere.filter((it) => type === "all" || it.type === type)} todayKey={todayKey} startDay={startDay} />
       ) : shown.length === 0 ? (
         <p className="muted">Nothing matches those filters. Try another day or type.</p>
