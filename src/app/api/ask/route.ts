@@ -39,6 +39,10 @@ function valid(messages: unknown): messages is Msg[] {
   );
 }
 
+/** Any question that mentions Boyd (who is Boyd, tell me about Boyd, who's Boyd...) gets this exact reply, without calling the model. */
+const BOYD = /\bboyd'?s?\b/i;
+const BOYD_ANSWER = "Boyd is boyd, his real name is Oli. He is extremely unlucky and a famous saying among the people is ANOTHER DAY OF BEING BOYD FOR BOYD";
+
 const RULES = `You are Ask SW18, the friendly helper on SW18 Hub, a local guide to SW18: Wandsworth Town, Earlsfield, Southfields and Wandsworth Common in south-west London.
 
 SCOPE
@@ -73,6 +77,8 @@ export async function POST(req: Request) {
   if (!valid(body?.messages)) {
     return Response.json({ error: `Please send a short question (up to ${MAX_QUESTION} characters).` }, { status: 400 });
   }
+
+  if (BOYD.test(body.messages[body.messages.length - 1].content)) return Response.json({ answer: BOYD_ANSWER });
 
   const verdict = checkLimit(clientIp(req));
   if (!verdict.ok) {
