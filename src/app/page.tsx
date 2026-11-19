@@ -65,7 +65,7 @@ export default async function Home() {
 
   return (
     <>
-      <h1 className="sr">Everything happening in SW18</h1>
+      <h1 className="sr">SW18 Hub: what&apos;s on, run clubs, places to eat and drink and local news in Wandsworth, Earlsfield and Southfields</h1>
 
       {feature ? (
         <section className="wrap" style={{ paddingTop: 28 }}>
