@@ -49,7 +49,10 @@ export default function SurveyPopup({ survey }: { survey: Survey }) {
   const path = () => window.location.pathname;
 
   // Shows once the visitor has been on the site for the set time. The clock starts on arrival and carries over between pages.
-  const arrived = useRef(Date.now());
+  const arrived = useRef(0);
+  useEffect(() => {
+    arrived.current = Date.now();
+  }, []);
   useEffect(() => {
     if (shown || !analyticsAllowed() || recentlyAsked()) return;
     const id = window.setInterval(() => {
