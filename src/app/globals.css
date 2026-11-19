@@ -58,7 +58,7 @@ h2.sub { font-family: var(--serif); font-size: 26px; line-height: 1.25; backgrou
 .mast-logo { display: none; line-height: 0; }
 .mast-logo img { height: 34px; width: auto; }
 .masthead.big .mast-logo img { height: 48px; }
-.mast-tag { margin-top: 8px; font-family: var(--serif); font-size: 15px; color: #3d3d3a; }
+.mast-tag { margin-top: 8px; font-weight: 400; font-family: var(--serif); font-size: 15px; color: #3d3d3a; }
 .masthead.big { padding: 18px 0 14px; }
 .masthead.big .mast-title { font-size: 48px; }
 .navbar { position: sticky; top: 0; z-index: 40; background: var(--pink); color: #fff; }

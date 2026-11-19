@@ -208,7 +208,7 @@ export interface SiteSettings {
 }
 export const DEFAULT_SETTINGS: SiteSettings = {
   siteName: "SW18 Hub",
-  tagline: "The local noticeboard for south-west London",
+  tagline: "What's on, run clubs, places to eat and drink and local news in SW18",
   stripText: "Wandsworth Town, Earlsfield, Southfields, Wandsworth Common",
   navLinks: [
     { label: "What's on", href: "/whats-on" },
@@ -242,7 +242,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const d = DEFAULT_SETTINGS;
     return {
       siteName: f.siteName || d.siteName,
-      tagline: f.tagline ?? d.tagline,
+      tagline: f.tagline || d.tagline,
       stripText: f.stripText ?? d.stripText,
       navLinks: parseLinks(f.navLinks, d.navLinks),
       askLabel: f.askLabel || d.askLabel,

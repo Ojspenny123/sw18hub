@@ -31,7 +31,7 @@ export default function Header({ s }: { s: SiteSettings }) {
           <Link href="/" className="mast-title" aria-label={`${s.siteName} home`} onClick={close}>
             {s.siteName}
           </Link>
-          {home && s.tagline ? <p className="mast-tag">{s.tagline}</p> : null}
+          {home ? <h1 className="mast-tag">{s.tagline}</h1> : null}
         </div>
       </div>
       <header className="navbar" data-sw18-block="Header: menu and Ask button · Site settings">

@@ -388,7 +388,8 @@ export default async function PageView({ page, params = {}, home = false, childr
       <Zone zone="Bottom" blocks={page.bottom} data={data} params={params} home={home} />
     </>
   );
-  const head = (
+  // On the home page the H1 is the line under the site name in the header (set in Site settings), so it is not repeated here.
+  const head = home ? null : (
     <>
       <h1 className={page.hideH1 ? "sr" : "title"} data-sw18-block={`Page heading (H1) · ${page.slug}`}>{page.h1}</h1>
       {intro && !page.hideH1 ? (
