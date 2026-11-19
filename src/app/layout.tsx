@@ -6,7 +6,6 @@ import PopupModal from "@/components/PopupModal";
 import { getPopups } from "@/lib/contentful";
 import JsonLd from "@/components/JsonLd";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, abs } from "@/lib/seo";
-import "@fontsource-variable/fraunces";
 import "./globals.css";
 
 export const metadata: Metadata = {
