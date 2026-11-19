@@ -41,7 +41,7 @@ export default function Header({ s }: { s: SiteSettings }) {
           </button>
           <nav id="main-nav" className={`nav${open ? " open" : ""}`} aria-label="Main">
             {s.navLinks.map(({ label, href }) => (
-              <Link key={href} href={href} onClick={close} aria-current={path === href || path.startsWith(`${href}/`) ? "page" : undefined}>
+              <Link key={href} href={href} onClick={close} aria-current={href === "/" ? (home ? "page" : undefined) : path === href || path.startsWith(`${href}/`) ? "page" : undefined}>
                 {label}
               </Link>
             ))}

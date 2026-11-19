@@ -5,7 +5,9 @@ import { withRatings } from "@/lib/google";
 import { dayKey } from "@/lib/event-types";
 import { NEWS_TOPICS, VENUE_TYPES } from "@/lib/types";
 import { RUN_CLUBS } from "@/lib/recurring";
-import type { Block, PageData } from "@/lib/pages";
+import { getSiteSettings, type Block, type PageData } from "@/lib/pages";
+import { breadcrumbJsonLd } from "@/lib/seo";
+import JsonLd from "./JsonLd";
 import AskBox from "./AskBox";
 import Chat from "./Chat";
 import EventLedger from "./EventLedger";
@@ -379,7 +381,8 @@ function Zone({ blocks, data, params, home, zone }: { blocks: Block[]; data: Dat
  * `home` pages stack each block in its own full-width band; other pages put everything in one column.
  */
 export default async function PageView({ page, params = {}, home = false, children }: { page: PageData; params?: Params; home?: boolean; children?: ReactNode }) {
-  const data = await loadData(page);
+  const [data, settings] = await Promise.all([loadData(page), home ? Promise.resolve(null) : getSiteSettings()]);
+  const crumb = settings?.navLinks.find((l) => l.href === `/${page.slug}`)?.label ?? page.h1;
   const intro = page.intro?.replace("{count}", String(data.venues.length));
   const zones = (
     <>
@@ -391,6 +394,12 @@ export default async function PageView({ page, params = {}, home = false, childr
   // On the home page the H1 is the line under the site name in the header (set in Site settings), so it is not repeated here.
   const head = home ? null : (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: crumb, path: `/${page.slug}` }])} />
+      <nav className="crumbs" aria-label="Breadcrumb" style={{ marginBottom: 12 }}>
+        <Link href="/">Home</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{crumb}</span>
+      </nav>
       <h1 className={page.hideH1 ? "sr" : "title"} data-sw18-block={`Page heading (H1) · ${page.slug}`}>{page.h1}</h1>
       {intro && !page.hideH1 ? (
         <div style={{ margin: "8px 0 20px" }}>

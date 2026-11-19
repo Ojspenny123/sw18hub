@@ -211,6 +211,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   tagline: "What's on, run clubs, places to eat and drink and local news in SW18",
   stripText: "Wandsworth Town, Earlsfield, Southfields, Wandsworth Common",
   navLinks: [
+    { label: "Home", href: "/" },
     { label: "What's on", href: "/whats-on" },
     { label: "Run clubs", href: "/run-clubs" },
     { label: "Places", href: "/places" },

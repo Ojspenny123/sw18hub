@@ -82,6 +82,8 @@ export default async function BestPage({ params }: Props) {
         ]}
       />
       <nav className="crumbs" aria-label="Breadcrumb">
+        <Link href="/">Home</Link>
+        <span aria-hidden="true">/</span>
         <Link href="/places">Places</Link>
         <span aria-hidden="true">/</span>
         <span>{title}</span>
