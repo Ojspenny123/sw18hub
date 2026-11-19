@@ -30,9 +30,12 @@ export default function Header() {
       ) : null}
       <div className={`masthead${home ? " big" : ""}`}>
         <div className="wrap">
-          <Link href="/" className="mast-title" aria-label="SW18 Hub home" onClick={close}>
+          <Link href="/" className="mast-logo" aria-label="SW18 Hub home" onClick={close}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.svg" alt="SW18 Hub" width={364} height={124} />
+            <img src="/logo.svg" alt="" width={364} height={124} />
+          </Link>
+          <Link href="/" className="mast-title" aria-label="SW18 Hub home" onClick={close}>
+            SW18 Hub
           </Link>
           {home ? <p className="mast-tag">The local noticeboard for south-west London</p> : null}
         </div>
