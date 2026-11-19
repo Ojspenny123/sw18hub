@@ -21,6 +21,16 @@
    "url": "https://sushimoka.co.uk/images/og.jpg",
    "page": "https://sushimoka.co.uk/",
    "site": "sushimoka.co.uk"
+  },
+  "the-gardeners": {
+   "url": "https://www.thegardenerspub.co.uk/wp-content/uploads/2022/08/exterior18.jpg",
+   "page": "https://www.thegardenerspub.co.uk/",
+   "site": "thegardenerspub.co.uk"
+  },
+  "bosa-kitchen": {
+   "url": "https://bosakitchen.co.uk/wp-content/uploads/2019/11/TJP_2019_11_11_0064.jpg",
+   "page": "https://www.bosakitchen.co.uk/",
+   "site": "bosakitchen.co.uk"
   }
  },
  "none": [
@@ -29,16 +39,8 @@
    "no image tag"
   ],
   [
-   "the-gardeners",
-   "no image tag"
-  ],
-  [
    "pig-and-whistle",
    "fetch failed"
-  ],
-  [
-   "bosa-kitchen",
-   "no image tag"
   ],
   [
    "the-olive-garden-southfields",
