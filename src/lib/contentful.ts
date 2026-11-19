@@ -115,10 +115,15 @@ export async function getVenues(): Promise<Venue[]> {
 }
 
 /** Stories you add by hand in Contentful (featured ones lead), plus the automatic RSS feeds. */
+/** Stories we never show: anything about prisons (including HMP Wandsworth). */
+const EXCLUDED_NEWS = /\b(prisons?|prisoners?|inmates?|jails?|jailed|HMP|HMYOI|young offenders?|prison officers?)\b/i;
+
 export async function getNews(): Promise<NewsArticle[]> {
   const [own, rss] = await Promise.all([getOwnNews(), getRssNews()]);
   const urls = new Set(own.map((n) => n.sourceUrl).filter(Boolean));
-  return [...own, ...rss.filter((n) => !urls.has(n.sourceUrl))].sort(
+  return [...own, ...rss.filter((n) => !urls.has(n.sourceUrl))]
+    .filter((n) => !EXCLUDED_NEWS.test(`${n.title} ${n.summary ?? ""}`))
+    .sort(
     (a, b) => Number(b.featured) - Number(a.featured) || b.publishedAt.localeCompare(a.publishedAt),
   );
 }
