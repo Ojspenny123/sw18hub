@@ -124,6 +124,7 @@ function Render({ b, data, params }: { b: Block; data: Data; params: Params }) {
           <Heading b={b} id={`b-${k}`} className="" />
           {b.body ? <p>{b.body}</p> : null}
           <AskBox />
+          <p className="ai-note">Answers are written by AI and may be wrong. Check details with the venue.</p>
           {b.links.length ? (
             <div className="chips" style={{ marginTop: 4 }}>
               {b.links.map((l) => (
