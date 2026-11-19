@@ -374,10 +374,10 @@ a.card:hover { border-color: var(--ink); color: var(--ink); }
 .hero-feature-img { width: 124px; flex: none; background: #a7ddd3; display: flex; align-items: center; }
 .hero-feature-img img { width: 100%; height: auto; display: block; }
 .hero-feature-text { padding: 12px; display: flex; flex-direction: column; gap: 6px; justify-content: center; min-width: 0; }
-.hero-feature-k { font-size: 11px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--pink-dark); }
+.hero-feature-k { font-size: 12px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--pink-dark); }
 .hero-feature-h { font-size: 20px; font-weight: 700; line-height: 1.15; font-family: var(--serif); }
 .hero-feature-d { font-size: 13px; font-weight: 600; }
-.hero-feature-c { font-size: 11px; color: var(--muted); }
+.hero-feature-c { font-size: 12px; color: var(--muted); }
 @media (min-width: 900px) {
   .hero-feature { flex: none; width: 100%; box-shadow: 8px 8px 0 var(--ink); }
   .hero-feature-img { width: 190px; }
@@ -409,7 +409,7 @@ a.ledger-row:hover .ledger-title { text-decoration: underline; }
 .clubpanel { background: var(--yellow-pale); border: 2px solid var(--ink); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
 .clubpanel h2 { font-family: var(--serif); font-size: 24px; }
 .clubpanel a { color: var(--ink); font-weight: 600; }
-.credit { font-size: 11px; color: var(--muted); }
+.credit { font-size: 12px; color: var(--muted); }
 .credit a { color: var(--muted); text-decoration: underline; }
 .rcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
 .rcard { position: relative; display: flex; flex-direction: column; background: #fff; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; }
@@ -434,3 +434,7 @@ a.ledger-row:hover .ledger-title { text-decoration: underline; }
 @media (min-width: 900px) {
   .nrow-go { display: block; }
 }
+
+.skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 8px; color: #fff; }
+main:focus { outline: none; }

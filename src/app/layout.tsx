@@ -57,8 +57,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <JsonLd data={siteJsonLd} />
       </head>
       <body>
+        <a href="#main" className="skip">Skip to main content</a>
         <Header />
-        <main>{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <Footer />
         <PopupModal popups={popups} />
         <Analytics />
