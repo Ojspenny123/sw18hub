@@ -75,6 +75,11 @@ export interface EventItem {
   /** Weekly events: "Every Saturday". All dates of one series share `series`. */
   repeats?: string;
   series?: string;
+  /** Photo credit, shown next to the image. */
+  imageCredit?: string;
+  imageCreditUrl?: string;
+  imageLicence?: string;
+  imageLicenceUrl?: string;
 }
 
 export interface Deal {

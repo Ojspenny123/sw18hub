@@ -158,6 +158,7 @@ async function getContentfulEvents(): Promise<EventItem[]> {
     price: e.fields.price,
     link: e.fields.link,
     image: r.asset(e.fields.image),
+    imageCredit: e.fields.imageCredit,
   }));
 }
 
