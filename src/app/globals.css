@@ -445,3 +445,13 @@ a.ledger-row:hover .ledger-title { text-decoration: underline; }
 .skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; }
 .skip:focus { top: 8px; color: #fff; }
 main:focus { outline: none; }
+
+/* Editor helper: sw18Blocks() in the browser console labels each block. */
+.sw18-dbg { outline: 2px dashed var(--pink) !important; outline-offset: -2px; }
+.sw18-dbg::before {
+  content: attr(data-sw18-label);
+  position: absolute; top: 0; left: 0; z-index: 99999;
+  max-width: 100%; background: var(--pink); color: #fff;
+  font: 600 11px/1.4 ui-monospace, Menlo, Consolas, monospace;
+  padding: 2px 6px; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}

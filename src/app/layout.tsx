@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BlockDebug from "@/components/BlockDebug";
 import { getSiteSettings } from "@/lib/pages";
 import Analytics from "@/components/Analytics";
 import PopupModal from "@/components/PopupModal";
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Footer s={settings} />
         <PopupModal popups={popups} />
         <Analytics />
+        <BlockDebug />
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import type { SiteSettings } from "@/lib/pages";
 
 export default function Footer({ s }: { s: SiteSettings }) {
   return (
-    <footer className="footer">
+    <footer className="footer" data-sw18-block="Footer · Site settings">
       <div className="wrap">
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <strong>{s.siteName}</strong>

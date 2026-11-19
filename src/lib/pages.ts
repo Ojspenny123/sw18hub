@@ -14,6 +14,7 @@ export type Width = "Full" | "Main" | "Side" | "Half";
 
 export interface Block {
   id: string;
+  name: string;
   type: BlockType;
   heading?: string;
   level: 2 | 3;
@@ -38,7 +39,7 @@ export interface PageData {
 }
 
 let n = 0;
-const b = (type: BlockType, p: Partial<Block> = {}): Block => ({ id: `d${n++}`, type, level: 2, links: [], width: "Full", ...p });
+const b = (type: BlockType, p: Partial<Block> = {}): Block => ({ id: `d${n++}`, name: type, type, level: 2, links: [], width: "Full", ...p });
 
 const CHIPS = [
   { label: "Eat", href: `/best/${bestSlug("Restaurant")}` },
@@ -146,6 +147,7 @@ function toBlock(e: { sys: { id: string }; fields: Record<string, any> }): Block
     .map(([label, href]) => ({ label, href }));
   return {
     id: e.sys.id,
+    name: f.internalName || f.blockType,
     type: f.blockType,
     heading: f.heading || undefined,
     level: f.headingLevel === "H3" ? 3 : 2,

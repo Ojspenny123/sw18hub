@@ -22,7 +22,7 @@ export default function Header({ s }: { s: SiteSettings }) {
           </div>
         </div>
       ) : null}
-      <div className={`masthead${home ? " big" : ""}`}>
+      <div className={`masthead${home ? " big" : ""}`} data-sw18-block="Header: site name and tagline · Site settings">
         <div className="wrap">
           <Link href="/" className="mast-logo" aria-hidden="true" tabIndex={-1} onClick={close}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -34,7 +34,7 @@ export default function Header({ s }: { s: SiteSettings }) {
           {home && s.tagline ? <p className="mast-tag">{s.tagline}</p> : null}
         </div>
       </div>
-      <header className="navbar">
+      <header className="navbar" data-sw18-block="Header: menu and Ask button · Site settings">
         <div className="wrap">
           <button type="button" className="menu-btn" aria-expanded={open} aria-controls="main-nav" onClick={() => setOpen((o) => !o)}>
             {open ? "Close" : "Menu"}

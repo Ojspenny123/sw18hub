@@ -315,8 +315,22 @@ function Render({ b, data, params }: { b: Block; data: Data; params: Params }) {
   }
 }
 
+function Block1({ x, data, params, zone }: { x: Block; data: Data; params: Params; zone: string }) {
+  return (
+    <>
+      <Marker b={x} zone={zone} />
+      <Render b={x} data={data} params={params} />
+    </>
+  );
+}
+
 /** Groups side-by-side blocks (Main + Side, or Half + Half) into their own row; everything else stacks. */
-function Zone({ blocks, data, params, home }: { blocks: Block[]; data: Data; params: Params; home: boolean }) {
+/** Invisible label read by the sw18Blocks() console helper; it names the block that follows it. */
+function Marker({ b, zone }: { b: Block; zone: string }) {
+  return <span hidden data-sw18-marker={`${zone} › ${b.type} · ${b.name}${/^d\d+$/.test(b.id) ? " (built-in default)" : ""}`} />;
+}
+
+function Zone({ blocks, data, params, home, zone }: { blocks: Block[]; data: Data; params: Params; home: boolean; zone: string }) {
   const out: ReactNode[] = [];
   for (let i = 0; i < blocks.length; ) {
     const w = blocks[i].width;
@@ -328,12 +342,12 @@ function Zone({ blocks, data, params, home }: { blocks: Block[]; data: Data; par
       out.push(
         <div key={run[0].id} className={`${home ? "wrap section " : ""}home-main`}>
           {main.map((x) => (
-            <Render key={x.id} b={x} data={data} params={params} />
+            <Block1 key={x.id} x={x} data={data} params={params} zone={zone} />
           ))}
           {side.length ? (
             <div className="home-side">
               {side.map((x) => (
-                <Render key={x.id} b={x} data={data} params={params} />
+                <Block1 key={x.id} x={x} data={data} params={params} zone={zone} />
               ))}
             </div>
           ) : null}
@@ -346,14 +360,14 @@ function Zone({ blocks, data, params, home }: { blocks: Block[]; data: Data; par
         <div key={run[0].id} className={home ? "wrap section" : undefined}>
           <div className="extras">
             {run.map((x) => (
-              <Render key={x.id} b={x} data={data} params={params} />
+              <Block1 key={x.id} x={x} data={data} params={params} zone={zone} />
             ))}
           </div>
         </div>,
       );
     } else {
       const x = blocks[i++];
-      const el = <Render key={x.id} b={x} data={data} params={params} />;
+      const el = <Block1 key={x.id} x={x} data={data} params={params} zone={zone} />;
       out.push(home ? <div key={x.id} className="wrap section">{el}</div> : el);
     }
   }
@@ -369,14 +383,14 @@ export default async function PageView({ page, params = {}, home = false, childr
   const intro = page.intro?.replace("{count}", String(data.venues.length));
   const zones = (
     <>
-      <Zone blocks={page.top} data={data} params={params} home={home} />
-      <Zone blocks={page.middle} data={data} params={params} home={home} />
-      <Zone blocks={page.bottom} data={data} params={params} home={home} />
+      <Zone zone="Top" blocks={page.top} data={data} params={params} home={home} />
+      <Zone zone="Middle" blocks={page.middle} data={data} params={params} home={home} />
+      <Zone zone="Bottom" blocks={page.bottom} data={data} params={params} home={home} />
     </>
   );
   const head = (
     <>
-      <h1 className={page.hideH1 ? "sr" : "title"}>{page.h1}</h1>
+      <h1 className={page.hideH1 ? "sr" : "title"} data-sw18-block={`Page heading (H1) · ${page.slug}`}>{page.h1}</h1>
       {intro && !page.hideH1 ? (
         <div style={{ margin: "8px 0 20px" }}>
           <Rich text={intro} className="muted" />
