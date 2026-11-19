@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import RunClubs from "@/components/RunClubs";
+import PageView from "@/components/PageView";
+import { getPage, pageMetadata } from "@/lib/pages";
 import JsonLd from "@/components/JsonLd";
 import { RUN_CLUBS } from "@/lib/recurring";
 import { abs } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Run clubs in SW18: Wandsworth, Earlsfield, Southfields and nearby",
-  description: "Free and friendly run clubs in and around SW18, with when and where they meet and a link to each club.",
-  alternates: { canonical: "/run-clubs" },
-  openGraph: { title: "Run clubs in SW18: Wandsworth, Earlsfield, Southfields and nearby", description: "Free and friendly run clubs in and around SW18, with when and where they meet and a link to each club.", url: "/run-clubs", type: "website", siteName: "SW18 Hub", locale: "en_GB" },
-  twitter: { card: "summary_large_image", title: "Run clubs in SW18: Wandsworth, Earlsfield, Southfields and nearby", description: "Free and friendly run clubs in and around SW18, with when and where they meet and a link to each club." },
-};
+export const revalidate = 300;
 
-export default function RunClubsPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata(await getPage("run-clubs"), "/run-clubs");
+}
+
+export default async function RunClubsPage() {
   return (
-    <div className="wrap section" style={{ paddingTop: 24 }}>
+    <PageView page={await getPage("run-clubs")}>
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -29,11 +27,6 @@ export default function RunClubsPage() {
           })),
         }}
       />
-      <h1 className="title">Run clubs in SW18</h1>
-      <p className="muted" style={{ margin: "8px 0 20px" }}>
-        Weekly run clubs in Wandsworth and nearby. Looking for parkrun? See <Link href="/whats-on">What&apos;s on</Link>.
-      </p>
-      <RunClubs />
-    </div>
+    </PageView>
   );
 }

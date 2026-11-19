@@ -22,11 +22,13 @@ export const CONTENT_TYPES = {
   business: "sw18Business",
   deal: "sw18Deal",
   popup: "sw18Popup",
+  page: "sw18Page",
+  block: "sw18Block",
 } as const;
 export const SITE_TAG = "siteSw18Hub";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-interface CfEntry {
+export interface CfEntry {
   sys: { id: string; updatedAt?: string };
   fields: Record<string, any>;
 }
@@ -41,7 +43,7 @@ interface Result {
   entry: (link?: any) => CfEntry | undefined;
 }
 
-async function query(contentType: string, params: Record<string, string> = {}): Promise<Result> {
+export async function query(contentType: string, params: Record<string, string> = {}): Promise<Result> {
   const empty: Result = { items: [], asset: () => undefined, entry: () => undefined };
   if (!contentfulConfigured) return empty;
 

@@ -1,12 +1,14 @@
 import { RUN_CLUBS } from "@/lib/recurring";
 import ImageCredit from "./ImageCredit";
 
-export default function RunClubs() {
+export default function RunClubs({ intro }: { intro?: string }) {
   return (
     <section aria-label="Run clubs">
-      <p className="muted" style={{ marginBottom: 16 }}>
-        Regular run clubs in and around SW18. Times can change, so check the club&apos;s page before you go.
-      </p>
+      {intro ? (
+        <p className="muted" style={{ marginBottom: 16 }}>
+          {intro}
+        </p>
+      ) : null}
       <div className="rcards">
         {RUN_CLUBS.map((c) => (
           <div key={c.id} className="rcard">
