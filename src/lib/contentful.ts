@@ -26,6 +26,8 @@ export const CONTENT_TYPES = {
   block: "sw18Block",
 } as const;
 export const SITE_TAG = "siteSw18Hub";
+/** Contentful responses are cached until a publish webhook hits /api/revalidate-content (24h is only a safety net). */
+export const CONTENTFUL_CACHE_TAG = "contentful";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface CfEntry {
@@ -53,7 +55,7 @@ export async function query(contentType: string, params: Record<string, string> 
   url.searchParams.set("limit", "200");
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
 
-  const get = (u: URL) => fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` }, next: { revalidate: 300 } });
+  const get = (u: URL) => fetch(u, { headers: { Authorization: `Bearer ${TOKEN}` }, next: { revalidate: 24 * 60 * 60, tags: [CONTENTFUL_CACHE_TAG] } });
 
   try {
     // Belt and braces: the type prefix already keeps us on our own content; the tag filter adds a second check.
