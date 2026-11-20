@@ -1,3 +1,4 @@
+import VenueLocation from "@/components/VenueLocation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -91,6 +92,7 @@ export default async function VenuePage({ params }: Props) {
       <div className="venue-hero">
         <div>
           <div className="photo venue-photo" style={img ? { backgroundImage: `url(${img})`, height: undefined } : undefined} role="img" aria-label={`Photo of ${v.name}${(v.image ? v.imageCredit : v.photo?.credit) ? `. ${v.image ? v.imageCredit : v.photo?.credit}` : ""}`} />
+          {v.lat !== undefined && v.lon !== undefined ? <VenueLocation lat={v.lat} lon={v.lon} name={v.name} /> : null}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <h1 className="title">{v.name}</h1>
