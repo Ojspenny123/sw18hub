@@ -154,11 +154,12 @@ function Render({ b, data, params }: { b: Block; data: Data; params: Params }) {
       );
     case "Places showcase": {
       const per = b.count ?? 4;
-      // Featured first then A to Z. "All" takes one of each type in turn so it is a mix.
+      // Featured first then A to Z.
       const pick = (list: typeof data.venues) => [...list].sort((x, y) => Number(y.featured) - Number(x.featured) || x.name.localeCompare(y.name)).slice(0, per);
       const byType = VENUE_TYPES.map((type) => ({ type: type as string, venues: pick(data.venues.filter((v) => v.type === type)) })).filter((g) => g.venues.length);
-      const mixed: typeof data.venues = [];
-      for (let i = 0; i < per; i++) for (const g of byType) if (g.venues[i] && mixed.length < per) mixed.push(g.venues[i]);
+      // "All" leads with the featured places (any type); only if there are fewer than `per` does it fill with a mix of types.
+      const mixed: typeof data.venues = data.venues.filter((v) => v.featured).sort((x, y) => x.name.localeCompare(y.name)).slice(0, per);
+      for (let i = 0; i < per; i++) for (const g of byType) if (g.venues[i] && mixed.length < per && !mixed.includes(g.venues[i])) mixed.push(g.venues[i]);
       const groups = [{ type: "All", venues: mixed }, ...byType];
       return (
         <section key={k} className="section" style={{ paddingTop: 0 }}>
