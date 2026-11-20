@@ -1,5 +1,4 @@
 import { RUN_CLUBS } from "@/lib/recurring";
-import ImageCredit from "./ImageCredit";
 
 export default function RunClubs({ intro }: { intro?: string }) {
   return (
@@ -13,7 +12,7 @@ export default function RunClubs({ intro }: { intro?: string }) {
         {RUN_CLUBS.map((c) => (
           <div key={c.id} className="rcard">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="rcard-img" src={c.photo.image} alt="" loading="lazy" />
+            <img className="rcard-img" src={c.photo.image} alt={c.photo.imageCredit ? `Photo: ${c.photo.imageCredit}${c.photo.imageLicence ? `, ${c.photo.imageLicence}` : ""}` : ""} loading="lazy" />
             <span className="rcard-body">
               <span className="rcard-when">{c.when}</span>
               <a href={c.link} className="rcard-title" target="_blank" rel="noopener noreferrer">
@@ -22,7 +21,6 @@ export default function RunClubs({ intro }: { intro?: string }) {
               </a>
               <span className="small muted">{[c.place, c.area && `${c.area} (nearby)`].filter(Boolean).join(" · ")}</span>
               <span className="small">{c.description}</span>
-              <ImageCredit e={c.photo} />
             </span>
           </div>
         ))}

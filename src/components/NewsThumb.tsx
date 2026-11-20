@@ -21,14 +21,14 @@ export default function NewsThumb({ n, className, width, style }: { n: NewsArtic
   if (n.imageUrl) {
     return (
       <div className={className} style={{ ...style, position: "relative", overflow: "hidden" }}>
-        {/* The publisher's own picture, shown with their permission and credited on the card. */}
+        {/* The publisher's own picture, shown with their permission and credited in the alt text. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={n.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+        <img src={n.imageUrl} alt={n.imageCredit ? `Image: ${n.imageCredit}` : ""} loading="lazy" referrerPolicy="no-referrer" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
       </div>
     );
   }
   if (n.image) {
-    return <div className={className} style={{ ...style, backgroundImage: `url(${n.image}?w=${width}&fm=webp)` }} />;
+    return <div className={className} style={{ ...style, backgroundImage: `url(${n.image}?w=${width}&fm=webp)` }} role={n.imageCredit ? "img" : undefined} aria-label={n.imageCredit ? `Image: ${n.imageCredit}` : undefined} />;
   }
   const topic = n.topic in ICONS ? n.topic : "Community";
   const onPink = topic === "Community";

@@ -40,8 +40,7 @@ export default async function FeaturedPage({ params }: Props) {
       {p.imageUrl ? (
         <figure className="featured-fig">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={p.imageUrl} alt="" width={960} height={540} />
-          {p.imageCredit ? <figcaption>{p.imageCredit}</figcaption> : null}
+          <img src={p.imageUrl} alt={p.imageCredit ?? ""} width={960} height={540} />
         </figure>
       ) : null}
       {paragraphs.map((t, i) => (

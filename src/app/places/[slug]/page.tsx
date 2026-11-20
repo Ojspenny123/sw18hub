@@ -90,12 +90,7 @@ export default async function VenuePage({ params }: Props) {
 
       <div className="venue-hero">
         <div>
-          <div className="photo venue-photo" style={img ? { backgroundImage: `url(${img})`, height: undefined } : undefined} role="img" aria-label={`Photo of ${v.name}`} />
-          {!v.image && v.photo ? (
-            <p className="credit" style={{ marginTop: 6 }}>
-              {v.photo.page ? <a href={v.photo.page} target="_blank" rel="noopener noreferrer">{v.photo.credit}</a> : v.photo.credit}
-            </p>
-          ) : null}
+          <div className="photo venue-photo" style={img ? { backgroundImage: `url(${img})`, height: undefined } : undefined} role="img" aria-label={`Photo of ${v.name}${(v.image ? v.imageCredit : v.photo?.credit) ? `. ${v.image ? v.imageCredit : v.photo?.credit}` : ""}`} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <h1 className="title">{v.name}</h1>

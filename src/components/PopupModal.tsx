@@ -95,8 +95,7 @@ export default function PopupModal({ popups }: { popups: Popup[] }) {
         {popup.imageUrl ? (
           <figure className="popup-fig">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={popup.imageUrl} alt="" width={480} height={270} />
-            {popup.imageCredit ? <figcaption>{popup.imageCredit}</figcaption> : null}
+            <img src={popup.imageUrl} alt={popup.imageCredit ?? ""} width={480} height={270} />
           </figure>
         ) : null}
         <div className="popup-body">

@@ -74,14 +74,13 @@ function Render({ b, data, params }: { b: Block; data: Data; params: Params }) {
         <Link key={k} href={`/featured/${f.slug}`} className="hero-feature">
           <span className="hero-feature-img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={f.imageUrl} alt="" />
+            <img src={f.imageUrl} alt={f.imageCredit ?? ""} />
           </span>
           <span className="hero-feature-text">
             <span className="hero-feature-k">{b.heading ?? "New in SW18"}</span>
             <span className="hero-feature-h">{f.heading}</span>
             {f.detail ? <span className="hero-feature-d">{f.detail}</span> : null}
             <span className="popup-more">{b.linkLabel ?? "Find out more →"}</span>
-            {f.imageCredit ? <span className="hero-feature-c">{f.imageCredit}</span> : null}
           </span>
         </Link>
       );
