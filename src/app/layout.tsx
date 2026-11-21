@@ -1,3 +1,4 @@
+import { NEARBY_AREAS, SW18_AREAS } from "@/lib/types";
 import type { Metadata, Viewport } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -48,7 +49,7 @@ const siteJsonLd = [
     url: abs("/"),
     logo: abs("/logo.svg"),
     description: "An independent local guide to SW18 in south-west London.",
-    areaServed: ["Wandsworth Town", "Earlsfield", "Southfields", "Wandsworth Common"].map((n) => ({ "@type": "Place", name: `${n}, London SW18` })),
+    areaServed: [...SW18_AREAS.map((n) => `${n}, London SW18`), ...NEARBY_AREAS.map((n) => `${n}, London`)].map((name) => ({ "@type": "Place", name })),
   },
 ];
 

@@ -5,7 +5,7 @@ import { AREAS, VENUE_TYPES } from "./types";
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || "https://brilliant-bunny-36c3c1.netlify.app").replace(/\/$/, "");
 export const SITE_NAME = "SW18 Hub";
 export const SITE_DESCRIPTION =
-  "What's on, run clubs, cafes, restaurants, pubs and local news in SW18: Wandsworth Town, Earlsfield, Southfields and Wandsworth Common.";
+  "What's on, run clubs, cafes, restaurants, pubs and local news in SW18: Wandsworth Town, Earlsfield, Southfields and Wandsworth Common, plus pubs and places in nearby Clapham, Putney, Fulham, Balham, Tooting and Streatham.";
 
 export const abs = (path = "/") => `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 

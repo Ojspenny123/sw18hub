@@ -19,7 +19,7 @@ export async function getAskContext(): Promise<string> {
   if (cached && Date.now() - cached.at < TTL_MS) return cached.text;
 
   const [venues, news, events, deals] = await Promise.all([getVenues(), getNews(), getEvents(), getDeals()]);
-  const rated = (await withRatings(venues.slice(0, 120))).sort((a, b) => a.name.localeCompare(b.name));
+  const rated = (await withRatings(venues.slice(0, 250))).sort((a, b) => a.name.localeCompare(b.name));
 
   const places = rated.map((v) => {
     const g = v.google;

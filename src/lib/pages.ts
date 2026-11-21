@@ -93,9 +93,9 @@ export const DEFAULT_PAGES: Record<PageSlug, PageData> = {
   }),
   places: D("places", {
     h1: "Places to eat and drink in SW18",
-    intro: "{count} cafes, restaurants, bars, pubs and takeaways in Wandsworth Town, Earlsfield and Southfields, all in one list.",
+    intro: "{count} cafes, restaurants, bars, pubs and takeaways in SW18 and nearby (Clapham, Putney, Fulham, Balham, Tooting and Streatham), all in one list.",
     seoTitle: "Places to eat and drink in SW18",
-    seoDescription: "Every cafe, restaurant, bar, pub and takeaway in Wandsworth Town, Earlsfield and Southfields in one place, listed A to Z. Filter by area, type and features.",
+    seoDescription: "Cafes, restaurants, bars, pubs and takeaways in SW18 and nearby Clapham, Putney, Fulham, Balham, Tooting and Streatham, listed A to Z. Filter by area, type and features.",
     middle: [b("Places explorer")],
   }),
   news: D("news", {
@@ -124,7 +124,7 @@ export const DEFAULT_PAGES: Record<PageSlug, PageData> = {
       }),
       b("Text section", {
         heading: "How places are chosen",
-        body: "We list independent and chain cafes, restaurants, bars, pubs and takeaways inside SW18 that are open and well regarded locally. Places can be suggested through the [Ask SW18](/ask) page.",
+        body: "We list independent and chain cafes, restaurants, bars, pubs and takeaways in SW18 that are open and well regarded locally. We also cover pubs and places in nearby Clapham, Putney, Fulham, Balham, Tooting and Streatham. Places can be suggested through the [Ask SW18](/ask) page.",
       }),
       b("Text section", {
         heading: "Where the data comes from and how often it updates",

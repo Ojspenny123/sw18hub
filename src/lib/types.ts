@@ -1,4 +1,7 @@
-export const AREAS = ["Wandsworth Town", "Earlsfield", "Southfields", "Wandsworth Common"] as const;
+/** SW18 first, then the neighbouring areas we also cover for pubs and places. */
+export const SW18_AREAS = ["Wandsworth Town", "Earlsfield", "Southfields", "Wandsworth Common"] as const;
+export const NEARBY_AREAS = ["Clapham", "Putney", "Fulham", "Balham", "Tooting", "Streatham"] as const;
+export const AREAS = [...SW18_AREAS, ...NEARBY_AREAS] as const;
 export const VENUE_TYPES = ["Pub", "Bar", "Cafe", "Restaurant", "Takeaway"] as const;
 export const FEATURES = ["Garden", "Dog-friendly", "Live sport", "Food served", "Family-friendly", "Outdoor seating"] as const;
 export const NEWS_TOPICS = ["Council", "Transport", "Food and drink", "Community", "Planning"] as const;
